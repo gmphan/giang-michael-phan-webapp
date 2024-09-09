@@ -1,7 +1,16 @@
+using Directory.Injectors;
+using GmphanMvc.Injectors;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// inject Serilog
+builder.InjectSerilogSetup();
+
+// inject Services
+builder.Services.InjectServicesFromAssemblies(builder.Configuration);
 
 var app = builder.Build();
 
