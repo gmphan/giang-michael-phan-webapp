@@ -482,3 +482,20 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+
+## Sensitive information
+appsettings.*.json
+!appsettings.example.json
+tnsnames.ora
+
+## App sprecific
+*/*/ApplicationData/*
+!.gitkeep
+
+## Docker and k8s specific
+variables.*
+!variables.example.env
+stack/var.env
+
+RemoveLater
