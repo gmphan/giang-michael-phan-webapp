@@ -485,9 +485,9 @@ $RECYCLE.BIN/
 
 
 ## Sensitive information
-/appsettings.*.json
-/!appsettings.example.json
-/tnsnames.ora
+appsettings.*.json
+!appsettings.example.json
+tnsnames.ora
 
 ## App sprecific
 */*/ApplicationData/*
