@@ -1,10 +1,9 @@
 using Directory.Injectors;
 using GmphanMvc.Injectors;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
 
 // inject Serilog
 builder.InjectSerilogSetup();
@@ -27,7 +26,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",

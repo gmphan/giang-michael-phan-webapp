@@ -1,6 +1,6 @@
 ### Generate cert and configure local machine:
 ```
-dotnet dev-certs https -ep ./https/aspnetapp.pfx -p crypticpassword
+dotnet dev-certs https -ep ./https/{mycustomcert}.pfx -p {mycustompw}
 dotnet dev-certs https --trust
 ```
 
