@@ -3,10 +3,13 @@
 dotnet dev-certs https -ep ./https/{mycustomcert}.pfx -p {mycustompw}
 dotnet dev-certs https --trust
 ```
+### Build and publish the app
+dotnet build -c Release src/GmphanMvc
+dotnet publish -c Release src/GmphanMvc
 
 ### Build, tag and push the Docker image for multi-platform.
 ```
-docker buildx build --platform linux/amd64,linux/arm64 -t ocbuuregistry.azurecr.io/gmphan-webapp:latest .
+docker buildx build --platform linux/amd64,linux/arm64 -t ocbuuregistry.azurecr.io/gmphan-webapp:latest --load .
 docker push ocbuuregistry.azurecr.io/gmphan-webapp:latest
 ```
 

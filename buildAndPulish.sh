@@ -6,6 +6,7 @@ dotnet publish -c Release src/GmphanMvc
 #Therefore now need to have the whole stack configuration. 
 
 #build for multi-platform image.
-docker buildx build --platform linux/amd64,linux/arm64 -t ocbuuregistry.azurecr.io/gmphan-webapp:latest .
+#without --load, the image won't be build locally
+docker buildx build --platform linux/amd64,linux/arm64 -t ocbuuregistry.azurecr.io/gmphan-webapp:latest --load .
 docker push ocbuuregistry.azurecr.io/gmphan-webapp:latest
 
