@@ -7,7 +7,7 @@ dotnet dev-certs https --trust
 dotnet build -c Release src/GmphanMvc
 dotnet publish -c Release src/GmphanMvc
 
-### Build, tag and push the Docker image for multi-platform.
+### Build, tag and push the Docker image for multi-platform. (without --load, the image won't be build locally)
 ```
 docker buildx build --platform linux/amd64,linux/arm64 -t ocbuuregistry.azurecr.io/gmphan-webapp:latest --load .
 docker push ocbuuregistry.azurecr.io/gmphan-webapp:latest
