@@ -37,7 +37,7 @@
         }
 
         /* Container tweaks to ensure it fits properly */
-        .container {
+        .container-fluid {
             flex-grow: 1;
         }
     </style>
@@ -45,7 +45,7 @@
 <body>
     <!-- Header -->
     <header>
-        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Giang Michael Phan</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,14 +88,14 @@
     </header>
 
     <!-- Main content -->
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
     <!-- Footer -->
-    <footer class="border-top footer bg-dark text-muted">
+    <footer class="border-top footer bg-primary text-muted">
         <div class="container">
             &copy; 2024 - GmphanMvc - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
