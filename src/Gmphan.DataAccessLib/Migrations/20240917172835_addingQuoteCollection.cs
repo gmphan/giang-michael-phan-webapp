@@ -61,7 +61,7 @@ namespace Gmphan.DataAccessLib.Migrations
                     Author = table.Column<string>(type: "text", nullable: false),
                     Type = table.Column<string>(type: "text", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -176,8 +176,8 @@ namespace Gmphan.DataAccessLib.Migrations
 
             migrationBuilder.InsertData(
                 table: "QuoteCollections",
-                columns: new[] { "Id", "Author", "CreatedDate", "ModifiedDate", "Quote", "Type" },
-                values: new object[] { 1, "Google", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "No goal, no growth.", "Motivation" });
+                columns: new[] { "Id", "Author", "CreatedDate", "Quote", "Type", "UpdatedDate" },
+                values: new object[] { 1, "Google", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "No goal, no growth.", "Motivation", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

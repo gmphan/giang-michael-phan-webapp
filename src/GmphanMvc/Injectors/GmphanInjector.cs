@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Gmphan.BusinessAccessLib;
 using Gmphan.DataAccessLib;
+using Gmphan.DataAccessLib.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace GmphanMvc.Injectors
@@ -13,6 +15,9 @@ namespace GmphanMvc.Injectors
         {
             services.AddDbContext<AppDbContext>(Options => Options.UseNpgsql(
                 configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IUnityOfWork, UnityOfWork>();
+            services.AddScoped<IQuoteCollectionServ, QuoteCollectionServ>();
         }
     }
 }

@@ -37,9 +37,6 @@ namespace Gmphan.DataAccessLib.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Quote")
                         .IsRequired()
                         .HasColumnType("text");
@@ -47,6 +44,9 @@ namespace Gmphan.DataAccessLib.Migrations
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -58,9 +58,9 @@ namespace Gmphan.DataAccessLib.Migrations
                             Id = 1,
                             Author = "Google",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Quote = "No goal, no growth.",
-                            Type = "Motivation"
+                            Type = "Motivation",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 

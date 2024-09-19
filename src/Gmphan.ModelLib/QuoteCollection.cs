@@ -19,6 +19,6 @@ namespace Gmphan.ModelLib
         [Required]
         public string? Type { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace Gmphan.DataAccessLib
                     Author = "Google",
                     Type = "Motivation",
                     CreatedDate = new DateTime(),
-                    ModifiedDate = new DateTime()
+                    UpdatedDate = new DateTime()
                 });
         }
     }
