@@ -9,15 +9,15 @@ namespace Gmphan.DataAccessLib.Repository
     public interface IRepository<T> where T : class
     {
         //Get set of T
-        IEnumerable<T> GetAll();
+        Task<IEnumerable<T>> GetAll();
 
         //Get one set of T
-        T Get(Expression<Func<T, bool>> filter);
-        T GetLatestRecord<TKey>(Expression<Func<T, TKey>> keySelector);
-        void Add(T entity);
-        void Remove(T entity);
+        Task<T> Get(Expression<Func<T, bool>> filter);
+        Task<T> GetLatestRecord<TKey>(Expression<Func<T, TKey>> keySelector);
+        Task Add(T entity);
+        Task Remove(T entity);
 
         //Remove multiple entities of T
-        void RemoveRange(IEnumerable<T> entity);
+        Task RemoveRange(IEnumerable<T> entity);
     }
 }

@@ -16,7 +16,7 @@ namespace Gmphan.DataAccessLib.Repository
         {
             _db = db;
         }
-        public void Update(QuoteCollection obj)
+        public async Task Update(QuoteCollection obj)
         {
             _db.QuoteCollections.Update(obj);
         }

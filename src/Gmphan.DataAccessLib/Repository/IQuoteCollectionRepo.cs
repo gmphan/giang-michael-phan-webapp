@@ -8,6 +8,6 @@ namespace Gmphan.DataAccessLib.Repository
 {
     public interface IQuoteCollectionRepo : IRepository<QuoteCollection>
     {
-        void Update(QuoteCollection obj);
+        Task Update(QuoteCollection obj);
     }
 }

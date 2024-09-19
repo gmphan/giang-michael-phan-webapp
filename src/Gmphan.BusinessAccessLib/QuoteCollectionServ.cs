@@ -25,17 +25,17 @@ namespace Gmphan.BusinessAccessLib
         }
         public async Task<IEnumerable<QuoteCollection>> GetAllQuoteCollectionAsync()
         {
-            return await GetTAsync("quoteCollections", () => _unityOfWork.QuoteCollectionRepoUOW.GetAll());
+            return await GetTAsync("quoteCollections", _unityOfWork.QuoteCollectionRepoUOW.GetAll);
         }
 
-        public async Task<T> GetTAsync<T>(string cacheKey, Func<T> getRecordFromDb) where T : class
+        public async Task<T> GetTAsync<T>(string cacheKey, Func<Task<T>> getRecordFromDb) where T : class
         {
             if(!_memoryCache.TryGetValue(cacheKey, out T result))
             {
                 _logger.LogInformation("Querying data from database.");
 
                 // Data was not found in cache, retreive data from database
-                result = getRecordFromDb();
+                result = await getRecordFromDb();
 
                 // Set the data to memoryCache
                 var cacheEntryOptions = new MemoryCacheEntryOptions()

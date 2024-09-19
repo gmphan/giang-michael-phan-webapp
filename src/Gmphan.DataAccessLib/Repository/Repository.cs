@@ -18,40 +18,42 @@ namespace Gmphan.DataAccessLib.Repository
             _db = db;
             this._dbSet = _db.Set<T>();
         }
-        public void Add(T entity)
+        public async Task Add(T entity)
         {
             _dbSet.Add(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> filter)
+        public async Task<T> Get(Expression<Func<T, bool>> filter)
         {
-            //query whole set
+            // Query the whole set
             IQueryable<T> query = _dbSet;
 
-            //Reassign query down to one set of T
+            // Reassign query down to one set of T
             query = query.Where(filter);
 
-            return query.FirstOrDefault();
+            // Execute the query asynchronously and return the result
+            return await query.FirstOrDefaultAsync();
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
             IQueryable<T> query = _dbSet;
-            return query.ToList();
+            return await query.ToListAsync();
         }
 
-        public T GetLatestRecord<TKey>(Expression<Func<T, TKey>> keySelector)
+       public async Task<T> GetLatestRecord<TKey>(Expression<Func<T, TKey>> keySelector)
         {
-            T? latestRecord = _dbSet.OrderByDescending(keySelector).FirstOrDefault();
+            // Get the latest record based on the key selector asynchronously
+            T? latestRecord = await _dbSet.OrderByDescending(keySelector).FirstOrDefaultAsync();
             return latestRecord;
         }
 
-        public void Remove(T entity)
+        public async Task Remove(T entity)
         {
             _dbSet.Remove(entity);
         }
 
-        public void RemoveRange(IEnumerable<T> entity)
+        public async Task RemoveRange(IEnumerable<T> entity)
         {
             _dbSet.RemoveRange(entity);
         }
