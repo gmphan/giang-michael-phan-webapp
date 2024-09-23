@@ -43,45 +43,68 @@
     </style>
 </head>
 <body>
+    @{
+        string areaName = ViewContext.RouteData.Values["area"]?.ToString();
+        string controllerName = ViewContext.RouteData.Values["controller"]?.ToString();
+        string actionName = ViewContext.RouteData.Values["action"]?.ToString();
+        @* Console.WriteLine($"{controllerName}, {actionName}"); *@
+
+        // Check if the area is "Identity"
+        if (areaName == "Identity")
+        {
+            // Check if the user is authenticated
+            if (User.Identity.IsAuthenticated)
+            {
+                @* <p>The user is authenticated in the Identity area.</p> *@
+                areaName = "admin";
+            }
+            else
+            {
+                @* <p>The user is not authenticated in the Identity area.</p> *@
+                areaName = "visitor";
+            }
+        }
+    }
     <!-- Header -->
     <header>
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Giang Michael Phan</a>
+                <a class="navbar-brand" asp-area="@areaName" asp-controller="Home" asp-action="Index">GMP</a>
+                <!-- Toggler/collapsible Button -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <!-- Navbar links -->
                 <div class="collapse navbar-collapse" id="navbarColor02">
+
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home
-                                <span class="visually-hidden">(current)</span>
+                            <a class="nav-link @(controllerName == "Home" ? "active" : "")" asp-area="@areaName" asp-controller="Home" asp-action="Index">Home
+                                @* <span class="visually-hidden">(current)</span> *@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
+                            <a class="nav-link @(controllerName == "Resume" ? "active" : "")" asp-area="@areaName" asp-controller="Resume" asp-action="Index">Resume</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link @(controllerName == "About" ? "active" : "")" asp-area="@areaName" asp-controller="About" asp-action="Index">About</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="#">Edit Quote</a>
+                                <a class="dropdown-item" href="#">Edit Resume</a>
+                                <a class="dropdown-item" href="#">Edit Project</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
+                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a>
                             </div>
                         </li>
                     </ul>
-                    <form class="d-flex">
+                    <partial name="_LoginPartial" /> 
+                    @* <form class="d-flex">
                         <input class="form-control me-sm-2" type="search" placeholder="Search">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                    </form> *@
                 </div>
             </div>
         </nav>

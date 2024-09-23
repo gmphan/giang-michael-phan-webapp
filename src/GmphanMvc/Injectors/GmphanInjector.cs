@@ -18,6 +18,8 @@ namespace GmphanMvc.Injectors
 
             services.AddScoped<IUnityOfWork, UnityOfWork>();
             services.AddScoped<IQuoteCollectionServ, QuoteCollectionServ>();
+            // services// Seed the admin user
+            services.AddScoped<ISeedAdminIdentityServ, SeedAdminIdentityServ>();
         }
     }
 }

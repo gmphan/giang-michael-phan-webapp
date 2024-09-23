@@ -1,7 +1,8 @@
-using Directory.Injectors;
+using Gmphan.BusinessAccessLib;
 using GmphanMvc.Injectors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,23 @@ builder.InjectSerilogSetup();
 builder.Services.InjectServicesFromAssemblies(builder.Configuration);
 
 var app = builder.Build();
+
+// seed a default admin user
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    try
+    {
+        // Resolve AdminSeederInjector and call SeedAdminUser
+        var adminSeeder = serviceProvider.GetRequiredService<ISeedAdminIdentityServ>();
+        await adminSeeder.SeedAdminUser(serviceProvider);
+    }
+    catch (Exception ex)
+    {
+        // Log errors (optional)
+        Log.Error(ex, "An error occurred while seeding the admin user.");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

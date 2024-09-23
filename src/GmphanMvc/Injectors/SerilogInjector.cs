@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
 
-namespace Directory.Injectors
+namespace GmphanMvc.Injectors
 {
     public static class SerilogInjector
     {
