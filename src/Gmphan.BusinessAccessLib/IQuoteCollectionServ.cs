@@ -9,5 +9,6 @@ namespace Gmphan.BusinessAccessLib
     public interface IQuoteCollectionServ
     {
         public Task<IEnumerable<QuoteCollection>> GetAllQuoteCollectionAsync();
+        public Task AddQuoteCollectionAsync(QuoteCollection quoteCollection);
     }
 }

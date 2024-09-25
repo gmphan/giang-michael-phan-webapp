@@ -28,6 +28,11 @@ namespace Gmphan.BusinessAccessLib
             return await GetTAsync("quoteCollections", _unityOfWork.QuoteCollectionRepoUOW.GetAll);
         }
 
+        public async Task AddQuoteCollectionAsync(QuoteCollection quoteCollection)
+        {
+            await _unityOfWork.QuoteCollectionRepoUOW.Add(quoteCollection);
+            await _unityOfWork.SaveAsync();
+        }
         public async Task<T> GetTAsync<T>(string cacheKey, Func<Task<T>> getRecordFromDb) where T : class
         {
             if(!_memoryCache.TryGetValue(cacheKey, out T result))

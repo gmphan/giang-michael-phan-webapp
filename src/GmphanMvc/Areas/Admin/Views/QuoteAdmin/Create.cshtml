@@ -1,0 +1,53 @@
+@{
+    @model QuoteCollection;
+    ViewData["Title"] = "Create Quote";
+    @* var quoteCollections = Model.QuoteCollections;
+    var activeIndex = "active"; *@
+}
+<div class="row justify-content-center">
+    <div class="col-lg-10 col-md-12">
+        <div class="card mb-3">
+            <h1 class="card-header">Add New Quote</h1>
+            <form method="post">
+                <div class="p-3 mt-4">                
+                    <div class="row mb-3 p-1">
+                        @* <label asp-for="Quote" class="col-form-label p-0"></label> *@
+                        <textarea asp-for="Quote" class="form-control" rows="3" placeholder="Quote"></textarea>
+                        @* asp-validation-for will display the invalid checking which set on the model itself *@
+                        <span asp-validation-for="Quote" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        @* <label asp-for="Author" class="col-form-label p-0"></label> *@
+                        <input asp-for="Author" class="form-control" placeholder="Author" >
+                        <span asp-validation-for="Author" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        @* <label asp-for="Type" class="form-label p-0"></label> *@
+                        <input asp-for="Type" class="form-control" placeholder="Type" >
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-md-3">
+                            <button type="submit" class="btn btn-primary form-control">Create</button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a asp-area="Admin" asp-controller="QuoteAdmin" asp-action="Index" class="btn btn-secondary border form-control">
+                                Back to Quote Admin
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
+            <div class="card-footer text-muted">
+                2 days ago
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}

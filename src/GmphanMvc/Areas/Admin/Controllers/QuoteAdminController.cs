@@ -34,6 +34,34 @@ namespace GmphanMvc.Areas.Admin.Controllers
             return View(quoteView);
         }
 
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(QuoteCollection quoteCollectionObj)
+        {
+            if(ModelState.IsValid)
+            {
+                quoteCollectionObj.CreatedDate = DateTime.UtcNow;
+                quoteCollectionObj.UpdatedDate = quoteCollectionObj.CreatedDate;
+                await _quoteCollectionServ.AddQuoteCollectionAsync(quoteCollectionObj);
+                return RedirectToAction("Index", "QuoteAdmin");
+            }
+            return View();
+        }
+
+        public async Task<IActionResult> Edit()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            return View();
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

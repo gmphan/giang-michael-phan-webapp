@@ -16,7 +16,7 @@ namespace Gmphan.DataAccessLib.Repository
             QuoteCollectionRepoUOW = new QuoteCollectionRepo(_db);
         }
 
-        public async Task Save()
+        public async Task SaveAsync()
         {
             await _db.SaveChangesAsync();
         }

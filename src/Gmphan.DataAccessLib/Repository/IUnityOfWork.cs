@@ -8,5 +8,6 @@ namespace Gmphan.DataAccessLib.Repository
     public interface IUnityOfWork
     {
         IQuoteCollectionRepo QuoteCollectionRepoUOW { get; }
+        public Task SaveAsync();
     }
 }

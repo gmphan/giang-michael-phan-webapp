@@ -11,14 +11,18 @@
                 <h5 class="card-title">Software Engineer</h5>
                 <h6 class="card-subtitle text-muted"><i>Full Stack Developer with a Passion for Building User-Friendly Applications</i></h6>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" 
-                focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-                <rect width="100%" height="100%" fill="#c05131"></rect>
-                <text id="quoteText" x="50%" y="50%" fill="white" dy=".3em">
-                    <tspan id="quoteLine" x="50%" dy="0"></tspan> <!-- Quote Line -->
-                    <tspan id="authorLine" x="50%" dy="1.5em" font-style="italic"></tspan> <!-- Author Line -->
-                </text>
-            </svg>
+
+            <!-- Blockquote container for quotes -->
+            <!-- Adding media within site.css to resize the font-->
+            <figure class="text-center" id="quote-slideshow" style="background-color: #868e96; color: white; height: 200px; display: flex; flex-direction: column; justify-content: center;">
+                <blockquote class="blockquote">
+                    <p id="quoteLine" class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                </blockquote>
+                <figcaption id="authorLine" class="blockquote-footer" style="color: beige">
+                    Someone famous in <cite title="Source Title">Source Title</cite>
+                </figcaption>
+            </figure>
+
             <div class="card-body">
                 <p class="card-text">Will be a summary</p>
             using Gmphan.ModelLib.ViewModels;
@@ -39,51 +43,22 @@
     </div>
 </div>
 @section Scripts{
-    <script>
-        // This whole script is for svg banner.
-        // Assuming quoteCollection is passed from Razor to JavaScript via JSON
+   <script>
+        // Assuming the quoteCollection is passed from Razor to JavaScript via JSON
         var quoteCollection = @Html.Raw(Json.Serialize(quoteCollections));
-        //console.log("Quotes:", quoteCollection); // Debugging log
-
-        // Get the SVG container dimensions
-        const svgElement = document.querySelector("svg");
-        const svgWidth = svgElement.viewBox.baseVal.width;
-
-
-        // Function to dynamically resize text to fit within the SVG width
-        function fitTextToWidth(element, maxWidth) {
-            let fontSize = parseFloat(window.getComputedStyle(element).fontSize);
-            while (element.getBBox().width > maxWidth && fontSize > 10) {
-                fontSize -= 1; // Decrease font size
-                element.style.fontSize = fontSize + "px"; // Apply new font size
-            }
-            return fontSize; // Return the final font size
-        }
 
         // Current index of the displayed quote
         var currentIndex = 0;
 
-        // Function to show the current quote in the SVG
+        // Function to show the current quote
         function showQuote(index) {
             const quoteTextElement = document.getElementById("quoteLine");
             const authorLineElement = document.getElementById("authorLine");
             const quote = quoteCollection[index];
-            //console.log("Displaying quote:", quote); // Debug log
+
+            // Set quote and author text
             quoteTextElement.textContent = `"${quote.quote}"`;
-            //console.log("Quote:", quoteTextElement.textContent)
             authorLineElement.textContent = `- ${quote.author}`;
-
-            // Reset font size to default before resizing
-            quoteTextElement.style.fontSize = "18px";
-
-            // Dynamically resize the quote text to fit within the SVG width
-            const finalQuoteFontSize = fitTextToWidth(quoteTextElement, svgWidth - 20); // Add padding of 20
-
-            // Set the author text font size to half of the final quote font size
-            authorLineElement.style.fontSize = (finalQuoteFontSize / 2) + "px";
-
-            // Dynamically resize the author text if necessary
-            fitTextToWidth(authorLineElement, svgWidth - 20); // Add padding of 20
         }
 
         // Slideshow function that rotates the quotes
