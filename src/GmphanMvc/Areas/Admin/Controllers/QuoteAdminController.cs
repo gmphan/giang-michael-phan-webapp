@@ -76,7 +76,28 @@ namespace GmphanMvc.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            return View();
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+            QuoteCollection quoteCollection = await _quoteCollectionServ.GetQuoteCollectionAsync(id);
+            if (quoteCollection == null)
+            {
+                return NotFound();
+            }
+            return View(quoteCollection);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            QuoteCollection obj = await _quoteCollectionServ.GetQuoteCollectionAsync(id);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+            await _quoteCollectionServ.DeleteQuoteCollectionAsync(obj);
+            return RedirectToAction("Index", "QuoteAdmin");
         }
 
 
