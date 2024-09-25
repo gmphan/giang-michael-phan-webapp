@@ -51,9 +51,27 @@ namespace GmphanMvc.Areas.Admin.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Update(int? id)
         {
-            return View();
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            QuoteCollection quoteCollection = await _quoteCollectionServ.GetQuoteCollectionAsync(id);
+            return View(quoteCollection);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(QuoteCollection obj)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            // Ensure CreatedDate is treated as Utc if the form submission altered it
+            obj.CreatedDate = DateTime.SpecifyKind(obj.CreatedDate, DateTimeKind.Utc);
+            obj.UpdatedDate = DateTime.UtcNow;
+            await _quoteCollectionServ.UpdateQuoteCollectionAsync(obj);
+            return RedirectToAction("Index", "QuoteAdmin");
         }
 
         public async Task<IActionResult> Delete(int id)

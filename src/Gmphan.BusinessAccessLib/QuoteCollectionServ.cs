@@ -33,6 +33,17 @@ namespace Gmphan.BusinessAccessLib
             await _unityOfWork.QuoteCollectionRepoUOW.Add(quoteCollection);
             await _unityOfWork.SaveAsync();
         }
+
+        public async Task<QuoteCollection> GetQuoteCollectionAsync(int? id)
+        {
+            return await _unityOfWork.QuoteCollectionRepoUOW.Get(u => u.Id == id);
+        }
+
+        public async Task UpdateQuoteCollectionAsync(QuoteCollection quoteCollection)
+        {
+            await _unityOfWork.QuoteCollectionRepoUOW.Update(quoteCollection);
+            await _unityOfWork.SaveAsync();
+        }
         public async Task<T> GetTAsync<T>(string cacheKey, Func<Task<T>> getRecordFromDb) where T : class
         {
             if(!_memoryCache.TryGetValue(cacheKey, out T result))

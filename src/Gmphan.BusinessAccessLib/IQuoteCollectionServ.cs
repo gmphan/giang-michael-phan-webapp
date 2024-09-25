@@ -10,5 +10,7 @@ namespace Gmphan.BusinessAccessLib
     {
         public Task<IEnumerable<QuoteCollection>> GetAllQuoteCollectionAsync();
         public Task AddQuoteCollectionAsync(QuoteCollection quoteCollection);
+        public Task<QuoteCollection> GetQuoteCollectionAsync(int? id);
+        public Task UpdateQuoteCollectionAsync(QuoteCollection quoteCollection);
     }
 }
