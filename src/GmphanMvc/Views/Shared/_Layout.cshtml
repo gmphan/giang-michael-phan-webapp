@@ -11,8 +11,12 @@
     @* this link is use for bootstrap icon frorm icons.getbootstrap.com *@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
     @* this keep the footer stays in the bottom *@
-    <style> 
-        /* Ensure html and body take full height of the viewport */
+    @* <style> 
+        /* Ensure html and body take full height of the viewport and keep the footer at the bottom
+        However, this is weird, this would work on if I run the app locally,
+        but will not work if I run it inside a docker container.
+        Removing this, the footer will stay at the bottom when running inside the Docker.
+        */
         html, body {
             height: 100%;
             margin: 0;
@@ -42,7 +46,7 @@
         .container-fluid {
             flex-grow: 1;
         }
-    </style>
+    </style> *@
 </head>
 <body>
     @{
@@ -79,7 +83,7 @@
                             <a class="nav-link @(controllerName == "About" ? "active" : "")" asp-area="Visitor" asp-controller="About" asp-action="Index">About</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item @(controllerName == "QuoteAdmin" ? "active" : "")" asp-area="Admin" asp-controller="QuoteAdmin" asp-action="Index">Quote Admin</a>
                                 <a class="dropdown-item" href="#">Edit Resume</a>
