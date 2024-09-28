@@ -38,3 +38,44 @@ body {
       font-size: 2rem;
   }
 }
+
+/* For nav and footer*/
+.bg-custom {
+  background-color: #092C74 !important;
+}
+
+/* this keep the footer stays in the bottom 
+** Since Bootswatch doesn't provide footer style, I have to come up with my own.
+** This block of css code will only work within this site.css file.
+*** If this is placed within the layout's header, it will only work locally but not for Docker.
+*/
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Use flexbox to structure the layout */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Allow main content to grow to take up remaining space */
+main {
+    flex-grow: 1;
+}
+
+/* Footer styling to ensure it stays at the bottom */
+footer {
+    /* background-color: #343a40; Dark background for footer */
+    padding: 10px 0;
+    width: 100%;
+    border-top: 1px solid #ddd;
+}
+
+/* Container tweaks to ensure it fits properly */
+.container-fluid {
+    flex-grow: 1;
+}
+/* End - this keep the footer stays in the bottom */

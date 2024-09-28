@@ -25,29 +25,29 @@ namespace Gmphan.BusinessAccessLib
         }
         public async Task<IEnumerable<QuoteCollection>> GetAllQuoteCollectionAsync()
         {
-            return await GetTAsync("quoteCollections", _unityOfWork.QuoteCollectionRepoUOW.GetAll);
+            return await GetTAsync("quoteCollections", _unityOfWork.QuoteCollectionRepoUOW.GetAllAsync);
         }
 
         public async Task AddQuoteCollectionAsync(QuoteCollection quoteCollection)
         {
-            await _unityOfWork.QuoteCollectionRepoUOW.Add(quoteCollection);
+            await _unityOfWork.QuoteCollectionRepoUOW.AddAsync(quoteCollection);
             await _unityOfWork.SaveAsync();
         }
 
         public async Task<QuoteCollection> GetQuoteCollectionAsync(int? id)
         {
-            return await _unityOfWork.QuoteCollectionRepoUOW.Get(u => u.Id == id);
+            return await _unityOfWork.QuoteCollectionRepoUOW.GetAsync(u => u.Id == id);
         }
 
         public async Task UpdateQuoteCollectionAsync(QuoteCollection quoteCollection)
         {
-            await _unityOfWork.QuoteCollectionRepoUOW.Update(quoteCollection);
+            await _unityOfWork.QuoteCollectionRepoUOW.UpdateAsync(quoteCollection);
             await _unityOfWork.SaveAsync();
         }
 
         public async Task DeleteQuoteCollectionAsync(QuoteCollection quoteCollection)
         {
-            await _unityOfWork.QuoteCollectionRepoUOW.Remove(quoteCollection);
+            await _unityOfWork.QuoteCollectionRepoUOW.RemoveAsync(quoteCollection);
             await _unityOfWork.SaveAsync();
         }
         public async Task<T> GetTAsync<T>(string cacheKey, Func<Task<T>> getRecordFromDb) where T : class

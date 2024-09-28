@@ -1,23 +1,72 @@
+@model ResumeView
+@{
+    var resumeHeader = Model.ResumeHeader;
+    var resumeSummary = Model.ResumeSummary;
+    var resumeExperiences = Model.ResumeExperiences;
+}
 <div class="row justify-content-center">
     <div class="col-lg-10 col-md-12">
         <div class="card mb-3">
-            <h3 class="card-header">Card header</h3>
+            <h1 class="card-header">Resume</h1>
             <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+                <h2 class="card-title">@resumeHeader.FirstName @resumeHeader.LastName</h2>
+                <h5 class="card-subtitle text-muted"><i>@resumeHeader.Headline</i></h5>
+                <p class="card-text">
+                    @resumeHeader.Email <br/>
+                    @resumeHeader.PhoneNum <br/>
+                    @resumeHeader.City, @resumeHeader.State, @resumeHeader.ZipCode <br/>
+                    <a href="@resumeHeader.LinkedIn" class="card-link">LinkedIn</a> <br/>
+                    <a href="@resumeHeader.GitHub" class="card-link">GitHub</a> <br/>
+                </p>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-                <rect width="100%" height="100%" fill="#868e96"></rect>
-                <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-            </svg>
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <div class="card border-primary mb-3 mx-3">
+                <div class="card-header"><h3>Summary</h3></div>
+                <div class="card-body">
+                    @* <h4 class="card-title">Primary card title</h4> *@
+                    <p class="card-text">@resumeSummary.Summary</p>
+                </div>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
+            <div class="card border-primary mb-3 mx-3">
+                <div class="card-header"><h3>Work Experiences</h3></div>
+                <div class="card-body">
+                    @foreach (var item in resumeExperiences)
+                    {
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <h4 class="card-title">@item.Title</h4>
+                                <h6 class="card-subtitle mb-2 text-muted">@item.Company, @item.City, @item.State, @item.Country</h6>
+                                <h6 class="card-subtitle mb-2 text-muted">@item.FromMonth - @item.ToMonth</h6>
+
+                                <p class="card-text"></p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                    }
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Card title</h4>
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Card title</h4>
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+           
+            
             <div class="card-body">
                 <a href="#" class="card-link">Card link</a>
                 <a href="#" class="card-link">Another link</a>
