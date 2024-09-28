@@ -6,8 +6,8 @@ using Gmphan.ModelLib;
 
 namespace Gmphan.DataAccessLib.Repository
 {
-    public interface IQuoteCollectionRepo : IRepository<QuoteCollection>
+    public interface IResumeHeaderRepo : IRepository<ResumeHeader>
     {
-        Task UpdateAsync(QuoteCollection obj);
+        Task UpdateAsync(ResumeHeader obj);
     }
 }

@@ -6,19 +6,18 @@ using Gmphan.ModelLib;
 
 namespace Gmphan.DataAccessLib.Repository
 {
-    public class QuoteCollectionRepo : Repository<QuoteCollection>, IQuoteCollectionRepo
+    public class ResumeHeaderRepo : Repository<ResumeHeader>, IResumeHeaderRepo
     {
         private readonly AppDbContext _db;
-
         //the base(db) is to pass the db to the base classes - Repository, or
-        //else I will get error message from "public class QuoteCollectionRepo"
-        public QuoteCollectionRepo(AppDbContext db) : base(db)
+        //else I will get error message from "public class ResumeHeaderRepo"
+        public ResumeHeaderRepo(AppDbContext db) : base(db)
         {
             _db = db;
         }
-        public async Task UpdateAsync(QuoteCollection obj)
+        public async Task UpdateAsync(ResumeHeader obj)
         {
-            _db.QuoteCollections.Update(obj);
+            _db.ResumeHeaders.Update(obj);
         }
     }
 }
