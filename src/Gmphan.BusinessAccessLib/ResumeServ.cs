@@ -25,7 +25,8 @@ namespace Gmphan.BusinessAccessLib
         }
         public async Task<IEnumerable<ResumeExperience>> GetAllResumeExperienceAsync()
         {
-            return await GetTAsync("resumeExperience", () => _unityOfWork.ResumeExperienceRepoUOW.GetAllAsync());
+            // return await GetTAsync("resumeExperience", () => _unityOfWork.ResumeExperienceRepoUOW.GetAllAsync());
+            return await _unityOfWork.ResumeExperienceRepoUOW.GetAllResumeExperienceAsync();
         }
 
         public async Task<ResumeHeader> GetLatestResumeHeaderAsync()

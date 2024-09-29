@@ -8,6 +8,7 @@ namespace Gmphan.DataAccessLib.Repository
 {
     public interface IResumeExperienceRepo : IRepository<ResumeExperience>
     {
+        Task<IEnumerable<ResumeExperience>> GetAllResumeExperienceAsync();
         Task UpdateAsync(ResumeExperience obj);
     }
 }
