@@ -39,6 +39,14 @@ namespace Gmphan.BusinessAccessLib
             return await GetTAsync("resumeSummary", () => _unityOfWork.ResumeSummaryRepoUOW.GetLatestRecordAsync(x => x.Id));
         }
 
+        public async Task UpdateResumeHeaderAsync(ResumeHeader obj)
+        {
+            await _unityOfWork.ResumeHeaderRepoUOW.UpdateAsync(obj);
+            await _unityOfWork.SaveAsync();
+            //need to update the cache
+            await UpdateCache("resumeHeader");
+        }
+
         // import to make Func<Task<T>> and not Func<T> because all Repository func are async
         public async Task<T> GetTAsync<T> (string cacheKey, Func<Task<T>> queryFromDb) where T : class
         {
@@ -62,6 +70,12 @@ namespace Gmphan.BusinessAccessLib
                 _logger.LogInformation($"Data was pulled from Memory Cache of: {cacheKey}");
             }
             return DataResult;
+        }
+
+        public async Task UpdateCache(string cacheKey)
+        {
+            _memoryCache.Remove(cacheKey);
+            await GetTAsync(cacheKey, _unityOfWork.QuoteCollectionRepoUOW.GetAllAsync);
         }
     }
 }

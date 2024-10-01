@@ -11,5 +11,6 @@ namespace Gmphan.BusinessAccessLib
         public Task<ResumeHeader> GetLatestResumeHeaderAsync();
         public Task<ResumeSummary> GetLatestResumeSummaryAsync();
         public Task<IEnumerable<ResumeExperience>> GetAllResumeExperienceAsync();
+        public Task UpdateResumeHeaderAsync(ResumeHeader obj);
     }
 }

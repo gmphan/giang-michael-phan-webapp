@@ -32,6 +32,7 @@ namespace Gmphan.BusinessAccessLib
         {
             await _unityOfWork.QuoteCollectionRepoUOW.AddAsync(quoteCollection);
             await _unityOfWork.SaveAsync();
+            await UpdateCache("quoteCollections");
         }
 
         public async Task<QuoteCollection> GetQuoteCollectionAsync(int? id)
@@ -43,12 +44,14 @@ namespace Gmphan.BusinessAccessLib
         {
             await _unityOfWork.QuoteCollectionRepoUOW.UpdateAsync(quoteCollection);
             await _unityOfWork.SaveAsync();
+            await UpdateCache("quoteCollections");
         }
 
         public async Task DeleteQuoteCollectionAsync(QuoteCollection quoteCollection)
         {
             await _unityOfWork.QuoteCollectionRepoUOW.RemoveAsync(quoteCollection);
             await _unityOfWork.SaveAsync();
+            await UpdateCache("quoteCollections");
         }
         public async Task<T> GetTAsync<T>(string cacheKey, Func<Task<T>> getRecordFromDb) where T : class
         {
@@ -72,6 +75,11 @@ namespace Gmphan.BusinessAccessLib
                 _logger.LogInformation($"Data was pull from Memory Cache: {cacheKey}");
             }
             return result;
+        }
+        public async Task UpdateCache(string cacheKey)
+        {
+            _memoryCache.Remove(cacheKey);
+            await GetTAsync(cacheKey, _unityOfWork.QuoteCollectionRepoUOW.GetAllAsync);
         }
     }
 }

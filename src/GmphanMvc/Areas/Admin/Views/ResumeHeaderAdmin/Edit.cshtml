@@ -1,0 +1,95 @@
+@model ResumeHeader
+
+<div class="row justify-content-center">
+    <div class="col-lg-10 col-md-12">
+        <div class="card mb-3">
+            <h3 class="card-header">Edit Quote Collection</h3>
+            <form method="post">
+                <input asp-for="Id" hidden />
+                <input asp-for="CreatedDate" hidden />
+                <div class="p-3 mt-4">                
+                    
+                    <div class="row mb-3 p-1">
+                        <label asp-for="FirstName" class="col-form-label p-0"></label>
+                        <input asp-for="FirstName" class="form-control" placeholder="First StreetAddressme" >
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <label asp-for="MiddleName" class="form-label p-0"></label>
+                        <input asp-for="MiddleName" class="form-control" placeholder="Middle StreetAddressme" >
+                        <span asp-validation-for="MiddleName" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <label asp-for="LastName" class="form-label p-0"></label>
+                        <input asp-for="LastName" class="form-control" placeholder="Last StreetAddressme" >
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <label asp-for="Headline" class="col-form-label p-0"></label>
+                        <textarea asp-for="Headline" class="form-control" rows="3" placeholder="Head Line"></textarea>
+                        @* asp-validation-for will display the invalid checking which set on the model itself *@
+                        <span asp-validation-for="Headline" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <label asp-for="PhoneNum" class="form-label p-0"></label>
+                        <input asp-for="PhoneNum" class="form-control" placeholder="Phone Number" >
+                        <span asp-validation-for="PhoneNum" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <label asp-for="Email" class="form-label p-0"></label>
+                        <input asp-for="Email" class="form-control" placeholder="Email" >
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <label asp-for="Country" class="form-label p-0"></label>
+                        <input asp-for="Country" class="form-control" placeholder="Country" >
+                        <span asp-validation-for="Country" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <label asp-for="StreetAddress" class="form-label p-0"></label>
+                        <input asp-for="StreetAddress" class="form-control" placeholder="Street Address" >
+                        <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <label asp-for="City" class="form-label p-0"></label>
+                        <input asp-for="City" class="form-control" placeholder="City" >
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <label asp-for="State" class="form-label p-0"></label>
+                        <input asp-for="State" class="form-control" placeholder="State" >
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <label asp-for="ZipCode" class="form-label p-0"></label>
+                        <input asp-for="ZipCode" class="form-control" placeholder="Zip Code" >
+                        <span asp-validation-for="ZipCode" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <label asp-for="LinkedIn" class="form-label p-0"></label>
+                        <input asp-for="LinkedIn" class="form-control" placeholder="LinkedIn" >
+                        <span asp-validation-for="LinkedIn" class="text-danger"></span>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <label asp-for="GitHub" class="form-label p-0"></label>
+                        <input asp-for="GitHub" class="form-control" placeholder="GitHub" >
+                        <span asp-validation-for="GitHub" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-md-3">
+                            <button type="submit" class="btn btn-primary form-control">Update</button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a asp-area="Admin" asp-controller="ResumeAdmin" asp-action="Index" class="btn btn-secondary border form-control">
+                                Back to Resume Admin
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="card-footer text-muted">
+                2 days ago
+            </div>
+        </div>
+    </div>
+</div>

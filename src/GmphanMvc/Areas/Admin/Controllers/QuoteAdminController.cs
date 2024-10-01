@@ -51,7 +51,7 @@ namespace GmphanMvc.Areas.Admin.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Update(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || id == 0)
             {
@@ -61,7 +61,7 @@ namespace GmphanMvc.Areas.Admin.Controllers
             return View(quoteCollection);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(QuoteCollection obj)
+        public async Task<IActionResult> Edit(QuoteCollection obj)
         {
             if (!ModelState.IsValid)
             {

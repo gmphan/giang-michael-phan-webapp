@@ -39,11 +39,6 @@ body {
   }
 }
 
-/* For nav and footer*/
-.bg-custom {
-  background-color: #092C74 !important;
-}
-
 /* this keep the footer stays in the bottom 
 ** Since Bootswatch doesn't provide footer style, I have to come up with my own.
 ** This block of css code will only work within this site.css file.
