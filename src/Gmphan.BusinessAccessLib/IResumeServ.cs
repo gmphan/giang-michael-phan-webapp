@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Gmphan.ModelLib;
+using Gmphan.ModelLib.ViewModels;
 
 namespace Gmphan.BusinessAccessLib
 {
@@ -12,5 +13,8 @@ namespace Gmphan.BusinessAccessLib
         public Task<ResumeSummary> GetLatestResumeSummaryAsync();
         public Task<IEnumerable<ResumeExperience>> GetAllResumeExperienceAsync();
         public Task UpdateResumeHeaderAsync(ResumeHeader obj);
+        public Task UpdateResumeSummaryAsync(ResumeSummary obj);
+        public Task CreateResumeExperienceAsync(ExperienceAdminView obj);
+        
     }
 }

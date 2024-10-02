@@ -49,7 +49,78 @@ namespace Gmphan.DataAccessLib
                     Type = "Motivation",
                     CreatedDate = new DateTime(),
                     UpdatedDate = new DateTime()
-                });
+                }
+            );
+            _ = modelBuilder.Entity<ResumeHeader>().HasData(
+                new ResumeHeader
+                {
+                    Id = 1,
+                    FirstName = "Giang",
+                    MiddleName = "Michael",
+                    LastName = "Phan",
+                    Headline = "Developer",
+                    PhoneNum = "123456789",
+                    Email = "Gmphan7@gmail.com",
+                    Country = "United States",
+                    StreetAddress = "2192 Murry Trail",
+                    City = "Morrow",
+                    State = "GA",
+                    ZipCode = "30260",
+                    LinkedIn = "https://www.linkedin.com/in/giang-phan/",
+                    GitHub = "https://github.com/gmphan",
+                    CreatedDate = new DateTime(),
+                    UpdatedDate = new DateTime()
+                }
+            );
+            _ = modelBuilder.Entity<ResumeSummary>().HasData(
+                new ResumeSummary
+                {
+                    Id = 1,
+                    Summary = "short summary",
+                    CreatedDate = new DateTime(),
+                    UpdatedDate = new DateTime()
+                }
+            );
+            _ = modelBuilder.Entity<ResumeExperience>().HasData(
+                new ResumeExperience
+                {
+                    Id = 1,
+                    Title = "Software Engineer",
+                    Company = "Clayton State University",
+                    Country = "United States",
+                    City = "Morrow",
+                    State = "GA",
+                    ZipCode = "30260",
+                    CurrentlyWorkHere = true,
+                    FromMonth = "January",
+                    ToMonth = "December",
+                    FromYear = 2010,
+                    ToYear = 2024,
+                    CreatedDate = new DateTime(),
+                    UpdatedDate = new DateTime()
+                }
+            );
+            // Seed ResumeDescription and link to ResumeExperience with Id 1
+            _ = modelBuilder.Entity<ResumeDescription>().HasData(
+                new ResumeDescription
+                {
+                    Id = 1,
+                    ResumeExperienceId = 1, // Foreign key reference
+                    DescriptionText = "Developed various university applications."
+                },
+                new ResumeDescription
+                {
+                    Id = 2,
+                    ResumeExperienceId = 1, // Foreign key reference
+                    DescriptionText = "Led the team in adopting Agile methodologies."
+                },
+                new ResumeDescription
+                {
+                    Id = 3,
+                    ResumeExperienceId = 1, // Foreign key reference
+                    DescriptionText = "Implemented security enhancements for the internal network."
+                }
+            );
         }
     }
 }

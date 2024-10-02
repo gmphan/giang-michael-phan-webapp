@@ -84,6 +84,26 @@ namespace Gmphan.DataAccessLib.Migrations
                     b.HasIndex("ResumeExperienceId");
 
                     b.ToTable("ResumeDescriptions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DescriptionText = "Developed various university applications.",
+                            ResumeExperienceId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DescriptionText = "Led the team in adopting Agile methodologies.",
+                            ResumeExperienceId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DescriptionText = "Implemented security enhancements for the internal network.",
+                            ResumeExperienceId = 1
+                        });
                 });
 
             modelBuilder.Entity("Gmphan.ModelLib.ResumeExperience", b =>
@@ -120,9 +140,6 @@ namespace Gmphan.DataAccessLib.Migrations
                         .IsRequired()
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("text");
@@ -137,6 +154,9 @@ namespace Gmphan.DataAccessLib.Migrations
                     b.Property<int?>("ToYear")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("ZipCode")
                         .IsRequired()
                         .HasColumnType("text");
@@ -144,6 +164,25 @@ namespace Gmphan.DataAccessLib.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ResumeExperiences");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            City = "Morrow",
+                            Company = "Clayton State University",
+                            Country = "United States",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CurrentlyWorkHere = true,
+                            FromMonth = "January",
+                            FromYear = 2010,
+                            State = "GA",
+                            Title = "Software Engineer",
+                            ToMonth = "December",
+                            ToYear = 2024,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ZipCode = "30260"
+                        });
                 });
 
             modelBuilder.Entity("Gmphan.ModelLib.ResumeHeader", b =>
@@ -215,6 +254,27 @@ namespace Gmphan.DataAccessLib.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ResumeHeaders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            City = "Morrow",
+                            Country = "United States",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Gmphan7@gmail.com",
+                            FirstName = "Giang",
+                            GitHub = "https://github.com/gmphan",
+                            Headline = "Developer",
+                            LastName = "Phan",
+                            LinkedIn = "https://www.linkedin.com/in/giang-phan/",
+                            MiddleName = "Michael",
+                            PhoneNum = "123456789",
+                            State = "GA",
+                            StreetAddress = "2192 Murry Trail",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ZipCode = "30260"
+                        });
                 });
 
             modelBuilder.Entity("Gmphan.ModelLib.ResumeSummary", b =>
@@ -238,6 +298,15 @@ namespace Gmphan.DataAccessLib.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ResumeSummaries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Summary = "short summary",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

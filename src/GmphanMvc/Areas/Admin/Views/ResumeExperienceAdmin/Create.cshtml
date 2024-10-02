@@ -1,0 +1,203 @@
+@{
+    @model ExperienceAdminView;
+    ViewData["Title"] = "Create Experience";
+    @* var quoteCollections = Model.QuoteCollections;
+    var activeIndex = "active"; *@
+}
+<div class="row justify-content-center">
+    <div class="col-lg-10 col-md-12">
+        <div class="card mb-3">
+            <h1 class="card-header">Add New Experience</h1>
+
+            <form asp-action="Create" method="post">
+                <div class="p-3 mt-4">  
+                    <div class="row mb-3 p-1">
+                        <label asp-for="ResumeExperience.Title"></label>
+                        <input asp-for="ResumeExperience.Title" class="form-control" />
+                        <span asp-validation-for="ResumeExperience.Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mb-3 p-1">
+                        <label asp-for="ResumeExperience.Company"></label>
+                        <input asp-for="ResumeExperience.Company" class="form-control" />
+                        <span asp-validation-for="ResumeExperience.Company" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mb-3 p-1">
+                        <label asp-for="ResumeExperience.Country"></label>
+                        <input asp-for="ResumeExperience.Country" class="form-control" />
+                        <span asp-validation-for="ResumeExperience.Country" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mb-3 p-1">
+                        <label asp-for="ResumeExperience.City"></label>
+                        <input asp-for="ResumeExperience.City" class="form-control" />
+                        <span asp-validation-for="ResumeExperience.City" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mb-3 p-1">
+                        <label asp-for="ResumeExperience.State"></label>
+                        <input asp-for="ResumeExperience.State" class="form-control" />
+                        <span asp-validation-for="ResumeExperience.State" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mb-3 p-1">
+                        <label asp-for="ResumeExperience.ZipCode"></label>
+                        <input asp-for="ResumeExperience.ZipCode" class="form-control" />
+                        <span asp-validation-for="ResumeExperience.ZipCode" class="text-danger"></span>
+                    </div>
+                    <fieldset>
+                        <legend>Switch to the right for "YES"</legend>
+                        <div class="form-check form-switch">
+                            <!-- Checkbox input, toggles to true when checked 
+                            If I inspect this field from the browser, the value alway true even after switch to the right.
+                            However, the checkbox’s value is being rendered and managed by ASP.NET Core. 
+                            The default behavior of the asp-for tag helper for a boolean value can sometimes cause it to render the value="true",
+                            but the value within ASP.NET Core managment still behave correctly.
+                            I can test this by set debug point at the controller to check the posted obj. 
+                            -->
+                            <input asp-for="ResumeExperience.CurrentlyWorkHere" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                            <label asp-for="ResumeExperience.CurrentlyWorkHere" class="form-check-label" for="flexSwitchCheckDefault"></label>
+                            <span asp-validation-for="ResumeExperience.CurrentlyWorkHere" class="text-danger"></span>
+                        </div>
+                    </fieldset>
+                    <div class="row mb-3 p-1">
+                        <label for="startWorkingSelect" class="col-form-label p-0 mt-4">Start Working Month and Year</label>
+                        <div class="row mb-3 p-1">
+                            <div class="col-6 col-md-3">
+                                <select asp-for="ResumeExperience.FromMonth" class="form-select form-control">
+                                    <option value="">Select a month</option> <!-- Default option -->
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                                </select>
+                                <span asp-validation-for="ResumeExperience.FromMonth" class="text-danger"></span>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <select asp-for="ResumeExperience.FromYear" class="form-select form-control">
+                                    <option value="">Select a year</option> <!-- Default option -->
+                                    @for (int year = DateTime.Now.Year; year >= 1900; year--)
+                                    {
+                                        <option value=@year>@year</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="ResumeExperience.FromYear" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="stopWorkingSection" class="row mb-3 p-1">
+                        <label for="stopWorkingSelect" class="col-form-label p-0">Stop Working Month and Year</label>
+                        <div class="row mb-3 p-1">
+                            <div class="col-6 col-md-3">
+                                <select asp-for="ResumeExperience.ToMonth" class="form-select form-control">
+                                    <option value="">Select a month</option> <!-- Default option -->
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                                </select>
+                                <span asp-validation-for="ResumeExperience.ToMonth" class="text-danger"></span>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <select asp-for="ResumeExperience.ToYear" class="form-select form-control">
+                                    <option value="">Select a year</option> <!-- Default option -->
+                                    @for (int year = DateTime.Now.Year; year >= 1900; year--)
+                                    {
+                                        <option value=@year>@year</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="ResumeExperience.ToYear" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Description Fields Section -->
+                    <div class="row mb-3 p-1" id="descriptionFields">
+                        <legend class="mt-4">Descriptions</legend>
+                        <!-- Initially one description field -->
+                        <div class="description-group">
+                            <input name="ResumeDescriptions[0].DescriptionText" class="form-control" placeholder="Enter description" />
+                        </div>
+                    </div>
+                    <button type="button" id="addDescription" class="btn btn-secondary mt-2 mb-3">Add Description</button>
+                    
+                    <div class="row">
+                        <div class="col-6 col-md-3">
+                            <input type="submit" value="Create" class="btn btn-primary form-control" />
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a asp-area="Admin" asp-controller="ResumeAdmin" asp-action="Index" class="btn btn-secondary border form-control">
+                                Back to Resume Admin
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <div class="card-footer text-muted">
+                2 days ago
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        let descriptionIndex = 1;  // Tracks the number of descriptions
+
+        document.getElementById("addDescription").addEventListener("click", function () {
+            const descriptionFields = document.getElementById("descriptionFields");
+
+            // Create a new div for the description input
+            const newDescriptionField = document.createElement("div");
+            newDescriptionField.classList.add("form-group", "description-group");
+            newDescriptionField.innerHTML = `<input name="ResumeDescriptions[${descriptionIndex}].DescriptionText" class="form-control mt-1" placeholder="Enter description" />`;
+
+            // Add the new description field to the list
+            descriptionFields.appendChild(newDescriptionField);
+            descriptionIndex++;
+        });
+    </script>
+    <script>
+        // when switch to the right the stopWorkingSection gone hidden
+        // Get elements
+        const currentlyWorkHereSwitch = document.getElementById('flexSwitchCheckDefault');
+        const stopWorkingSection = document.getElementById('stopWorkingSection');
+
+        // Function to toggle visibility
+        function toggleStopWorkingSection() {
+            if (currentlyWorkHereSwitch.checked) {
+                stopWorkingSection.style.display = 'none'; // Hide section if switch is on
+            } else {
+                stopWorkingSection.style.display = 'block'; // Show section if switch is off
+            }
+        }
+
+        // Initialize the visibility when the page loads
+        toggleStopWorkingSection();
+
+        // Add event listener for switch change
+        currentlyWorkHereSwitch.addEventListener('change', toggleStopWorkingSection);
+    </script>
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}

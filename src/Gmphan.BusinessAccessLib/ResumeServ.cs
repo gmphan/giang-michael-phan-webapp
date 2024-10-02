@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Gmphan.DataAccessLib.Repository;
 using Gmphan.ModelLib;
+using Gmphan.ModelLib.ViewModels;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic;
@@ -45,6 +46,38 @@ namespace Gmphan.BusinessAccessLib
             await _unityOfWork.SaveAsync();
             //need to update the cache
             await UpdateCache("resumeHeader");
+        }
+        public async Task UpdateResumeSummaryAsync(ResumeSummary obj)
+        {
+            await _unityOfWork.ResumeSummaryRepoUOW.UpdateAsync(obj);
+            await _unityOfWork.SaveAsync();
+            await UpdateCache("resumeSummary");
+        }
+
+        public async Task CreateResumeExperienceAsync(ExperienceAdminView model)
+        {
+            var resumeExperience = model.ResumeExperience;
+
+            // Set the creation and modification dates
+            resumeExperience.CreatedDate = DateTime.UtcNow;
+            resumeExperience.UpdatedDate = DateTime.UtcNow;
+
+            // Add ResumeExperience along with associated descriptions (if any)
+            _unityOfWork.ResumeExperienceRepoUOW.AddAsync(resumeExperience);
+            await _unityOfWork.SaveAsync();
+            // If there are any descriptions, they will be added through the navigation property
+            if (model.ResumeDescriptions != null && model.ResumeDescriptions.Any())
+            {
+                foreach (var description in model.ResumeDescriptions)
+                {
+                    description.ResumeExperienceId = resumeExperience.Id; // Link each description to the experience
+                    _unityOfWork.ResumeDescriptionRepoUOW.AddAsync(description); // This may be handled automatically, but ensure this if necessary
+                }
+            }
+
+            // await UpdateCache("resumeExperience");
+            // Save all changes to the database
+            await _unityOfWork.SaveAsync();
         }
 
         // import to make Func<Task<T>> and not Func<T> because all Repository func are async

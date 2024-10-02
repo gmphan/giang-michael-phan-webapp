@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Gmphan.DataAccessLib.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240917172835_addingQuoteCollection")]
-    partial class addingQuoteCollection
+    [Migration("20241001191938_reAddAllTables")]
+    partial class reAddAllTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,251 @@ namespace Gmphan.DataAccessLib.Migrations
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Quote = "No goal, no growth.",
                             Type = "Motivation",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("Gmphan.ModelLib.ResumeDescription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DescriptionText")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ResumeExperienceId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResumeExperienceId");
+
+                    b.ToTable("ResumeDescriptions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DescriptionText = "Developed various university applications.",
+                            ResumeExperienceId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DescriptionText = "Led the team in adopting Agile methodologies.",
+                            ResumeExperienceId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DescriptionText = "Implemented security enhancements for the internal network.",
+                            ResumeExperienceId = 1
+                        });
+                });
+
+            modelBuilder.Entity("Gmphan.ModelLib.ResumeExperience", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Company")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("CurrentlyWorkHere")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("FromMonth")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("FromYear")
+                        .IsRequired()
+                        .HasColumnType("integer");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ToMonth")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("ToYear")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ResumeExperiences");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            City = "Morrow",
+                            Company = "Clayton State University",
+                            Country = "United States",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CurrentlyWorkHere = true,
+                            FromMonth = "January",
+                            FromYear = 2010,
+                            State = "GA",
+                            Title = "Software Engineer",
+                            ToMonth = "December",
+                            ToYear = 2024,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ZipCode = "30260"
+                        });
+                });
+
+            modelBuilder.Entity("Gmphan.ModelLib.ResumeHeader", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("GitHub")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Headline")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LinkedIn")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MiddleName")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("PhoneNum")
+                        .HasMaxLength(12)
+                        .HasColumnType("character varying(12)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ResumeHeaders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            City = "Morrow",
+                            Country = "United States",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Gmphan7@gmail.com",
+                            FirstName = "Giang",
+                            GitHub = "https://github.com/gmphan",
+                            Headline = "Developer",
+                            LastName = "Phan",
+                            LinkedIn = "https://www.linkedin.com/in/giang-phan/",
+                            MiddleName = "Michael",
+                            PhoneNum = "123456789",
+                            State = "GA",
+                            StreetAddress = "2192 Murry Trail",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ZipCode = "30260"
+                        });
+                });
+
+            modelBuilder.Entity("Gmphan.ModelLib.ResumeSummary", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Summary")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ResumeSummaries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Summary = "short summary",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -263,6 +508,17 @@ namespace Gmphan.DataAccessLib.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Gmphan.ModelLib.ResumeDescription", b =>
+                {
+                    b.HasOne("Gmphan.ModelLib.ResumeExperience", "ResumeExperience")
+                        .WithMany("Descriptions")
+                        .HasForeignKey("ResumeExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ResumeExperience");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -312,6 +568,11 @@ namespace Gmphan.DataAccessLib.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Gmphan.ModelLib.ResumeExperience", b =>
+                {
+                    b.Navigation("Descriptions");
                 });
 #pragma warning restore 612, 618
         }

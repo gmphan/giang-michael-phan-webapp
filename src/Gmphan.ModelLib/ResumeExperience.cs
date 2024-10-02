@@ -32,7 +32,7 @@ namespace Gmphan.ModelLib
         public string? ZipCode { get; set; }
         
         [DisplayName("I am currently working in this role")]
-        public bool CurrentlyWorkHere { get; set; }
+        public bool CurrentlyWorkHere { get; set; } = false; // Set default value to false
 
         [Required]
         [DisplayName("From Month")]
@@ -55,6 +55,6 @@ namespace Gmphan.ModelLib
         public DateTime CreatedDate { get; set; }
 
         [Required]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

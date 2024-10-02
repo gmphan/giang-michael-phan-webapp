@@ -11,6 +11,7 @@ namespace Gmphan.DataAccessLib.Repository
         IResumeHeaderRepo ResumeHeaderRepoUOW { get; }
         IResumeSummaryRepo ResumeSummaryRepoUOW { get; }
         IResumeExperienceRepo ResumeExperienceRepoUOW { get; }
+        IResumeDescriptionRepo ResumeDescriptionRepoUOW { get; }
         public Task SaveAsync();
     }
 }
