@@ -44,33 +44,32 @@ body {
 ** This block of css code will only work within this site.css file.
 *** If this is placed within the layout's header, it will only work locally but not for Docker.
 */
-html, body {
+/* html, body {
     height: 100%;
     margin: 0;
-}
+} */
 
 /* Use flexbox to structure the layout */
-body {
+/* body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-}
+} */
 
 /* Allow main content to grow to take up remaining space */
-main {
+/* main {
     flex-grow: 1;
-}
+} */
 
 /* Footer styling to ensure it stays at the bottom */
-footer {
-    /* background-color: #343a40; Dark background for footer */
+/* footer {
     padding: 10px 0;
     width: 100%;
     border-top: 1px solid #ddd;
-}
+} */
 
 /* Container tweaks to ensure it fits properly */
-.container-fluid {
+/* .container-fluid {
     flex-grow: 1;
-}
+} */
 /* End - this keep the footer stays in the bottom */

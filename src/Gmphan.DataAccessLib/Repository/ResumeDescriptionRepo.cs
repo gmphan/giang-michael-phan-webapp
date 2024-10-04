@@ -14,9 +14,9 @@ namespace Gmphan.DataAccessLib.Repository
             _db = db;
         }
 
-        public Task UpdateAsync(ResumeDescription obj)
+        public async Task UpdateAsync(ResumeDescription obj)
         {
-            throw new NotImplementedException();
+            _db.ResumeDescriptions.Update(obj);
         }
     }
 }

@@ -22,6 +22,13 @@ namespace Gmphan.DataAccessLib.Repository
                                             .ToListAsync();
             return experiences;                         
         }
+        public async Task<ResumeExperience> GetSingleResumeExperienceAsync(int id)
+        {
+            ResumeExperience experience = await _db.ResumeExperiences
+                                       .Include(re => re.Descriptions)  // Eager load ResumeDescriptions
+                                       .SingleOrDefaultAsync(re => re.Id == id);
+            return experience;
+        }
         public async Task UpdateAsync(ResumeExperience obj)
         {
             _db.ResumeExperiences.Update(obj);

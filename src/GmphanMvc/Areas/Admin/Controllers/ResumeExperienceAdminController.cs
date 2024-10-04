@@ -63,6 +63,53 @@ namespace GmphanMvc.Areas.Admin.Controllers
             return RedirectToAction("index", "ResumeAdmin");
         }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            // Getting ResumeExperience included ResumeDescriptions.
+            ResumeExperience resumeExperience = await _resumeServ.GetSingleResumeExperienceServAsync(id);
+            return View(resumeExperience);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(ResumeExperience obj)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(obj);
+            }
+            await _resumeServ.UpdateResumeExperienceServAsync(obj);
+            return RedirectToAction("index", "ResumeAdmin");
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+            // Getting ResumeExperience included ResumeDescriptions.
+            ResumeExperience resumeExperience = await _resumeServ.GetSingleResumeExperienceServAsync(id);
+            return View(resumeExperience);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            ResumeExperience obj = await _resumeServ.GetSingleResumeExperienceServAsync(id);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+            await _resumeServ.DeleteResumeExperienceServAsync(obj);
+            return RedirectToAction("Index", "ResumeAdmin");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

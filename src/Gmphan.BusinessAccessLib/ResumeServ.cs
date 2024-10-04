@@ -79,6 +79,79 @@ namespace Gmphan.BusinessAccessLib
             // Save all changes to the database
             await _unityOfWork.SaveAsync();
         }
+        public Task<ResumeExperience> GetSingleResumeExperienceServAsync(int id)
+        {
+            return _unityOfWork.ResumeExperienceRepoUOW.GetSingleResumeExperienceAsync(id);
+        }
+
+        public async Task UpdateResumeExperienceServAsync(ResumeExperience model)
+        {
+            // Retrieve the existing ResumeExperience from the database
+            var existingExperience = await _unityOfWork.ResumeExperienceRepoUOW.GetSingleResumeExperienceAsync(model.Id);
+
+            if (existingExperience == null)
+            {
+                throw new Exception("ResumeExperience not found");
+            }
+
+            // Update the properties of ResumeExperience
+            existingExperience.Title = model.Title;
+            existingExperience.Company = model.Company;
+            existingExperience.Country = model.Country;
+            existingExperience.City = model.City;
+            existingExperience.State = model.State;
+            existingExperience.ZipCode = model.ZipCode;
+            existingExperience.CurrentlyWorkHere = model.CurrentlyWorkHere;
+            existingExperience.FromMonth = model.FromMonth;
+            existingExperience.FromYear = model.FromYear;
+            existingExperience.ToMonth = model.ToMonth;
+            existingExperience.ToYear = model.ToYear;
+            existingExperience.UpdatedDate = DateTime.UtcNow;
+
+            // Mark the ResumeExperience as modified
+            await _unityOfWork.ResumeExperienceRepoUOW.UpdateAsync(existingExperience);
+
+            // Handle ResumeDescriptions
+            var existingDescriptions = existingExperience.Descriptions.ToList(); // Get existing descriptions
+
+            // Update existing and add new descriptions
+            foreach (var description in model.Descriptions)
+            {
+                var existingDescription = existingDescriptions.FirstOrDefault(d => d.Id == description.Id);
+
+                if (existingDescription != null)
+                {
+                    // Update the existing description
+                    existingDescription.DescriptionText = description.DescriptionText;
+
+                    // Mark the description as modified
+                    _unityOfWork.ResumeDescriptionRepoUOW.UpdateAsync(existingDescription);
+                }
+                else
+                {
+                    // Add new description
+                    description.ResumeExperienceId = model.Id; // Link to ResumeExperience
+                    await _unityOfWork.ResumeDescriptionRepoUOW.AddAsync(description);
+                }
+            }
+
+            // Remove deleted descriptions
+            foreach (var existingDescription in existingDescriptions)
+            {
+                if (!model.Descriptions.Any(d => d.Id == existingDescription.Id))
+                {
+                    _unityOfWork.ResumeDescriptionRepoUOW.RemoveAsync(existingDescription);
+                }
+            }
+            // Save the changes
+            await _unityOfWork.SaveAsync();
+        }
+
+        public async Task DeleteResumeExperienceServAsync(ResumeExperience model)
+        {
+            await _unityOfWork.ResumeExperienceRepoUOW.RemoveAsync(model);
+            await _unityOfWork.SaveAsync();
+        }
 
         // import to make Func<Task<T>> and not Func<T> because all Repository func are async
         public async Task<T> GetTAsync<T> (string cacheKey, Func<Task<T>> queryFromDb) where T : class

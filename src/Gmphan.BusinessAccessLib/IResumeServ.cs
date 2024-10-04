@@ -15,6 +15,10 @@ namespace Gmphan.BusinessAccessLib
         public Task UpdateResumeHeaderAsync(ResumeHeader obj);
         public Task UpdateResumeSummaryAsync(ResumeSummary obj);
         public Task CreateResumeExperienceAsync(ExperienceAdminView obj);
+        public Task<ResumeExperience> GetSingleResumeExperienceServAsync(int id);
+        public Task UpdateResumeExperienceServAsync(ResumeExperience model);
+        public Task DeleteResumeExperienceServAsync(ResumeExperience model);
+        
         
     }
 }

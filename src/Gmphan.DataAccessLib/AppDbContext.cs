@@ -27,6 +27,7 @@ namespace Gmphan.DataAccessLib
             base.OnModelCreating(modelBuilder);
 
             // Optionally configure the relationship explicitly, though EF usually handles this automatically
+            // cascading delete: deleting a ResumeExperience will automatically delete all related ResumeDescriptions.
             modelBuilder.Entity<ResumeExperience>()
                 .HasMany(re => re.Descriptions)
                 .WithOne(rd => rd.ResumeExperience)
