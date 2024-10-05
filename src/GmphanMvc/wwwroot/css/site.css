@@ -39,6 +39,14 @@ body {
   }
 }
 
+/* from Giang */
+.custom-shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); /* Darker shadow with 80% opacity */
+}
+body {
+  padding-top: 56px; /* Adjust this value based on the height of your header */
+}
+
 /* this keep the footer stays in the bottom 
 ** Since Bootswatch doesn't provide footer style, I have to come up with my own.
 ** This block of css code will only work within this site.css file.
@@ -73,3 +81,5 @@ body {
     flex-grow: 1;
 } */
 /* End - this keep the footer stays in the bottom */
+
+/* End from Giang */
