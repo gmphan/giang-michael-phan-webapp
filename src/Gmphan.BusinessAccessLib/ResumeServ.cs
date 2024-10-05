@@ -26,8 +26,8 @@ namespace Gmphan.BusinessAccessLib
         }
         public async Task<IEnumerable<ResumeExperience>> GetAllResumeExperienceAsync()
         {
-            // return await GetTAsync("resumeExperience", () => _unityOfWork.ResumeExperienceRepoUOW.GetAllAsync());
-            return await _unityOfWork.ResumeExperienceRepoUOW.GetAllResumeExperienceAsync();
+            return await GetTAsync("resumeExperience", () => _unityOfWork.ResumeExperienceRepoUOW.GetAllResumeExperienceAsync());
+            // return await _unityOfWork.ResumeExperienceRepoUOW.GetAllResumeExperienceAsync();
         }
 
         public async Task<ResumeHeader> GetLatestResumeHeaderAsync()
@@ -75,19 +75,21 @@ namespace Gmphan.BusinessAccessLib
                 }
             }
 
-            // await UpdateCache("resumeExperience");
+            await UpdateCache("resumeExperience");
             // Save all changes to the database
             await _unityOfWork.SaveAsync();
         }
-        public Task<ResumeExperience> GetSingleResumeExperienceServAsync(int id)
+        public async Task<ResumeExperience> GetSingleResumeExperienceServAsync(int id)
         {
-            return _unityOfWork.ResumeExperienceRepoUOW.GetSingleResumeExperienceAsync(id);
+            return await GetTAsync("resumeExperience", () => _unityOfWork.ResumeExperienceRepoUOW.GetSingleResumeExperienceAsync(id));
+            // return _unityOfWork.ResumeExperienceRepoUOW.GetSingleResumeExperienceAsync(id);
         }
 
         public async Task UpdateResumeExperienceServAsync(ResumeExperience model)
         {
             // Retrieve the existing ResumeExperience from the database
-            var existingExperience = await _unityOfWork.ResumeExperienceRepoUOW.GetSingleResumeExperienceAsync(model.Id);
+            var existingExperience = await GetTAsync("resumeExperience", () => _unityOfWork.ResumeExperienceRepoUOW.GetSingleResumeExperienceAsync(model.Id));
+            // var existingExperience = await _unityOfWork.ResumeExperienceRepoUOW.GetSingleResumeExperienceAsync(model.Id);
 
             if (existingExperience == null)
             {
