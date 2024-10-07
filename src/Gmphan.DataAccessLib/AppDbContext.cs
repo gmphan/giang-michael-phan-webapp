@@ -21,6 +21,9 @@ namespace Gmphan.DataAccessLib
         public DbSet<ResumeSummary> ResumeSummaries { get; set; }
         public DbSet<ResumeExperience> ResumeExperiences { get; set; }
         public DbSet<ResumeDescription> ResumeDescriptions { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectTask> ProjectTasks { get; set; }
+        public DbSet<ProjectTaskActivity> ProjectTaskActivities { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // : IdentityDbContext require the line of code below to work
@@ -34,6 +37,16 @@ namespace Gmphan.DataAccessLib
                 .HasForeignKey(rd => rd.ResumeExperienceId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Project>()
+                .HasMany(pr => pr.ProjectTasks)
+                .WithOne(pt => pt.Project)
+                .HasForeignKey(pt => pt.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<ProjectTask>()
+                .HasMany(pt => pt.ProjectTaskActivities)
+                .WithOne(pta => pta.ProjectTask)
+                .HasForeignKey(pta => pta.ProjectTaskId)
+                .OnDelete(DeleteBehavior.Cascade);
             /***
             * HasData method to seed initial data into a database when the migrations are applied.
             * The _ = is typically used in C# to discard a result (though in this case, it may be unnecessary). 
