@@ -10,7 +10,6 @@
     
     @* this link is use for bootstrap icon frorm icons.getbootstrap.com *@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
-
 </head>
 <body>
     @{
@@ -67,10 +66,11 @@
                         </li>
                     </ul>
                     <partial name="_LoginPartial" /> 
-                    <form class="d-flex">
+                    <!--Remove search box for now since I have no use for it, yet-->
+                    @* <form class="d-flex">
                         <input class="form-control me-sm-2" type="search" placeholder="Search">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                    </form> *@
                 </div>
             </div>
         </nav>
