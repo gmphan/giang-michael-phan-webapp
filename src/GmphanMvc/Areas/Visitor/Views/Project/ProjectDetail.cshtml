@@ -1,0 +1,57 @@
+@model Project3LayerView
+@{
+    ViewData["Title"] = "Project Detail";
+    var projectMain = Model.Project;
+    var tasks = Model.ProjectTasks;
+    var activities = Model.ProjectTaskActivities;
+}
+<div class="row justify-content-center">
+    <div class="col-lg-10 col-md-12">
+        <h2>Project Details</h2>
+
+        <h3>Project: @projectMain.ProjectName</h3>
+        <p>Description: @projectMain.ProjectDescription</p>
+        <p>Start Date: @projectMain.ProjectStartDate.ToShortDateString()</p>
+        <p>Due Date: @projectMain.ProjectDueDate.ToShortDateString()</p>
+
+        <h3>Tasks</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var task in tasks)
+                {
+                    <tr>
+                        <td>@task.ProjectTaskName</td>
+                        <td>@task.ProjectTaskDescription</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <h3>Activities</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Activity Description</th>
+                    <th>Task</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var activity in activities)
+                {
+                    <tr>
+                        <td>@activity.ActivityNote</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+

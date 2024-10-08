@@ -33,7 +33,7 @@ namespace Gmphan.UtilityLib
                                          .SetAbsoluteExpiration(TimeSpan.FromHours(6)); //Cache will expire within 6 hours no matter what.
                 
                 // Set data to cache
-                _memoryCache.Set(cacheKey, cacheEntryOptions);
+                _memoryCache.Set(cacheKey, result, cacheEntryOptions);
             }
             else
             {
@@ -41,12 +41,12 @@ namespace Gmphan.UtilityLib
             }
             return result;
         }
-        public async Task UpdateCache<T>(string cacheKey, Func<Task<T>> getRecordFromDb) where T : class
+        public async Task UpdateCacheAsync<T>(string cacheKey, Func<Task<T>> getRecordFromDb) where T : class
         {
             _memoryCache.Remove(cacheKey);
             if(!_memoryCache.TryGetValue(cacheKey, out T result))
             {
-                _logger.LogInformation("Querying data from database.");
+                _logger.LogInformation($"Updating MemoryCache for: {cacheKey}");
 
                 // Data was not found in cache, retreive data from database
                 result = await getRecordFromDb();
@@ -57,7 +57,7 @@ namespace Gmphan.UtilityLib
                                          .SetAbsoluteExpiration(TimeSpan.FromHours(6)); //Cache will expire within 6 hours no matter what.
                 
                 // Set data to cache
-                _memoryCache.Set(cacheKey, cacheEntryOptions);
+                _memoryCache.Set(cacheKey, result, cacheEntryOptions);
             }
             else
             {

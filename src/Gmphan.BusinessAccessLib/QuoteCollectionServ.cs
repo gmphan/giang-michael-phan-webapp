@@ -68,7 +68,7 @@ namespace Gmphan.BusinessAccessLib
                                          .SetAbsoluteExpiration(TimeSpan.FromHours(6)); //Cache will expire within 6 hours no matter what.
                 
                 // Set data to cache
-                _memoryCache.Set(cacheKey, cacheEntryOptions);
+                _memoryCache.Set(cacheKey, result, cacheEntryOptions);
             }
             else
             {

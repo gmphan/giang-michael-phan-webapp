@@ -36,7 +36,12 @@
                             <td>@proj.ProjectStartDate</td>
                             <td>@proj.ProjectDueDate</td>
                             <td>@proj.ProjectCompletedDate</td>
-                            <td>link to detail</td>
+                            <td><button type="button" class="btn btn-link">
+                                <a  asp-area="Visitor" asp-controller="Project" asp-action="ProjectDetail" asp-route-id="@proj.Id" class="btn btn-primary mx-2">
+                                    View Detail
+                                </a>
+                                </button>
+                            </td>
                         </tr>
                     }
                     

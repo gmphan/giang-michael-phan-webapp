@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Gmphan.BusinessAccessLib;
 using Gmphan.ModelLib;
+using Gmphan.ModelLib.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -23,9 +24,11 @@ namespace GmphanMvc.Areas.Admin.Controllers
             _projectServ = projectServ;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            ProjectView projectView = new ProjectView();
+            projectView.Projects  = (List<Project>)await _projectServ.GetAllProjectServAsync();
+            return View(projectView);
         }
         public async Task<IActionResult> Create()
         {

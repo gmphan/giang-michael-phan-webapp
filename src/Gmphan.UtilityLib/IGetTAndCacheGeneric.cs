@@ -8,6 +8,6 @@ namespace Gmphan.UtilityLib
     public interface IGetTAndCacheGeneric
     {
         public Task<T> GetTAsync<T>(string cacheKey, Func<Task<T>> getRecordFromDb) where T : class;
-        public Task UpdateCache<T>(string cacheKey, Func<Task<T>> getRecordFromDb) where T : class;
+        public Task UpdateCacheAsync<T>(string cacheKey, Func<Task<T>> getRecordFromDb) where T : class;
     }
 }

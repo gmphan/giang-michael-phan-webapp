@@ -47,6 +47,19 @@ body {
   padding-top: 56px; /* Adjust this value based on the height of your header */
 }
 
+table.table-hover td {
+  border-right: 1px solid lightgray; /* Adds light gray border between columns */
+}
+
+table.table-hover th {
+  border-right: 1px solid lightgray; /* Optional: Adds border to the header columns */
+}
+
+table.table-hover td:last-child, 
+table.table-hover th:last-child {
+  border-right: none; /* Remove border from the last column */
+}
+
 /* this keep the footer stays in the bottom 
 ** Since Bootswatch doesn't provide footer style, I have to come up with my own.
 ** This block of css code will only work within this site.css file.

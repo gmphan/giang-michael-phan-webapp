@@ -31,6 +31,16 @@ namespace GmphanMvc.Areas.Visitor.Controllers
             return View(projectView);
         }
 
+        public async Task<IActionResult> ProjectDetail(int id)
+        {
+            Project3LayerView project3LayerView = await _projectServ.Get3LayerProjectServAsync(id);
+            if (project3LayerView == null)
+            {
+                return NotFound();
+            }
+            return View(project3LayerView);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
