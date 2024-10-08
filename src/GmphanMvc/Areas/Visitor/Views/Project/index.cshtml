@@ -1,26 +1,47 @@
+@model ProjectView
+@{
+    ViewData["Title"] = "Projects";
+    var projects = Model.Projects;
+    var tableActive = "table-primary";
+}
 <div class="row justify-content-center">
     <div class="col-lg-10 col-md-12">
         <div class="card mb-3">
-        <h3 class="card-header">Projects</h3>
-        <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-        </div>
-        <div class="card-body">
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-        <div class="card-body">
-            <a asp-area="Admin" asp-controller="ProjectAdmin"  asp-action="index" class="btn btn-primary mx-2"> 
-                Manage Projects
-            </a>
-            @* <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a> *@
-        </div>
+            <h1 class="card-header">Projects</h1>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Completed Date</th>
+                    <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var proj in projects)
+                    {
+                        @if(tableActive == "table-primary")
+                        {
+                            tableActive = "table-secondary";
+                        }
+                        else
+                        {
+                            tableActive = "table-primary";
+                        }
+                        <tr class="@(tableActive == "table-primary" ? "table-primary" : "table-secondary")">
+                            <td>@proj.ProjectName</td>
+                            <td>@proj.ProjectState</td>
+                            <td>@proj.ProjectStartDate</td>
+                            <td>@proj.ProjectDueDate</td>
+                            <td>@proj.ProjectCompletedDate</td>
+                            <td>link to detail</td>
+                        </tr>
+                    }
+                    
+                </tbody>
+            </table>
             <div class="card-footer text-muted">
                 footer
             </div>

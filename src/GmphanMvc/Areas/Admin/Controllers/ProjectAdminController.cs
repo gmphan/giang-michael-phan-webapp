@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Gmphan.BusinessAccessLib;
 using Gmphan.ModelLib;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,10 +14,13 @@ namespace GmphanMvc.Areas.Admin.Controllers
     public class ProjectAdminController : Controller
     {
         private readonly ILogger<ProjectAdminController> _logger;
+        private readonly IProjectServ _projectServ;
 
-        public ProjectAdminController(ILogger<ProjectAdminController> logger)
+        public ProjectAdminController(ILogger<ProjectAdminController> logger
+                                    , IProjectServ projectServ)
         {
             _logger = logger;
+            _projectServ = projectServ;
         }
 
         public IActionResult Index()
@@ -31,6 +35,15 @@ namespace GmphanMvc.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Project obj)
         {
+            if (ModelState.IsValid)
+            {
+                obj.ProjectStartDate = DateTime.SpecifyKind(obj.ProjectStartDate, DateTimeKind.Utc);
+                obj.ProjectDueDate = DateTime.SpecifyKind(obj.ProjectDueDate, DateTimeKind.Utc);    
+                obj.CreatedDate = DateTime.UtcNow;
+                obj.UpdatedDate = obj.CreatedDate;
+                await _projectServ.AddNewProjectServAsync(obj);
+                return RedirectToAction("Index");
+            }
             return View();
         }
 

@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Gmphan.ModelLib\Gmphan.ModelLib.csproj" />
     <ProjectReference Include="..\Gmphan.DataAccessLib\Gmphan.DataAccessLib.csproj" />
+    <ProjectReference Include="..\Gmphan.UtilityLib\Gmphan.UtilityLib.csproj" />
   </ItemGroup>
 
   <ItemGroup>

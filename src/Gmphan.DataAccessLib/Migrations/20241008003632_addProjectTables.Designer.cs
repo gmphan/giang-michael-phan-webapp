@@ -3,6 +3,7 @@ using System;
 using Gmphan.DataAccessLib;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Gmphan.DataAccessLib.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241008003632_addProjectTables")]
+    partial class addProjectTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +36,7 @@ namespace Gmphan.DataAccessLib.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime?>("ProjectCompletedDate")
+                    b.Property<DateTime>("ProjectCompletedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ProjectDescription")
@@ -75,7 +78,7 @@ namespace Gmphan.DataAccessLib.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("ProjectTaskCompletedDate")
+                    b.Property<DateTime>("ProjectTaskCompletedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ProjectTaskDescription")

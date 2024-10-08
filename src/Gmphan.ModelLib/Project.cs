@@ -29,9 +29,8 @@ namespace Gmphan.ModelLib
         [Required]
         [DisplayName("Due Date")]
         public DateTime ProjectDueDate { get; set; }
-        [Required]
         [DisplayName("Completed Date")]
-        public DateTime ProjectCompletedDate { get; set; }
+        public DateTime? ProjectCompletedDate { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
     }

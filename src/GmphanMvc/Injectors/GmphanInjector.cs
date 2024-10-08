@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Gmphan.BusinessAccessLib;
 using Gmphan.DataAccessLib;
 using Gmphan.DataAccessLib.Repository;
+using Gmphan.UtilityLib;
 using Microsoft.EntityFrameworkCore;
 
 namespace GmphanMvc.Injectors
@@ -19,6 +20,10 @@ namespace GmphanMvc.Injectors
             services.AddScoped<IUnityOfWork, UnityOfWork>();
             services.AddScoped<IQuoteCollectionServ, QuoteCollectionServ>();
             services.AddScoped<IResumeServ, ResumeServ>();
+            services.AddScoped<IProjectServ, ProjectServ>();
+
+            // Add Utilities
+            services.AddScoped<IGetTAndCacheGeneric, GetTAndCacheGeneric>();
             // services// Seed the admin user
             services.AddScoped<ISeedAdminIdentityServ, SeedAdminIdentityServ>();
         }
