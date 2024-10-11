@@ -1,7 +1,7 @@
-@model ProjectView
+@model List<ProjectView>
 @{
     ViewData["Title"] = "Project Admin";
-    var projects = Model.Projects;
+    var projects = Model;
     var tableActive = "table-primary";
 }
 <div class="row justify-content-center">
@@ -44,7 +44,11 @@
                             <td>@proj.ProjectStartDate</td>
                             <td>@proj.ProjectDueDate</td>
                             <td>@proj.ProjectCompletedDate</td>
-                            <td>Activity</td>
+                            <td>
+                                <a  asp-area="Admin" asp-controller="ProjectAdmin" asp-action="Activity" asp-route-id="@proj.Id" class="btn btn-primary mx-2">
+                                    Activity
+                                </a>
+                            </td>
                         </tr>
                     }
                     

@@ -10,6 +10,9 @@ namespace Gmphan.ModelLib.ViewModels
         public Project Project { get; set; }
         public List<ProjectTask> ProjectTasks { get; set; }
         public List<ProjectTaskActivity> ProjectTaskActivities { get; set; }
+
+        // Add this to capture the selected task ID
+        public int SelectedTaskId { get; set; }
         public Project3LayerView()
         {
             Project = new Project();

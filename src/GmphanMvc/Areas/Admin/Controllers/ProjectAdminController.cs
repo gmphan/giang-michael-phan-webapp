@@ -26,9 +26,9 @@ namespace GmphanMvc.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ProjectView projectView = new ProjectView();
-            projectView.Projects  = (List<Project>)await _projectServ.GetAllProjectServAsync();
-            return View(projectView);
+            List<ProjectView> projectViews = new List<ProjectView>();
+            projectViews = await _projectServ.GetProjectViewListServAsync();
+            return View(projectViews);
         }
         public async Task<IActionResult> Create()
         {
@@ -49,6 +49,16 @@ namespace GmphanMvc.Areas.Admin.Controllers
             }
             return View();
         }
+
+        // public async Task<IActionResult> Activity(int id)
+        // {
+        //     Project3LayerView project3LayerView = await _projectServ.Get3LayerProjectServAsync(id);
+        //     if (project3LayerView == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     return View(project3LayerView);
+        // }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

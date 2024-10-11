@@ -26,19 +26,20 @@ namespace GmphanMvc.Areas.Visitor.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ProjectView projectView = new ProjectView();
-            projectView.Projects  = (List<Project>)await _projectServ.GetAllProjectServAsync();
-            return View(projectView);
+            List<ProjectView> projectViews = new List<ProjectView>();
+            projectViews = await _projectServ.GetProjectViewListServAsync();
+            return View(projectViews);
         }
 
         public async Task<IActionResult> ProjectDetail(int id)
         {
-            Project3LayerView project3LayerView = await _projectServ.Get3LayerProjectServAsync(id);
-            if (project3LayerView == null)
+            // Project3LayerView project3LayerView = await _projectServ.Get3LayerProjectServAsync(id);
+            ProjectView projectView3Layer = await _projectServ.GetProjectView3LayerServAsync(id);
+            if (projectView3Layer == null)
             {
                 return NotFound();
             }
-            return View(project3LayerView);
+            return View(projectView3Layer);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

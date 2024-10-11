@@ -30,9 +30,61 @@ namespace Gmphan.BusinessAccessLib
             await _unityOfWork.SaveAsync();
             await _getTAndCacheGeneric.UpdateCacheAsync("project", _unityOfWork.ProjectRepoUOW.GetAllAsync);
         }
-        public async Task<IEnumerable<Project>> GetAllProjectServAsync()
+        public async Task<List<ProjectView>> GetProjectViewListServAsync()
         {
-            return await _getTAndCacheGeneric.GetTAsync("project", _unityOfWork.ProjectRepoUOW.GetAllAsync);
+            IEnumerable<Project> projects =await _getTAndCacheGeneric.GetTAsync("project", _unityOfWork.ProjectRepoUOW.GetAllAsync);
+            return projects.Select(p => new ProjectView
+            {
+                Id = p.Id,
+                ProjectName = p.ProjectName,
+                ProjectDescription = p.ProjectDescription,
+                ProjectState = p.ProjectState,
+                ProjectStartDate = p.ProjectStartDate,
+                ProjectDueDate = p.ProjectDueDate,
+                ProjectCompletedDate = p.ProjectCompletedDate,
+                ProjectTasks = p.ProjectTasks?.Select(pt => new ProjectTaskView
+                {
+                    // Map properties from ProjectTask to ProjectTaskView here
+                    // For example: Id = pt.Id, TaskName = pt.TaskName, etc.
+                }).ToList() ?? new List<ProjectTaskView>()
+            }).ToList();
+        }
+         public async Task<ProjectView> GetProjectView3LayerServAsync(int id)
+        {
+            Project eagerLoadProject = await _getTAndCacheGeneric.GetTAsync("project", () => _unityOfWork.ProjectRepoUOW.Get3LayerProjectRepo(id));
+            if (eagerLoadProject == null)
+            {
+                return null;
+            }
+            // Map the Project entity to projectView
+            var projectView = new ProjectView
+            {
+                Id = eagerLoadProject.Id,
+                ProjectName = eagerLoadProject.ProjectName,
+                ProjectDescription = eagerLoadProject.ProjectDescription,
+                ProjectState = eagerLoadProject.ProjectState,
+                ProjectStartDate = eagerLoadProject.ProjectStartDate,
+                ProjectDueDate = eagerLoadProject.ProjectDueDate,
+                ProjectCompletedDate = eagerLoadProject.ProjectCompletedDate,
+                ProjectTasks = eagerLoadProject.ProjectTasks.Select(task => new ProjectTaskView
+                {
+                    Id = task.Id,
+                    ProjectTaskName = task.ProjectTaskName,
+                    ProjectTaskDescription = task.ProjectTaskDescription,
+                    ProjectTaskState = task.ProjectTaskState,
+                    ProjectTaskStartDate = task.ProjectTaskStartDate,
+                    ProjectTaskDueDate = task.ProjectTaskDueDate,
+                    ProjectTaskCompletedDate = task.ProjectTaskCompletedDate,
+                    ProjectTaskActivities = task.ProjectTaskActivities.Select(activity => new ProjectTaskActivityView
+                    {
+                        Id = activity.Id,
+                        ActivityNote = activity.ActivityNote,
+                        CreatedDate = activity.CreatedDate
+                    }).ToList()
+                }).ToList()
+            };
+
+            return projectView;
         }
         public async Task<Project3LayerView> Get3LayerProjectServAsync(int id)
         {

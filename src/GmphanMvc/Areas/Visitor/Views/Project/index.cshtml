@@ -1,7 +1,7 @@
-@model ProjectView
+@model List<ProjectView>
 @{
     ViewData["Title"] = "Projects";
-    var projects = Model.Projects;
+    var projects = Model;
     var tableActive = "table-primary";
 }
 <div class="row justify-content-center">

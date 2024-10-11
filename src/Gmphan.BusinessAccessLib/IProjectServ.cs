@@ -10,7 +10,9 @@ namespace Gmphan.BusinessAccessLib
     public interface IProjectServ
     {
         public Task AddNewProjectServAsync(Project obj);
-        public Task<IEnumerable<Project>> GetAllProjectServAsync();
-        public Task<Project3LayerView> Get3LayerProjectServAsync(int id);
+    
+        public Task<List<ProjectView>> GetProjectViewListServAsync();
+        public Task<ProjectView> GetProjectView3LayerServAsync(int id);
+        public Task<Project3LayerView> Get3LayerProjectServAsync(int id); // will remove
     }
 }
