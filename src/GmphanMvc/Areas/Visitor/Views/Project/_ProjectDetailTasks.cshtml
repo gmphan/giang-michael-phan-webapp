@@ -1,0 +1,47 @@
+
+@model ProjectView
+@{
+    var tasks = Model.ProjectTasks;
+    @* var activities = Model.ProjectTaskActivities; *@
+}
+<div class="card-body">
+    <!-- Task Selection Dropdown -->
+    <div class="mb-3">
+        <label for="taskSelect">Select Task:</label>
+        <select id="taskSelect" class="form-select">
+            <option value="">---Select a Task---</option>
+            @foreach(var task in tasks)
+            {
+                <option value="@task.Id"
+                    data-task-name="@task.ProjectTaskName"
+                    data-task-description="@task.ProjectTaskDescription"
+                    data-task-state="@task.ProjectTaskState"
+                    data-start-date="@task.ProjectTaskStartDate.ToString("MM/dd/yyyy")"
+                    data-due-date="@task.ProjectTaskDueDate.ToString("MM/dd/yyyy")"
+                    data-completed-date="@task.ProjectTaskCompletedDate?.ToString("MM/dd/yyyy")"
+                    >
+                    @task.ProjectTaskName
+                </option>
+                <!-- Store task activities in a hidden script tag as a JSON object. 
+                    DO NOT directly add data-activities to option above, the JSON will not work.
+                -->
+                <script id="task-activities-@task.Id" type="application/json">
+                    @Html.Raw(System.Text.Json.JsonSerializer.Serialize(task.ProjectTaskActivities.Select(a => new { a.ActivityNote, CreatedDate = a.CreatedDate.ToString("MM/dd/yyyy") }).ToList()))
+                </script>
+            }
+        </select>
+
+         <!-- Task Details and Activities -->
+        <div id="taskDetails" class="mb-3" style="">
+            <h4 id="taskName"></h4>
+            <p id="taskDescription"></p>
+            <p><strong>Task State:</strong> <span id="taskState"></span></p>
+            <p><strong>Start Date:</strong> <span id="startDate"></span></p>
+            <p><strong>Due Date:</strong> <span id="dueDate"></span></p>
+            <p><strong>Completed Date:</strong> <span id="completedDate"></span></p>
+
+            <h5>Activities</h5>
+            <ul id="activitiesList" class="list-group"></ul>
+        </div>
+    </div>
+</div>
