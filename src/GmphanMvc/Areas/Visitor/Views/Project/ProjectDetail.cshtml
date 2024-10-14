@@ -7,13 +7,16 @@
 }
 <div class="row justify-content-center">
     <div class="col-lg-10 col-md-12">
-        <h1 class="card-header">Project Details</h1>
-        <div>
-            @Html.Partial("_ProjectDetailTopLayer", projectMain)
+        <div class="card mb-3">
+            <h1 class="card-header">Project Details</h1>
+            <div>
+                @Html.Partial("_ProjectDetailTopLayer", projectMain)
+            </div>
+            <div>
+                @Html.Partial("_ProjectDetailTasks", Model)
+            </div>
         </div>
-        <div>
-            @Html.Partial("_ProjectDetailTasks", Model)
-        </div>
+        
     </div>
 </div>
 
@@ -30,11 +33,11 @@
 
                 // Update task details
                 document.getElementById('taskName').textContent = selectedOption.getAttribute('data-task-name');
-                document.getElementById('taskDescription').textContent = selectedOption.getAttribute('data-task-description');
-                document.getElementById('taskState').textContent = selectedOption.getAttribute('data-task-state');
-                document.getElementById('startDate').textContent = selectedOption.getAttribute('data-start-date');
-                document.getElementById('dueDate').textContent = selectedOption.getAttribute('data-due-date');
-                document.getElementById('completedDate').textContent = selectedOption.getAttribute('data-completed-date');
+                document.getElementById('taskDescription').value = selectedOption.getAttribute('data-task-description'); // Set value for textarea
+                document.getElementById('taskState').value = selectedOption.getAttribute('data-task-state');
+                document.getElementById('startDate').value = selectedOption.getAttribute('data-start-date');
+                document.getElementById('dueDate').value = selectedOption.getAttribute('data-due-date');
+                document.getElementById('completedDate').value = selectedOption.getAttribute('data-completed-date');
 
                 
                 // Retrieve the JSON from the hidden script tag

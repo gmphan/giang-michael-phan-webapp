@@ -1,8 +1,9 @@
 @model ProjectView
 <div class="card-body">
     <div class="card mb-3">
-        <form method="post">
-                <div class="p-1 mt-2">
+
+        <form>
+            <div class="p-1 mt-2">
                 <!-- Row for ProjectName with label on the left and input filling the rest of the space -->
                 <div class="row mb-1 p-0">
                     <div class="d-flex align-items-center">
@@ -78,22 +79,8 @@
                     <span asp-validation-for="ProjectDescription" class="text-danger"></span>
                 </div>
             </div>
-            <div class="p-1">
-
-            </div>
             
-            <div class="row mb-3 p-1">
-                <div class="col-md-12 d-flex justify-content-center">
-                    <div class="col-md-4">
-                        <button type="submit" class="btn btn-success form-control">Create</button>
-                    </div>
-                    <div class="col-md-4 ms-2">
-                        <a asp-area="Admin" asp-controller="ProjectAdmin" asp-action="Index" class="btn btn-info form-control">
-                            Back to Project Admin
-                        </a>
-                    </div>
-                </div>
-            </div>
+            
             
         </form>
     </div>

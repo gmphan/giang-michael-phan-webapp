@@ -1,8 +1,9 @@
-@model Project
+@model ProjectView
 <div class="card-body">
     <div class="card mb-3">
-        <form method="post">
-                <div class="p-1 mt-2">
+        <form id="topLayerEdit" asp-action="EditTopLayer" asp-controller="ProjectAdmin" method="post">
+            <input asp-for="Id" hidden />
+            <div class="p-1 mt-2">
                 <!-- Row for ProjectName with label on the left and input filling the rest of the space -->
                 <div class="row mb-1 p-0">
                     <div class="d-flex align-items-center">
@@ -85,12 +86,9 @@
             <div class="row mb-3 p-1">
                 <div class="col-md-12 d-flex justify-content-center">
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-success form-control">Create</button>
-                    </div>
-                    <div class="col-md-4 ms-2">
-                        <a asp-area="Admin" asp-controller="ProjectAdmin" asp-action="Index" class="btn btn-info form-control">
-                            Back to Project Admin
-                        </a>
+                        <button type="submit" class="btn btn-success form-control">
+                            <i class="bi bi-floppy"></i>  Save
+                        </button>
                     </div>
                 </div>
             </div>
@@ -98,3 +96,5 @@
         </form>
     </div>
 </div>
+
+

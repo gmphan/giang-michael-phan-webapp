@@ -31,6 +31,9 @@ namespace Gmphan.ModelLib
         public DateTime ProjectDueDate { get; set; }
         [DisplayName("Completed Date")]
         public DateTime? ProjectCompletedDate { get; set; }
+        // New field for project summary
+        [DisplayName("Summary")]
+        public string? ProjectSummary { get; set; } 
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
     }

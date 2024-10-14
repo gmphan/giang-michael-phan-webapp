@@ -42,6 +42,7 @@ namespace Gmphan.BusinessAccessLib
                 ProjectStartDate = p.ProjectStartDate,
                 ProjectDueDate = p.ProjectDueDate,
                 ProjectCompletedDate = p.ProjectCompletedDate,
+                ProjectSummary = p.ProjectSummary,
                 ProjectTasks = p.ProjectTasks?.Select(pt => new ProjectTaskView
                 {
                     // Map properties from ProjectTask to ProjectTaskView here
@@ -66,6 +67,7 @@ namespace Gmphan.BusinessAccessLib
                 ProjectStartDate = eagerLoadProject.ProjectStartDate,
                 ProjectDueDate = eagerLoadProject.ProjectDueDate,
                 ProjectCompletedDate = eagerLoadProject.ProjectCompletedDate,
+                ProjectSummary = eagerLoadProject.ProjectSummary,
                 ProjectTasks = eagerLoadProject.ProjectTasks.Select(task => new ProjectTaskView
                 {
                     Id = task.Id,
@@ -86,19 +88,24 @@ namespace Gmphan.BusinessAccessLib
 
             return projectView;
         }
-        public async Task<Project3LayerView> Get3LayerProjectServAsync(int id)
+
+        public async Task UpdateTopLayerEditServAsync(ProjectView obj)
         {
-            Project eagerLoadProject = await _getTAndCacheGeneric.GetTAsync("project", () => _unityOfWork.ProjectRepoUOW.Get3LayerProjectRepo(id));
-            if (eagerLoadProject == null)
+            Project projectTopLayer = new Project
             {
-                return null;
-            }
-            return new Project3LayerView
-            {
-                Project = eagerLoadProject,
-                ProjectTasks = eagerLoadProject.ProjectTasks.ToList(),
-                ProjectTaskActivities = eagerLoadProject.ProjectTasks.SelectMany(pt => pt.ProjectTaskActivities).ToList()
+                Id = obj.Id,
+                ProjectName = obj.ProjectName,
+                ProjectDescription = obj.ProjectDescription,
+                ProjectState = obj.ProjectState,
+                ProjectStartDate = DateTime.SpecifyKind(obj.ProjectStartDate, DateTimeKind.Utc),
+                ProjectCompletedDate = obj.ProjectCompletedDate.HasValue
+                    ? DateTime.SpecifyKind(obj.ProjectCompletedDate.Value, DateTimeKind.Utc)
+                    : (DateTime?)null,
+                UpdatedDate = DateTime.UtcNow
             };
+            await _unityOfWork.ProjectRepoUOW.UpdateAsync(projectTopLayer);
+            await _unityOfWork.SaveAsync();
+            await _getTAndCacheGeneric.UpdateCacheAsync("project", _unityOfWork.ProjectRepoUOW.GetAllAsync);
         }
 
     }

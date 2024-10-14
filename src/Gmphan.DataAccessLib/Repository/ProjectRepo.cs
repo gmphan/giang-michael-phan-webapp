@@ -23,5 +23,9 @@ namespace Gmphan.DataAccessLib.Repository
                         .SingleOrDefaultAsync(p => p.Id == id);            // Assuming you're fetching by the Project's ID
             return project;
         }
+        public async Task UpdateAsync(Project obj)
+        {
+            _db.Projects.Update(obj);
+        }
     }
 }

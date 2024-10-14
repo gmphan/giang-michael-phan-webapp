@@ -13,6 +13,6 @@ namespace Gmphan.BusinessAccessLib
     
         public Task<List<ProjectView>> GetProjectViewListServAsync();
         public Task<ProjectView> GetProjectView3LayerServAsync(int id);
-        public Task<Project3LayerView> Get3LayerProjectServAsync(int id); // will remove
+        public Task UpdateTopLayerEditServAsync(ProjectView obj);
     }
 }
