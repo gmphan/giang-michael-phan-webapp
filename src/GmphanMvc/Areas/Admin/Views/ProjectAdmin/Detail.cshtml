@@ -1,0 +1,46 @@
+@model ProjectDetailView
+<div class="row justify-content-center">
+    <div class="col-lg-10 col-md-12">
+        <div class="card mb-3">
+            <h2 class="card-header">Project Activity</h2>
+            <div>
+                @Html.Partial("_DetailMain", Model)
+            </div>
+            <div id="taskDetailSection">
+                <!-- Task details will be loaded here dynamically -->
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Listen for changes in the task dropdown
+            $('#taskDropdown').change(function () {
+                var selectedTaskId = $(this).val(); // Get the selected task ID
+
+                if (selectedTaskId) {
+                    // Make an AJAX call to the controller
+                    $.ajax({
+                        url: '/Admin/ProjectAdmin/_TaskDetail/' + selectedTaskId,  // Controller action URL
+                        type: 'GET',
+                        //data: { selectedTaskId },  // Pass the selected task ID
+                        success: function (result) {
+                            // Replace the section with the result (partial view or data)
+                            $('#taskDetailSection').html(result);
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("Error occurred: " + error);
+                        }
+                    });
+                } else {
+                    // Handle the case when no task is selected (optional)
+                    $('#taskActivitySection').html('<p>Please select a task.</p>');
+                }
+            });
+        });
+    </script>
+}

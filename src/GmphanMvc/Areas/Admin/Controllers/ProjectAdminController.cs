@@ -50,6 +50,22 @@ namespace GmphanMvc.Areas.Admin.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Detail(int id)
+        {
+            ProjectDetailView projectDetailView = await _projectServ.GetProjectDetailViewServAsync(id);
+            if (projectDetailView == null)
+            {
+                return NotFound();
+            }
+            return View(projectDetailView);
+        }
+
+        public async Task<IActionResult> _TaskDetail(int id)
+        {
+            ProjectTaskDetailView projectTaskDetailView = await _projectServ.GetProjectTaskDetailViewServAsync(id);
+            return PartialView("_TaskDetail", projectTaskDetailView);
+        }
+
         public async Task<IActionResult> Activity(int id)
         {
             // Project3LayerView project3LayerView = await _projectServ.Get3LayerProjectServAsync(id);
@@ -63,11 +79,11 @@ namespace GmphanMvc.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditTopLayer(ProjectView obj)
+        public async Task<IActionResult> _ActivityMain(ProjectView obj)
         {
             if (ModelState.IsValid)
             {
-                await _projectServ.UpdateTopLayerEditServAsync(obj);
+                await _projectServ.UpdateActivityMainServAsync(obj);
                 return PartialView("_ActivityMain");
             }
             return PartialView(obj);

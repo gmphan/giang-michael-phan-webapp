@@ -50,6 +50,56 @@ namespace Gmphan.BusinessAccessLib
                 }).ToList() ?? new List<ProjectTaskView>()
             }).ToList();
         }
+
+        public async Task<ProjectDetailView> GetProjectDetailViewServAsync(int id)
+        {
+            Project project = await _getTAndCacheGeneric.GetTAsync("project", () => _unityOfWork.ProjectRepoUOW.Get3LayerProjectRepo(id));
+            if (project == null)
+            {
+                return null;
+            }
+            ProjectDetailView projectDetailView = new ProjectDetailView
+            {
+                Id = project.Id,
+                ProjectName = project.ProjectName,
+                ProjectDescription = project.ProjectDescription,
+                ProjectState = project.ProjectState,
+                ProjectStartDate = project.ProjectStartDate,
+                ProjectDueDate = project.ProjectDueDate,
+                ProjectCompletedDate = project.ProjectCompletedDate,
+                ProjectSummary = project.ProjectSummary,
+                ProjectTasks = project.ProjectTasks.Select(task => new ProjectTaskView
+                {
+                    Id = task.Id,
+                    ProjectTaskName = task.ProjectTaskName
+                }).ToList()
+            };
+            return projectDetailView;
+        }
+
+        public async Task<ProjectTaskDetailView> GetProjectTaskDetailViewServAsync(int id)
+        {
+            ProjectTask projectTask = await _getTAndCacheGeneric.GetTAsync($"projectTask{id}", () => _unityOfWork.ProjectTaskRepoUOW.GetProjectTaskDetailRepo(id));
+            ProjectTaskDetailView projectTaskDetailView = new ProjectTaskDetailView
+            {
+                Id = projectTask.Id,
+                ProjectTaskName = projectTask.ProjectTaskName,
+                ProjectTaskDescription = projectTask.ProjectTaskDescription,
+                ProjectTaskState = projectTask.ProjectTaskState,
+                ProjectTaskStartDate = projectTask.ProjectTaskStartDate,
+                ProjectTaskDueDate = projectTask.ProjectTaskDueDate,
+                ProjectTaskCompletedDate = projectTask.ProjectTaskCompletedDate,
+                ProjectTaskActivities = projectTask.ProjectTaskActivities.Select(
+                    activity => new ProjectTaskActivityView
+                    {
+                        Id = activity.Id,
+                        ActivityNote = activity.ActivityNote,
+                        CreatedDate = activity.CreatedDate
+                    }
+                ).ToList()
+            };
+            return projectTaskDetailView;
+        }
          public async Task<ProjectView> GetProjectView3LayerServAsync(int id)
         {
             Project eagerLoadProject = await _getTAndCacheGeneric.GetTAsync("project", () => _unityOfWork.ProjectRepoUOW.Get3LayerProjectRepo(id));
@@ -80,8 +130,8 @@ namespace Gmphan.BusinessAccessLib
                     ProjectTaskActivities = task.ProjectTaskActivities.Select(activity => new ProjectTaskActivityView
                     {
                         Id = activity.Id,
-                        ActivityNote = activity.ActivityNote,
-                        CreatedDate = activity.CreatedDate
+                        ActivityNote = activity.ActivityNote
+                        // CreatedDate = activity.CreatedDate
                     }).ToList()
                 }).ToList()
             };
@@ -89,12 +139,13 @@ namespace Gmphan.BusinessAccessLib
             return projectView;
         }
 
-        public async Task UpdateTopLayerEditServAsync(ProjectView obj)
+        public async Task UpdateActivityMainServAsync(ProjectView obj)
         {
-            Project projectTopLayer = new Project
+            Project activityMain = new Project
             {
                 Id = obj.Id,
                 ProjectName = obj.ProjectName,
+                ProjectSummary = obj.ProjectSummary,
                 ProjectDescription = obj.ProjectDescription,
                 ProjectState = obj.ProjectState,
                 ProjectStartDate = DateTime.SpecifyKind(obj.ProjectStartDate, DateTimeKind.Utc),
@@ -103,7 +154,7 @@ namespace Gmphan.BusinessAccessLib
                     : (DateTime?)null,
                 UpdatedDate = DateTime.UtcNow
             };
-            await _unityOfWork.ProjectRepoUOW.UpdateAsync(projectTopLayer);
+            await _unityOfWork.ProjectRepoUOW.UpdateAsync(activityMain);
             await _unityOfWork.SaveAsync();
             await _getTAndCacheGeneric.UpdateCacheAsync("project", _unityOfWork.ProjectRepoUOW.GetAllAsync);
         }

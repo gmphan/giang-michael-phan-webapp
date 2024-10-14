@@ -30,7 +30,7 @@
                                     DO NOT directly add data-activities to option above, the JSON will not work.
                                 -->
                                 <script id="task-activities-@task.Id" type="application/json">
-                                    @Html.Raw(System.Text.Json.JsonSerializer.Serialize(task.ProjectTaskActivities.Select(a => new { a.ActivityNote, CreatedDate = a.CreatedDate.ToString("MM/dd/yyyy") }).ToList()))
+                                    @Html.Raw(System.Text.Json.JsonSerializer.Serialize(task.ProjectTaskActivities.Select(a => new { a.ActivityNote}).ToList())) //, CreatedDate = a.CreatedDate.ToString("MM/dd/yyyy") 
                                 </script>
                             }
                         </select>

@@ -12,7 +12,9 @@ namespace Gmphan.BusinessAccessLib
         public Task AddNewProjectServAsync(Project obj);
     
         public Task<List<ProjectView>> GetProjectViewListServAsync();
+        public Task<ProjectDetailView> GetProjectDetailViewServAsync(int id);
+        public Task<ProjectTaskDetailView> GetProjectTaskDetailViewServAsync(int id);
         public Task<ProjectView> GetProjectView3LayerServAsync(int id);
-        public Task UpdateTopLayerEditServAsync(ProjectView obj);
+        public Task UpdateActivityMainServAsync(ProjectView obj);
     }
 }

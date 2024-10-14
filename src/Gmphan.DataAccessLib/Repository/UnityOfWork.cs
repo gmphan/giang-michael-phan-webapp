@@ -14,6 +14,7 @@ namespace Gmphan.DataAccessLib.Repository
         public IResumeExperienceRepo ResumeExperienceRepoUOW { get; private set; }
         public IResumeDescriptionRepo ResumeDescriptionRepoUOW { get; private set; }
         public IProjectRepo ProjectRepoUOW { get; private set; }   
+        public IProjectTaskRepo ProjectTaskRepoUOW { get; private set; }
         public UnityOfWork(AppDbContext db)
         {
             _db = db;
@@ -23,6 +24,7 @@ namespace Gmphan.DataAccessLib.Repository
             ResumeExperienceRepoUOW = new ResumeExperienceRepo(_db);
             ResumeDescriptionRepoUOW = new ResumeDescriptionRepo(_db);
             ProjectRepoUOW = new ProjectRepo(_db);
+            ProjectTaskRepoUOW = new ProjectTaskRepo(_db);
         }
 
         public async Task SaveAsync()
