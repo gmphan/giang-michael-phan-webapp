@@ -2,7 +2,7 @@
 <div class="row justify-content-center">
     <div class="col-lg-10 col-md-12">
         <div class="card mb-3">
-            <h2 class="card-header">Project Activity</h2>
+            <h2 class="card-header">Project Detail</h2>
             <div>
                 @Html.Partial("_DetailMain", Model)
             </div>
@@ -15,7 +15,7 @@
 </div>
 
 @section Scripts{
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
     <script>
         $(document).ready(function () {
             // Listen for changes in the task dropdown
@@ -40,6 +40,33 @@
                     // Handle the case when no task is selected (optional)
                     $('#taskActivitySection').html('<p>Please select a task.</p>');
                 }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Bind click event to the button that triggers the modal
+            $('button[data-bs-target="#newTaskModal"]').click(function () {
+                // Clear any previous content in the modal
+                $('#newTaskModal .modal-body').html('Loading...');
+
+                // Make AJAX request to the controller to fetch the CreateTask partial view
+                $.ajax({
+                    url: '@Url.Action("_CreateTask", "ProjectAdmin")', // controller and action
+                    type: 'GET',
+                    success: function (result) {
+                        // Inject the returned HTML (Partial View) into the modal body
+                        $('#newTaskModal .modal-body').html(result);
+
+                        // Show the modal once the content is loaded
+                        $('#newTaskModal').modal('show');
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error: " + error);
+                        alert("Failed to load task creation form.");
+                    }
+                });
             });
         });
     </script>

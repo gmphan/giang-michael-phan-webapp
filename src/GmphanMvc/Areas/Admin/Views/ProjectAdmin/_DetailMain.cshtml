@@ -1,6 +1,6 @@
 @model ProjectDetailView
 <div class="card-body">
-    <div class="card mb-3 p-3">
+    <div class="card mb-3 p-3 border-info">
         <form id="topLayerEdit" asp-action="_ActivityMain" asp-controller="ProjectAdmin" method="post">
             <input asp-for="Id" hidden />
             <div class="p-1 mt-2">
@@ -15,7 +15,7 @@
             </div>           
             <div class="row mb-1 p-1">
                 <div class="d-flex align-items-center">
-                    <label asp-for="ProjectSummary" class="me-2" style="min-width: 150px;">Short Summary</label>
+                    <label asp-for="ProjectSummary" class="me-2" style="min-width: 150px;"></label>
                     <textarea asp-for="ProjectSummary" class="form-control flex-grow-1" rows="1" placeholder="Short Summary"></textarea>
                 </div>
                 <span asp-validation-for="ProjectSummary" class="text-danger"></span>
@@ -89,16 +89,18 @@
             <div class="row mb-3 p-1">
                 <div class="col-md-12 d-flex justify-content-center">
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-success form-control">
-                            <i class="bi bi-floppy"></i>  Save
+                        <button type="submit" class="btn btn-secondary form-control">
+                            <i class="bi bi-floppy"></i>  Update
                         </button>
                     </div>
                 </div>
             </div>
         </form>
+
+        <!--the Javascript is on the Detail page-->
         <form action="">
             <div class="">
-                <div class="row mb-1 p-0">
+                <div class="row mb-3 p-0">
                     <div class="d-flex align-items-center">
                         <label class="me-2" style="min-width: 150px;">Tasks</label>
                         <select class="form-select form-control flex-grow-1" id="taskDropdown">
@@ -114,6 +116,35 @@
                 </div>
             </div>
         </form>
+
+        <!-- Button to trigger modal -->
+        <div class="row mb-3 p-1">
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="col-md-4">
+                    <button type="button" title="Add new task" class="btn btn-secondary form-control " data-bs-toggle="modal" 
+                            data-bs-target="#newTaskModal"><i class="bi bi-plus-square"></i> New Task</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal placeholder (empty initially) -->
+        <div id="newTaskModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="newTaskModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newTaskModalLabel">New Task</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Content will be loaded dynamically here -->
+                        <p>Loading...</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>
-

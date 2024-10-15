@@ -66,6 +66,15 @@ namespace GmphanMvc.Areas.Admin.Controllers
             return PartialView("_TaskDetail", projectTaskDetailView);
         }
 
+        public async Task<IActionResult> _CreateTask()
+        {
+            // Assuming you have the necessary logic to create the model
+            ProjectTaskDetailView model = new ProjectTaskDetailView();
+
+            // Return the _CreateTask partial view with the model
+            return PartialView("_CreateTask", model);
+        }
+
         public async Task<IActionResult> Activity(int id)
         {
             // Project3LayerView project3LayerView = await _projectServ.Get3LayerProjectServAsync(id);
