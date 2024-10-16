@@ -14,6 +14,7 @@ namespace Gmphan.ModelLib.ViewModels
         public DateTime ProjectTaskStartDate { get; set; }
         public DateTime ProjectTaskDueDate { get; set; }
         public DateTime? ProjectTaskCompletedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public List<ProjectTaskActivityView> ProjectTaskActivities { get; set; } = new List<ProjectTaskActivityView>();
     }
 }

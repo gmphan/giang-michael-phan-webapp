@@ -28,9 +28,10 @@ namespace GmphanMvc.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<ProjectView> projectViews = new List<ProjectView>();
-            projectViews = await _projectServ.GetProjectViewListServAsync();
-            return View(projectViews);
+            // List<ProjectView> projectViews = new List<ProjectView>();
+            // projectViews = await _projectServ.GetProjectViewListServAsync();
+            ProjectListView projectListView = await _projectServ.GetProjectListViewServAsync();
+            return View(projectListView);
         }
         public async Task<IActionResult> Create()
         {
@@ -55,6 +56,7 @@ namespace GmphanMvc.Areas.Admin.Controllers
         public async Task<IActionResult> Detail(int id)
         {
             ProjectDetailView projectDetailView = await _projectServ.GetProjectDetailViewServAsync(id);
+            projectDetailView.SortProjectTasksByCustomStateOrder();
             if (projectDetailView == null)
             {
                 return NotFound();

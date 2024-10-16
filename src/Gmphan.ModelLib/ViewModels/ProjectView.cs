@@ -7,11 +7,6 @@ namespace Gmphan.ModelLib.ViewModels
 {
     public class ProjectView
     {
-        // public List<Project> Projects { get; set; }
-        // public ProjectView()
-        // {
-        //     Projects = new List<Project>();
-        // }
         public int Id { get; set; }
         public string? ProjectName { get; set; }
         public string? ProjectDescription { get; set; }

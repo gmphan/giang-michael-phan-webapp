@@ -31,6 +31,37 @@ namespace Gmphan.BusinessAccessLib
             await _unityOfWork.SaveAsync();
             await _getTAndCacheGeneric.UpdateCacheAsync("allProject", _unityOfWork.ProjectRepoUOW.GetAllAsync);
         }
+        public async Task<ProjectListView> GetProjectListViewServAsync()
+        {
+            IEnumerable<Project> projects =await _getTAndCacheGeneric.GetTAsync(
+                "allProject", 
+                _unityOfWork.ProjectRepoUOW.GetAllAsync
+            );
+
+            // Initialize the ProjectListView
+            var projectListView = new ProjectListView();
+            // Iterate through each project and map it to ProjectView
+            foreach (var project in projects)
+            {
+                var projectView = new ProjectView
+                {
+                    Id = project.Id,
+                    ProjectName = project.ProjectName,
+                    ProjectDescription = project.ProjectDescription,
+                    ProjectState = project.ProjectState,
+                    ProjectStartDate = project.ProjectStartDate,
+                    ProjectDueDate = project.ProjectDueDate,
+                    ProjectCompletedDate = project.ProjectCompletedDate,
+                    // Map other properties as needed
+                };
+
+                // Add the ProjectView to the ProjectViews list
+                projectListView.ProjectViews.Add(projectView);
+            }
+            // Optionally, sort the projects by state order
+            projectListView.SortProjectsByStateOrder();
+            return projectListView;
+        }
         public async Task<List<ProjectView>> GetProjectViewListServAsync()
         {
             IEnumerable<Project> projects =await _getTAndCacheGeneric.GetTAsync("allProject", _unityOfWork.ProjectRepoUOW.GetAllAsync);
@@ -72,7 +103,8 @@ namespace Gmphan.BusinessAccessLib
                 ProjectTasks = project.ProjectTasks.Select(task => new ProjectTaskView
                 {
                     Id = task.Id,
-                    ProjectTaskName = task.ProjectTaskName
+                    ProjectTaskName = task.ProjectTaskName,
+                    ProjectTaskState = task.ProjectTaskState //need to sort
                 }).ToList()
             };
             return projectDetailView;
