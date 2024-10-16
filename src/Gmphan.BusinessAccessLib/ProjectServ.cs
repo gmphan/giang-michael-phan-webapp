@@ -6,6 +6,7 @@ using Gmphan.DataAccessLib.Repository;
 using Gmphan.ModelLib;
 using Gmphan.ModelLib.ViewModels;
 using Gmphan.UtilityLib;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
@@ -28,11 +29,11 @@ namespace Gmphan.BusinessAccessLib
         {
             await _unityOfWork.ProjectRepoUOW.AddAsync(obj);
             await _unityOfWork.SaveAsync();
-            await _getTAndCacheGeneric.UpdateCacheAsync("project", _unityOfWork.ProjectRepoUOW.GetAllAsync);
+            await _getTAndCacheGeneric.UpdateCacheAsync("allProject", _unityOfWork.ProjectRepoUOW.GetAllAsync);
         }
         public async Task<List<ProjectView>> GetProjectViewListServAsync()
         {
-            IEnumerable<Project> projects =await _getTAndCacheGeneric.GetTAsync("project", _unityOfWork.ProjectRepoUOW.GetAllAsync);
+            IEnumerable<Project> projects =await _getTAndCacheGeneric.GetTAsync("allProject", _unityOfWork.ProjectRepoUOW.GetAllAsync);
             return projects.Select(p => new ProjectView
             {
                 Id = p.Id,
@@ -53,7 +54,7 @@ namespace Gmphan.BusinessAccessLib
 
         public async Task<ProjectDetailView> GetProjectDetailViewServAsync(int id)
         {
-            Project project = await _getTAndCacheGeneric.GetTAsync("project", () => _unityOfWork.ProjectRepoUOW.Get3LayerProjectRepo(id));
+            Project project = await _getTAndCacheGeneric.GetTAsync($"project{id}", () => _unityOfWork.ProjectRepoUOW.Get3LayerProjectRepo(id));
             if (project == null)
             {
                 return null;
@@ -76,7 +77,25 @@ namespace Gmphan.BusinessAccessLib
             };
             return projectDetailView;
         }
-
+        public async Task UpdateProjectDetailServAsync(ProjectDetailView obj)
+        {
+            Project detailMain = new Project
+            {
+                Id = obj.Id,
+                ProjectName = obj.ProjectName,
+                ProjectSummary = obj.ProjectSummary,
+                ProjectDescription = obj.ProjectDescription,
+                ProjectState = obj.ProjectState,
+                ProjectStartDate = DateTime.SpecifyKind(obj.ProjectStartDate, DateTimeKind.Utc),
+                ProjectCompletedDate = obj.ProjectCompletedDate.HasValue
+                    ? DateTime.SpecifyKind(obj.ProjectCompletedDate.Value, DateTimeKind.Utc)
+                    : (DateTime?)null,
+                UpdatedDate = DateTime.UtcNow
+            };
+            await _unityOfWork.ProjectRepoUOW.UpdateAsync(detailMain);
+            await _unityOfWork.SaveAsync();
+            await _getTAndCacheGeneric.UpdateCacheAsync($"project{obj.Id}", () => _unityOfWork.ProjectRepoUOW.Get3LayerProjectRepo(obj.Id));
+        }
         public async Task<ProjectTaskDetailView> GetProjectTaskDetailViewServAsync(int id)
         {
             ProjectTask projectTask = await _getTAndCacheGeneric.GetTAsync($"projectTask{id}", () => _unityOfWork.ProjectTaskRepoUOW.GetProjectTaskDetailRepo(id));
@@ -100,25 +119,31 @@ namespace Gmphan.BusinessAccessLib
             };
             return projectTaskDetailView;
         }
-
-        public async Task UpdateProjectDetailServAsync(ProjectDetailView obj)
+        public async Task AddNewProjectTaskServAsync(ProjectTaskDetailView obj)
         {
-            Project detailMain = new Project
+            ProjectTask projectTask = new ProjectTask
             {
-                Id = obj.Id,
-                ProjectName = obj.ProjectName,
-                ProjectSummary = obj.ProjectSummary,
-                ProjectDescription = obj.ProjectDescription,
-                ProjectState = obj.ProjectState,
-                ProjectStartDate = DateTime.SpecifyKind(obj.ProjectStartDate, DateTimeKind.Utc),
-                ProjectCompletedDate = obj.ProjectCompletedDate.HasValue
-                    ? DateTime.SpecifyKind(obj.ProjectCompletedDate.Value, DateTimeKind.Utc)
-                    : (DateTime?)null,
-                UpdatedDate = DateTime.UtcNow
+                ProjectTaskName = obj.ProjectTaskName,
+                ProjectTaskDescription = obj.ProjectTaskDescription,
+                ProjectTaskState = obj.ProjectTaskState,
+                ProjectTaskStartDate = obj.ProjectTaskStartDate,
+                ProjectTaskDueDate = obj.ProjectTaskDueDate,
+                ProjectTaskCompletedDate = obj.ProjectTaskDueDate,
+                ProjectId = obj.ProjectId //important foreign key
             };
-            await _unityOfWork.ProjectRepoUOW.UpdateAsync(detailMain);
-            await _unityOfWork.SaveAsync();
-            await _getTAndCacheGeneric.UpdateCacheAsync("project", _unityOfWork.ProjectRepoUOW.GetAllAsync);
+            try
+            {
+                await _unityOfWork.ProjectTaskRepoUOW.AddAsync(projectTask);
+                await _unityOfWork.SaveAsync();
+                //I need to update project{id} because the Project Detail will need to be refresh to include the new task
+                await _getTAndCacheGeneric.UpdateCacheAsync($"project{obj.ProjectId}", () => _unityOfWork.ProjectRepoUOW.Get3LayerProjectRepo(obj.ProjectId));
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.InnerException?.Message);
+                throw;
+            }
+            
         }
          public async Task<ProjectView> GetProjectView3LayerServAsync(int id)
         {

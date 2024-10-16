@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using Gmphan.BusinessAccessLib;
 using Gmphan.ModelLib;
 using Gmphan.ModelLib.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace GmphanMvc.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class ProjectAdminController : Controller
     {
         private readonly ILogger<ProjectAdminController> _logger;
@@ -85,14 +87,8 @@ namespace GmphanMvc.Areas.Admin.Controllers
             {
                 ProjectId = projectId // Pass the ProjectId to the model
             };
-
             // Return the partial view with the model
             return PartialView("_CreateTask", model);
-            // Assuming you have the necessary logic to create the model
-            // ProjectTaskDetailView model = new ProjectTaskDetailView();
-
-            // // Return the _CreateTask partial view with the model
-            // return PartialView("_CreateTask", model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -100,10 +96,15 @@ namespace GmphanMvc.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return PartialView("_CreateTask", model);
+                // need to have tempdata to display error message 
+                return RedirectToAction("Detail", new { id = model.ProjectId });
             }
-            ProjectDetailView projectDetailView = await _projectServ.GetProjectDetailViewServAsync(model.ProjectId);
-            return RedirectToAction("Detail", model.ProjectId);
+            // add task to Tasks table 
+            await _projectServ.AddNewProjectTaskServAsync(model);
+
+            // model.ProjectId as second parameter will not work because it being treated as query string value
+            // not as a route parameter name id. the route value explicitly using an anonymous object
+            return RedirectToAction("Detail", new { id = model.ProjectId });
         }
 
         public async Task<IActionResult> Activity(int id)
