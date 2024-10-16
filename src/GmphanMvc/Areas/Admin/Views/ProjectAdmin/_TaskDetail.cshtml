@@ -2,6 +2,7 @@
 
 <div class="card-body">
     <div class="card mb-3 p-3 border-info">
+        <!--this form to update task-->
         <form method="post">
             <div class="p-1 mt-2">
                 <div class="row mb-1 p-0">
@@ -71,45 +72,62 @@
                     </div>
                 </div>
             </div>
-            <div class="row p-1 mt-2">
-                <div class="col">
-                    <div class="d-flex">
-                        <!-- Label on the top-left -->
-                        <div class="me-2 mb-2" style="min-width: 150px;">
-                            <label class="form-label">Task Activities</label>
-                        </div>
-                        
-                        <!-- Make the ul inline with the label by using flex-grow-1 for the ul -->
-                        <ul class="list-group flex-grow-1 mb-2">
-                            @foreach (var item in Model.ProjectTaskActivities)
-                            {
-                                <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
-                                    @item.ActivityNote
-                                    <span class="badge bg-primary rounded-pill">@item.CreatedDate</span>
-                                </li>
-                            }
-                        </ul>
+            <div class="row mb-3 p-1">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-secondary form-control">
+                            <i class="bi bi-floppy"></i>  Update Task Detail
+                        </button>
                     </div>
                 </div>
-
-                <!--below keep the label in the middle-->
-                @* <div class="col">
-                    <div class="d-flex align-items-center">
-                        <label class="me-2 mb-2" style="min-width: 150px;">Task Activities</label>
-                        <ul class="list-group flex-grow-1 mb-2">
-                            @foreach(var item in Model.ProjectTaskActivities)
-                            {
-                                <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
-                                    @item.ActivityNote
-                                    <span class="badge bg-primary rounded-pill">@item.CreatedDate</span>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </div> *@
-                
             </div>
         </form>
+
+        <!--this form to add note -->
+        <form id="newNoteForm" method="post" asp-action="AddTaskNote" asp-controller="ProjectAdmin" asp-area="Admin">
+            @Html.AntiForgeryToken()
+            <input asp-for="Id" name="taskId" hidden />            
+            <div class="p-1 mt-2">
+                <div class="d-flex align-items-center">
+                    <label for="taskActivityNote" class="me-2" style="min-width: 150px;">Activity Note</label>
+                    <textarea name="note" class="form-control flex-grow-1" rows="3" placeholder="Activity Note" id="taskActivityNote"></textarea>
+                </div>
+            </div>
+            <div class="row mb-3 p-1">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-secondary form-control">
+                            <i class="bi bi-plus-square"></i> Save Note
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!--this is to show history note activities -->
+        <div class="row p-1 mt-2">
+            <div class="col">
+                <div class="d-flex">
+                    <!-- Label on the top-left -->
+                    <div class="me-2 mb-2" style="min-width: 150px;">
+                        <label class="form-label">Task Activities</label>
+                    </div>
+                    
+                    <!-- Make the ul inline with the label by using flex-grow-1 for the ul -->
+                    <ul class="list-group flex-grow-1 mb-2">
+                        @foreach (var item in Model.ProjectTaskActivities)
+                        {
+                            <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                                @item.ActivityNote
+                                <span class="badge bg-primary rounded-pill">@item.CreatedDate</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
     </div>
 
 </div>

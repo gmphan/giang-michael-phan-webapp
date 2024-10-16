@@ -15,7 +15,71 @@
 </div>
 
 @section Scripts{
-    <!--this part is for updating Task detail in real time-->
+    <!--this part is for adding activity note in real time-->
+
+    <script>
+        // Function to initialize the note form after content is loaded
+        // this funciton is called iniside $('#taskDropdown').change(function () 
+        // because the content not ready until a task is selected.
+        function initializeNoteForm() {
+            $('#newNoteForm').on('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+                console.log('Inside newNoteForm javascript');
+                var projectTaskId = parseInt($('input[name="taskId"]').val(), 10)
+                var taskNote = $('textarea[name="note"]').val()
+                var formData = {
+                    taskId: projectTaskId,  // Convert taskId to integer
+                    note: taskNote,
+                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() // Include anti-forgery token
+                };
+                console.log(formData)
+                console.log('Form action URL: ' + $(this).attr('action'));
+                $.ajax({
+                    url: $(this).attr('action'), // URL is set from asp-action="YourAction"
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        alert('Note added successfully');
+                        // Optionally refresh part of the page or handle success here
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error occurred:", error);
+                        console.log("Status:", status);
+                        console.log("XHR:", xhr);
+                        alert('Failed to add note: ' + xhr.responseText);
+                    }
+                });
+            });
+        }
+        @* $(document).ready(function() {
+            console.log('jQuery is loaded'); // Check if jQuery is loaded
+            $('#newNoteForm').on('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+                console.log('inside newNoteForm javascript')
+                return false
+                var formData = {
+                    taskId: $('input[name="taskId"]').val(),
+                    note: $('textarea[name="note"]').val()
+                };
+
+                $.ajax({
+                    url: '/ProjectAdmin/_AddTaskNoteAsync',
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        alert('Note added successfully');
+                        // Optionally refresh part of the page or handle success here
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Failed to add note: ' + xhr.responseText);
+                    }
+                });
+            });
+        }); *@
+        
+    </script>
+
+    <!--this part is for updating project detail in real time-->
     <script>
         $(document).ready(function () {
             $('#_detailMain').submit(function (event) {
@@ -54,6 +118,9 @@
                         success: function (result) {
                             // Replace the section with the result (partial view or data)
                             $('#taskDetailSection').html(result);
+
+                            // Initialize the newNoteForm after content is loaded
+                            initializeNoteForm();
                         },
                         error: function (xhr, status, error) {
                             console.log("Error occurred: " + error);

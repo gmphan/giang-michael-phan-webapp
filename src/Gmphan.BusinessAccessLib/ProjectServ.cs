@@ -178,6 +178,28 @@ namespace Gmphan.BusinessAccessLib
             }
             
         }
+
+        public async Task<bool> AddTaskActivityNote(int taskId, string note)
+        {
+            ProjectTaskActivity projectTaskActivity = new ProjectTaskActivity
+            {
+                ActivityNote = note,
+                ProjectTaskId = taskId,
+                CreatedDate = DateTime.UtcNow,
+            };
+            try
+            {
+                await _unityOfWork.ProjectTaskActivityRepoUOW.AddAsync(projectTaskActivity);
+                await _unityOfWork.SaveAsync();
+                await _getTAndCacheGeneric.UpdateCacheAsync($"projectTask{taskId}", () => _unityOfWork.ProjectTaskRepoUOW.GetProjectTaskDetailRepo(taskId));
+                return true;
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.InnerException?.Message);
+                throw;
+            }
+        }
          public async Task<ProjectView> GetProjectView3LayerServAsync(int id)
         {
             Project eagerLoadProject = await _getTAndCacheGeneric.GetTAsync("project", () => _unityOfWork.ProjectRepoUOW.Get3LayerProjectRepo(id));

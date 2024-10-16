@@ -25,6 +25,7 @@
                     <th scope="col">Due Date</th>
                     <th scope="col">Completed Date</th>
                     <th scope="col">Summary</th>
+                    <th scope="col">View Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,13 +46,12 @@
                             <td>@proj.ProjectDueDate</td>
                             <td>@proj.ProjectCompletedDate</td>
                             <td>
-                                @* <a  asp-area="Admin" asp-controller="ProjectAdmin" asp-action="Activity" asp-route-id="@proj.Id" class="card-link mx-2">
-                                    @proj.ProjectSummary
-                                </a> *@
+                                @proj.ProjectSummary
+                            </td>
+                            <td>
                                 <a  asp-area="Admin" asp-controller="ProjectAdmin" asp-action="Detail" asp-route-id="@proj.Id" class="card-link mx-2">
-                                    @proj.ProjectSummary
+                                    View Detail
                                 </a>
-                                
                             </td>
                         </tr>
                     }

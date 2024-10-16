@@ -108,7 +108,24 @@ namespace GmphanMvc.Areas.Admin.Controllers
             // not as a route parameter name id. the route value explicitly using an anonymous object
             return RedirectToAction("Detail", new { id = model.ProjectId });
         }
+       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //the word Async cost me all day. The Async word can't be in the cshtml form
+        //only AddTaskNote 
+        public async Task<IActionResult> AddTaskNoteAsync(int taskId, string note)
+        {
+            bool success = await _projectServ.AddTaskActivityNote(taskId, note);
 
+            if (success)
+            {
+                return Ok(); // HTTP 200 status
+            }
+            else
+            {
+                return StatusCode(500, "Failed to add note"); // HTTP 500 status with message
+            }
+        }
         public async Task<IActionResult> Activity(int id)
         {
             // Project3LayerView project3LayerView = await _projectServ.Get3LayerProjectServAsync(id);
