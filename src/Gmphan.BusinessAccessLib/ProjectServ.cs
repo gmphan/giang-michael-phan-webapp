@@ -52,6 +52,7 @@ namespace Gmphan.BusinessAccessLib
                     ProjectStartDate = project.ProjectStartDate,
                     ProjectDueDate = project.ProjectDueDate,
                     ProjectCompletedDate = project.ProjectCompletedDate,
+                    ProjectSummary = project.ProjectSummary
                     // Map other properties as needed
                 };
 

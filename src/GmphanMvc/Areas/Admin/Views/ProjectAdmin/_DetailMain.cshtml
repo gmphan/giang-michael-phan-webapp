@@ -108,7 +108,7 @@
                             @foreach (var task in Model.ProjectTasks)
                             {
                                 <option value="@task.Id">
-                                    @task.ProjectTaskName
+                                    @task.ProjectTaskName - @task.ProjectTaskState
                                 </option>
                             }
                         </select>
