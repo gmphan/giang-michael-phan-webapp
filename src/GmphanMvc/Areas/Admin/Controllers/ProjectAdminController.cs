@@ -60,19 +60,50 @@ namespace GmphanMvc.Areas.Admin.Controllers
             return View(projectDetailView);
         }
 
+        [HttpPost]
+        [IgnoreAntiforgeryToken]
+        public async Task<IActionResult> _DetailMain(ProjectDetailView obj)
+        {
+            if (!ModelState.IsValid)
+            {
+                // need to return a error message here
+                return View(obj);
+            }
+            await _projectServ.UpdateProjectDetailServAsync(obj);
+            return PartialView(obj);
+        }
         public async Task<IActionResult> _TaskDetail(int id)
         {
             ProjectTaskDetailView projectTaskDetailView = await _projectServ.GetProjectTaskDetailViewServAsync(id);
             return PartialView("_TaskDetail", projectTaskDetailView);
         }
 
-        public async Task<IActionResult> _CreateTask()
+        public async Task<IActionResult> _CreateTask(int projectId)
         {
-            // Assuming you have the necessary logic to create the model
-            ProjectTaskDetailView model = new ProjectTaskDetailView();
+            // Create a new ProjectTaskDetailView and set the ProjectId
+            var model = new ProjectTaskDetailView
+            {
+                ProjectId = projectId // Pass the ProjectId to the model
+            };
 
-            // Return the _CreateTask partial view with the model
+            // Return the partial view with the model
             return PartialView("_CreateTask", model);
+            // Assuming you have the necessary logic to create the model
+            // ProjectTaskDetailView model = new ProjectTaskDetailView();
+
+            // // Return the _CreateTask partial view with the model
+            // return PartialView("_CreateTask", model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> _CreateTask(ProjectTaskDetailView model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return PartialView("_CreateTask", model);
+            }
+            ProjectDetailView projectDetailView = await _projectServ.GetProjectDetailViewServAsync(model.ProjectId);
+            return RedirectToAction("Detail", model.ProjectId);
         }
 
         public async Task<IActionResult> Activity(int id)
@@ -93,7 +124,7 @@ namespace GmphanMvc.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 await _projectServ.UpdateActivityMainServAsync(obj);
-                return PartialView("_ActivityMain");
+                return PartialView("_ActivityMain", obj);
             }
             return PartialView(obj);
         }

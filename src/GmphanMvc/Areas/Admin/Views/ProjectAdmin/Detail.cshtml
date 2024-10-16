@@ -15,7 +15,30 @@
 </div>
 
 @section Scripts{
-    
+    <!--this part is for updating Task detail in real time-->
+    <script>
+        $(document).ready(function () {
+            $('#_detailMain').submit(function (event) {
+                console.log('here')
+                event.preventDefault(); // Prevent default form submission
+                
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("_DetailMain", "ProjectAdmin")', // controller and action
+                    data: $(this).serialize(), // Serialize form data
+                    success: function (result) {
+                        // Replace the result section with the returned partial view
+                        $('#resultSection').html(result);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error occurred: " + error);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!---this is how when a task selected, it's details would show up.--->
     <script>
         $(document).ready(function () {
             // Listen for changes in the task dropdown
@@ -44,7 +67,39 @@
         });
     </script>
 
+    <!--this is to bring project id and render form into _CreateTask modal-->
     <script>
+        $(document).ready(function () {
+            // Bind click event to the button that triggers the modal
+            $('button[data-bs-target="#newTaskModal"]').click(function () {
+                console.log("here after click modal button")
+                // Get the ProjectId from the data attribute
+                var projectId = $(this).data('project-id');
+                console.log("Project ID", projectId)
+                // Clear any previous content in the modal
+                $('#newTaskModal .modal-body').html('Loading...');
+
+                // Make AJAX request to the controller to fetch the CreateTask partial view
+                $.ajax({
+                    url: '@Url.Action("_CreateTask", "ProjectAdmin")', // controller and action
+                    type: 'GET',
+                    data: { projectId: projectId }, // Send the ProjectId as a query parameter
+                    success: function (result) {
+                        // Inject the returned HTML (Partial View) into the modal body
+                        $('#newTaskModal .modal-body').html(result);
+
+                        // Show the modal once the content is loaded
+                        $('#newTaskModal').modal('show');
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error: " + error);
+                        alert("Failed to load task creation form.");
+                    }
+                });
+            });
+        });
+    </script>
+    @* <script>
         $(document).ready(function () {
             // Bind click event to the button that triggers the modal
             $('button[data-bs-target="#newTaskModal"]').click(function () {
@@ -69,5 +124,5 @@
                 });
             });
         });
-    </script>
+    </script> *@
 }

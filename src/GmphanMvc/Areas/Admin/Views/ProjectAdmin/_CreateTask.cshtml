@@ -1,74 +1,78 @@
 @model ProjectTaskDetailView
 
-<form method="post" id="createTaskForm">
+<form id="_createTask" method="post" id="createTaskForm" asp-action="_CreateTask" asp-controller="ProjectAdmin">
+    <!-- Hidden field for ProjectId -->
+    <input type="hidden" name="ProjectId" value="@Model.ProjectId" />
     <div class="p-1 mt-2">
         <div class="row mb-1 p-0">
-            <div class="d-flex align-items-center">
-                <label asp-for="ProjectTaskName" class="me-2" style="min-width: 150px;">Task Name</label>
-                <input type="text" asp-for="ProjectTaskName" class="form-control flex-grow-1" placeholder="Task Name">
+            <label asp-for="ProjectTaskName" class="col-3">Task Name</label>
+            <div class="col-9">
+                <input type="text" asp-for="ProjectTaskName" class="form-control" placeholder="Task Name">
+                <span asp-validation-for="ProjectTaskName" class="text-danger"></span>
             </div>
-            <span asp-validation-for="ProjectTaskName" class="text-danger"></span>
         </div>
     </div>
-    <div class="p-1 mt-2">
-        <div class="d-flex align-items-center">
-            <label asp-for="ProjectTaskDescription" class="me-2" style="min-width: 150px;">Task Description</label>
-            <textarea asp-for="ProjectTaskDescription" class="form-control flex-grow-1" rows="3" placeholder="Task Description" id=""></textarea>
-        </div>
-        <span asp-validation-for="ProjectTaskDescription" class="text-danger"></span>
-    </div>
-    <div class="p-1">
-        <div class="row mb-1 p-1">
-            <div class="col-md-6">
-                <div class="d-flex align-items-center mb-3">
-                    <label asp-for="ProjectTaskState" class="me-2" style="min-width: 150px;">Task State</label>
-                    <div class="col-md-6"> <!-- Adjust the column width as needed -->
-                        <select asp-for="ProjectTaskState" class="form-select form-control">
-                            <option value="">Select a state</option>
-                            <option value="WorkingInProgress">Working in Progress</option>
-                            <option value="Waiting">Waiting</option>
-                            <option value="OnHold">On Hold</option>
-                            <option value="Complete">Complete</option>
-                            <option value="Canceled">Canceled</option>
-                        </select>
-                    </div>
-                </div>
-                <span asp-validation-for="ProjectTaskState" class="text-danger"></span>
 
-                <div class="d-flex align-items-center">
-                    <label asp-for="ProjectTaskStartDate" class="me-2" style="min-width: 150px;">Start Date</label>
-                    <!-- HTML for Datepicker -->
-                    <div class="col-md-6">
-                        <div class="input-group date">
-                            <input asp-for="ProjectTaskStartDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
-                        </div>
-                    </div>
-                </div>
+    <div class="p-1 mt-2">
+        <div class="row mb-1 p-0">
+            <label asp-for="ProjectTaskDescription" class="col-3">Task Description</label>
+            <div class="col-9">
+                <textarea asp-for="ProjectTaskDescription" class="form-control" rows="3" placeholder="Task Description"></textarea>
+                <span asp-validation-for="ProjectTaskDescription" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-1 mt-2">
+        <div class="row mb-1 p-0">
+            <label asp-for="ProjectTaskState" class="col-3">Task State</label>
+            <div class="col-9">
+                <select asp-for="ProjectTaskState" class="form-select form-control">
+                    <option value="">Select a state</option>
+                    <option value="WorkingInProgress">Working in Progress</option>
+                    <option value="Waiting">Waiting</option>
+                    <option value="OnHold">On Hold</option>
+                    <option value="Complete">Complete</option>
+                    <option value="Canceled">Canceled</option>
+                </select>
+                <span asp-validation-for="ProjectTaskState" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-1 mt-2">
+        <div class="row mb-1 p-0">
+            <label asp-for="ProjectTaskStartDate" class="col-3">Start Date</label>
+            <div class="col-9">
+                <input asp-for="ProjectTaskStartDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
                 <span asp-validation-for="ProjectTaskStartDate" class="text-danger"></span>
             </div>
+        </div>
+    </div>
 
-            <div class="col-md-6">
-                <div class="d-flex align-items-center mb-3 justify-content-end">
-                    <label asp-for="ProjectTaskDueDate" class="me-2" style="min-width: 150px;">Due Date</label>
-                    <div class="col-md-6">
-                        <div class="input-group date">
-                            <input asp-for="ProjectTaskDueDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
-                        </div>
-                    </div>
-                </div>
+    <div class="p-1 mt-2">
+        <div class="row mb-1 p-0">
+            <label asp-for="ProjectTaskDueDate" class="col-3">Due Date</label>
+            <div class="col-9">
+                <input asp-for="ProjectTaskDueDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
                 <span asp-validation-for="ProjectTaskDueDate" class="text-danger"></span>
-
-                <div class="d-flex align-items-center justify-content-end">
-                    <label asp-for="ProjectTaskCompletedDate" class="me-2" style="min-width: 150px;">Completed Date</label>
-                    <div class="col-md-6">
-                        <div class="input-group date">
-                            <input asp-for="ProjectTaskCompletedDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
+
+    <div class="p-1 mt-2">
+        <div class="row mb-1 p-0">
+            <label asp-for="ProjectTaskCompletedDate" class="col-3">Completed Date</label>
+            <div class="col-9">
+                <input asp-for="ProjectTaskCompletedDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
+            </div>
+        </div>
+    </div>
+
     <!-- Add other form fields as necessary -->
-    <button type="submit" class="btn btn-primary">Save Task</button>
+    <div class="row mt-3">
+        <div class="col-9 offset-1">
+            <button type="submit" class="btn btn-primary">Save Task</button>
+        </div>
+    </div>
 </form>

@@ -1,7 +1,7 @@
 @model ProjectDetailView
 <div class="card-body">
     <div class="card mb-3 p-3 border-info">
-        <form id="topLayerEdit" asp-action="_ActivityMain" asp-controller="ProjectAdmin" method="post">
+        <form id="_detailMain" asp-action="_DetailMain" asp-controller="ProjectAdmin" method="post">
             <input asp-for="Id" hidden />
             <div class="p-1 mt-2">
                 <!-- Row for ProjectName with label on the left and input filling the rest of the space -->
@@ -118,18 +118,30 @@
         </form>
 
         <!-- Button to trigger modal -->
-        <div class="row mb-3 p-1">
+        @* <div class="row mb-3 p-1">
             <div class="col-md-12 d-flex justify-content-center">
                 <div class="col-md-4">
                     <button type="button" title="Add new task" class="btn btn-secondary form-control " data-bs-toggle="modal" 
                             data-bs-target="#newTaskModal"><i class="bi bi-plus-square"></i> New Task</button>
                 </div>
             </div>
+        </div> *@
+        <!-- Button to trigger modal bring the Project Id to _CreateModal -->
+        <div class="row mb-3 p-1">
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="col-md-4">
+                    <button type="button" title="Add new task" class="btn btn-secondary form-control" 
+                            data-bs-toggle="modal" data-bs-target="#newTaskModal" 
+                            data-project-id="@Model.Id">
+                        <i class="bi bi-plus-square"></i> New Task
+                    </button>
+                </div>
+            </div>
         </div>
 
         <!-- Modal placeholder (empty initially) -->
         <div id="newTaskModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="newTaskModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="newTaskModalLabel">New Task</h5>

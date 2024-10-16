@@ -100,6 +100,26 @@ namespace Gmphan.BusinessAccessLib
             };
             return projectTaskDetailView;
         }
+
+        public async Task UpdateProjectDetailServAsync(ProjectDetailView obj)
+        {
+            Project detailMain = new Project
+            {
+                Id = obj.Id,
+                ProjectName = obj.ProjectName,
+                ProjectSummary = obj.ProjectSummary,
+                ProjectDescription = obj.ProjectDescription,
+                ProjectState = obj.ProjectState,
+                ProjectStartDate = DateTime.SpecifyKind(obj.ProjectStartDate, DateTimeKind.Utc),
+                ProjectCompletedDate = obj.ProjectCompletedDate.HasValue
+                    ? DateTime.SpecifyKind(obj.ProjectCompletedDate.Value, DateTimeKind.Utc)
+                    : (DateTime?)null,
+                UpdatedDate = DateTime.UtcNow
+            };
+            await _unityOfWork.ProjectRepoUOW.UpdateAsync(detailMain);
+            await _unityOfWork.SaveAsync();
+            await _getTAndCacheGeneric.UpdateCacheAsync("project", _unityOfWork.ProjectRepoUOW.GetAllAsync);
+        }
          public async Task<ProjectView> GetProjectView3LayerServAsync(int id)
         {
             Project eagerLoadProject = await _getTAndCacheGeneric.GetTAsync("project", () => _unityOfWork.ProjectRepoUOW.Get3LayerProjectRepo(id));
