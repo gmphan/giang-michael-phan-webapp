@@ -25,11 +25,11 @@
             $('#newNoteForm').on('submit', function (event) {
                 event.preventDefault(); // Prevent the default form submission
                 console.log('Inside newNoteForm javascript');
-                var projectTaskId = parseInt($('input[name="taskId"]').val(), 10)
-                var taskNote = $('textarea[name="note"]').val()
+                @* var projectTaskId = parseInt($('input[name="taskId"]').val(), 10)
+                var taskNote = $('textarea[name="note"]').val() *@
                 var formData = {
-                    taskId: projectTaskId,  // Convert taskId to integer
-                    note: taskNote,
+                    taskId: parseInt($('input[name="taskId"]').val(), 10),  // Convert taskId to integer
+                    note: $('textarea[name="note"]').val(),
                     __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() // Include anti-forgery token
                 };
                 console.log(formData)

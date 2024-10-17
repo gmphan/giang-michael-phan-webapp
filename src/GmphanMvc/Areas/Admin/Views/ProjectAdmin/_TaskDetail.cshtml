@@ -76,13 +76,17 @@
                 <div class="col-md-12 d-flex justify-content-center">
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-secondary form-control">
-                            <i class="bi bi-floppy"></i>  Update Task Detail
+                            <i class="bi bi-floppy"></i>  Save
                         </button>
                     </div>
                 </div>
             </div>
         </form>
+    </div>
+</div>
 
+<div class="card-body">
+    <div class="card mb-3 p-3 border-info">
         <!--this form to add note -->
         <form id="newNoteForm" method="post" asp-action="AddTaskNote" asp-controller="ProjectAdmin" asp-area="Admin">
             @Html.AntiForgeryToken()
@@ -97,7 +101,7 @@
                 <div class="col-md-12 d-flex justify-content-center">
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-secondary form-control">
-                            <i class="bi bi-plus-square"></i> Save Note
+                            <i class="bi bi-floppy"></i> Save
                         </button>
                     </div>
                 </div>
@@ -126,8 +130,5 @@
                 </div>
             </div>
         </div>
-        
-
     </div>
-
 </div>

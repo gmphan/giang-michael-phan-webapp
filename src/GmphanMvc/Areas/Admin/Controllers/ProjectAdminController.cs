@@ -111,9 +111,7 @@ namespace GmphanMvc.Areas.Admin.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //the word Async cost me all day. The Async word can't be in the cshtml form
-        //only AddTaskNote 
-        public async Task<IActionResult> AddTaskNoteAsync(int taskId, string note)
+        public async Task<IActionResult> AddTaskNote(int taskId, string note)
         {
             bool success = await _projectServ.AddTaskActivityNote(taskId, note);
 
