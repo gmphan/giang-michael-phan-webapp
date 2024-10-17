@@ -29,7 +29,6 @@
                 </button>
                 <!-- Navbar links -->
                 <div class="collapse navbar-collapse" id="navbarColor02">
-
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link @(controllerName == "Home" ? "active" : "")" asp-area="Visitor" asp-controller="Home" asp-action="Index">Home
@@ -37,13 +36,26 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @(controllerName == "Quote" ? "active" : "")" asp-area="Visitor" asp-controller="Quote" asp-action="Index">Quotes</a>
+                            <a class="nav-link @(controllerName == "Project" ? "active" : "")" asp-area="Visitor" asp-controller="Project" asp-action="Index">Projects
+                            </a>
                         </li>
+                        @* <li class="nav-item">
+                            <a class="nav-link @(controllerName == "Quote" ? "active" : "")" asp-area="Visitor" asp-controller="Quote" asp-action="Index">Quotes</a>
+                        </li> *@
                         <li class="nav-item">
                             <a class="nav-link @(controllerName == "Resume" ? "active" : "")" asp-area="Visitor" asp-controller="Resume" asp-action="Index">Resume</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link @(controllerName == "About" ? "active" : "")" asp-area="Visitor" asp-controller="About" asp-action="Index">About</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item @(controllerName == "QuoteAdmin" ? "active" : "")" asp-area="Visitor" asp-controller="Quote" asp-action="Index">Quotes</a>
+                                <a class="dropdown-item @(controllerName == "ResumeAdmin" ? "active" : "")" asp-area="Admin" asp-controller="ResumeAdmin" asp-action="Index">Daily Logs</a>
+                                <a class="dropdown-item @(controllerName == "ProjectAdmin" ? "active" : "")" asp-area="Admin" asp-controller="ProjectAdmin" asp-action="Index">Fun Resources</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>

@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Project Admin";
     var projects = Model.ProjectViews;
-    var tableActive = "table-primary";
+    var tableActive = "table-default";
 }
 <div class="row justify-content-center">
     <div class="col-lg-10 col-md-12">
@@ -31,15 +31,15 @@
                 <tbody>
                     @foreach(var proj in projects)
                     {
-                        @if(tableActive == "table-primary")
+                        @if(tableActive == "table-default")
                         {
-                            tableActive = "table-secondary";
+                            tableActive = "table-active";
                         }
                         else
                         {
-                            tableActive = "table-primary";
+                            tableActive = "table-default";
                         }
-                        <tr class="@(tableActive == "table-primary" ? "table-primary" : "table-secondary")">
+                        <tr class="@(tableActive == "table-default" ? "table-default" : "table-active")">
                             <td>@proj.ProjectName</td>
                             <td>@proj.ProjectState</td>
                             <td>@proj.ProjectStartDate</td>

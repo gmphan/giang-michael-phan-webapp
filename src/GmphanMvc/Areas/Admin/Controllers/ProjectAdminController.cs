@@ -124,41 +124,41 @@ namespace GmphanMvc.Areas.Admin.Controllers
                 return StatusCode(500, "Failed to add note"); // HTTP 500 status with message
             }
         }
-        public async Task<IActionResult> Activity(int id)
-        {
-            // Project3LayerView project3LayerView = await _projectServ.Get3LayerProjectServAsync(id);
-            ProjectView projectView3Layer = await _projectServ.GetProjectView3LayerServAsync(id);
-            if (projectView3Layer == null)
-            {
-                return NotFound();
-            }
-            return View(projectView3Layer);
-        }
+        // public async Task<IActionResult> Activity(int id)
+        // {
+        //     // Project3LayerView project3LayerView = await _projectServ.Get3LayerProjectServAsync(id);
+        //     ProjectView projectView3Layer = await _projectServ.GetProjectView3LayerServAsync(id);
+        //     if (projectView3Layer == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     return View(projectView3Layer);
+        // }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> _ActivityMain(ProjectView obj)
-        {
-            if (ModelState.IsValid)
-            {
-                await _projectServ.UpdateActivityMainServAsync(obj);
-                return PartialView("_ActivityMain", obj);
-            }
-            return PartialView(obj);
-        }
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> _ActivityMain(ProjectView obj)
+        // {
+        //     if (ModelState.IsValid)
+        //     {
+        //         await _projectServ.UpdateActivityMainServAsync(obj);
+        //         return PartialView("_ActivityMain", obj);
+        //     }
+        //     return PartialView(obj);
+        // }
 
-        [HttpPost]
-        // [ValidateAntiForgeryToken] can't have this, the ajax will break due to the parameters not within a model
-        public async Task<IActionResult> _ActivityTask(
-                                                    int SelectedTaskId
-                                                    ,string TaskDescription
-                                                    , string TaskState, DateTime TaskStartDate
-                                                    , DateTime TaskDueDate, DateTime? TaskCompletedDate
-                                                    , List<string> TaskActivities
-                                                    )
-        {
-            return PartialView("_ActivityTask");
-        }
+        // [HttpPost]
+        // // [ValidateAntiForgeryToken] can't have this, the ajax will break due to the parameters not within a model
+        // public async Task<IActionResult> _ActivityTask(
+        //                                             int SelectedTaskId
+        //                                             ,string TaskDescription
+        //                                             , string TaskState, DateTime TaskStartDate
+        //                                             , DateTime TaskDueDate, DateTime? TaskCompletedDate
+        //                                             , List<string> TaskActivities
+        //                                             )
+        // {
+        //     return PartialView("_ActivityTask");
+        // }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

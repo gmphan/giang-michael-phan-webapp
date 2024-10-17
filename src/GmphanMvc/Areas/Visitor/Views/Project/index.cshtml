@@ -1,8 +1,8 @@
-@model List<ProjectView>
+@model ProjectListView
 @{
     ViewData["Title"] = "Projects";
-    var projects = Model;
-    var tableActive = "table-primary";
+    var projects = Model.ProjectViews;
+    var tableActive = "table-default";
 }
 <div class="row justify-content-center">
     <div class="col-lg-10 col-md-12">
@@ -16,31 +16,34 @@
                     <th scope="col">Start Date</th>
                     <th scope="col">Due Date</th>
                     <th scope="col">Completed Date</th>
-                    <th scope="col">Details</th>
+                    <th scope="col">Summary</th>
+                    <th scope="col">View Detail</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach(var proj in projects)
                     {
-                        @if(tableActive == "table-primary")
+                        @if(tableActive == "table-default")
                         {
-                            tableActive = "table-secondary";
+                            tableActive = "table-active";
                         }
                         else
                         {
-                            tableActive = "table-primary";
+                            tableActive = "table-default";
                         }
-                        <tr class="@(tableActive == "table-primary" ? "table-primary" : "table-secondary")">
+                        <tr class="@(tableActive == "table-default" ? "table-default" : "table-active")">
                             <td>@proj.ProjectName</td>
                             <td>@proj.ProjectState</td>
                             <td>@proj.ProjectStartDate</td>
                             <td>@proj.ProjectDueDate</td>
                             <td>@proj.ProjectCompletedDate</td>
-                            <td><button type="button" class="btn btn-link">
-                                <a  asp-area="Visitor" asp-controller="Project" asp-action="ProjectDetail" asp-route-id="@proj.Id" class="btn btn-primary mx-2">
+                            <td>
+                                @proj.ProjectSummary
+                            </td>
+                            <td>
+                                <a  asp-area="Visitor" asp-controller="Project" asp-action="Detail" asp-route-id="@proj.Id" class="card-link mx-2">
                                     View Detail
                                 </a>
-                                </button>
                             </td>
                         </tr>
                     }
@@ -48,7 +51,7 @@
                 </tbody>
             </table>
             <div class="card-footer text-muted">
-                footer
+                List of Projects
             </div>
         </div>
     </div>
