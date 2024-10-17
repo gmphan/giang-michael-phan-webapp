@@ -159,9 +159,11 @@ namespace Gmphan.BusinessAccessLib
                 ProjectTaskName = obj.ProjectTaskName,
                 ProjectTaskDescription = obj.ProjectTaskDescription,
                 ProjectTaskState = obj.ProjectTaskState,
-                ProjectTaskStartDate = obj.ProjectTaskStartDate,
-                ProjectTaskDueDate = obj.ProjectTaskDueDate,
-                ProjectTaskCompletedDate = obj.ProjectTaskDueDate,
+                ProjectTaskStartDate = DateTime.SpecifyKind(obj.ProjectTaskStartDate, DateTimeKind.Utc),
+                ProjectTaskDueDate = DateTime.SpecifyKind(obj.ProjectTaskDueDate, DateTimeKind.Utc),
+                ProjectTaskCompletedDate = obj.ProjectTaskCompletedDate.HasValue
+                    ? DateTime.SpecifyKind(obj.ProjectTaskCompletedDate.Value, DateTimeKind.Utc)
+                    : (DateTime?)null,
                 ProjectId = obj.ProjectId //important foreign key
             };
             try
