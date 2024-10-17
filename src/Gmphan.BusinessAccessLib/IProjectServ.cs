@@ -15,6 +15,7 @@ namespace Gmphan.BusinessAccessLib
         public Task<ProjectTaskDetailView> GetProjectTaskDetailViewServAsync(int id);
         public Task UpdateProjectDetailServAsync(ProjectDetailView obj);
         public Task AddNewProjectTaskServAsync(ProjectTaskDetailView obj);
+        public Task<bool> UpdateProjectTaskDetailServAsync(ProjectTaskDetailView obj);
         public Task<bool> AddTaskActivityNote(int taskId, string note);
 
         //below will be clean out

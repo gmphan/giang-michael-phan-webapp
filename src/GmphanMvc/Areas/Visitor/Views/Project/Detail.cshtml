@@ -15,29 +15,6 @@
 </div>
 
 @section Scripts{
-    <!--this part is for updating project detail in real time-->
-    @* <script>
-        $(document).ready(function () {
-            $('#_detailMain').submit(function (event) {
-                console.log('here')
-                event.preventDefault(); // Prevent default form submission
-                
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("_DetailMain", "Project")', // controller and action
-                    data: $(this).serialize(), // Serialize form data
-                    success: function (result) {
-                        // Replace the result section with the returned partial view
-                        $('#resultSection').html(result);
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("Error occurred: " + error);
-                    }
-                });
-            });
-        });
-    </script> *@
-
     <!---this is how when a task selected, it's details would show up.--->
     <script>
         $(document).ready(function () {

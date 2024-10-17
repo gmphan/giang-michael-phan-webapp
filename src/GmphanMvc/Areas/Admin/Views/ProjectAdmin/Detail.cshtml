@@ -24,23 +24,24 @@
         function initializeNoteForm() {
             $('#newNoteForm').on('submit', function (event) {
                 event.preventDefault(); // Prevent the default form submission
-                console.log('Inside newNoteForm javascript');
-                @* var projectTaskId = parseInt($('input[name="taskId"]').val(), 10)
-                var taskNote = $('textarea[name="note"]').val() *@
                 var formData = {
                     taskId: parseInt($('input[name="taskId"]').val(), 10),  // Convert taskId to integer
                     note: $('textarea[name="note"]').val(),
                     __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() // Include anti-forgery token
                 };
-                console.log(formData)
-                console.log('Form action URL: ' + $(this).attr('action'));
+                @* console.log('Form action URL: ' + $(this).attr('action')); *@
                 $.ajax({
                     url: $(this).attr('action'), // URL is set from asp-action="YourAction"
                     type: 'POST',
                     data: formData,
                     success: function (response) {
                         alert('Note added successfully');
-                        // Optionally refresh part of the page or handle success here
+                        
+                        // Assuming the response contains the updated HTML for the task activities list:
+                        $('#taskActivitiesList').html(response);
+
+                        // Clear the textarea after adding the note
+                        $('textarea[name="note"]').val('');
                     },
                     error: function (xhr, status, error) {
                         console.log("Error occurred:", error);
@@ -50,40 +51,38 @@
                     }
                 });
             });
-        }
-        @* $(document).ready(function() {
-            console.log('jQuery is loaded'); // Check if jQuery is loaded
-            $('#newNoteForm').on('submit', function(event) {
-                event.preventDefault(); // Prevent the default form submission
-                console.log('inside newNoteForm javascript')
-                return false
-                var formData = {
-                    taskId: $('input[name="taskId"]').val(),
-                    note: $('textarea[name="note"]').val()
-                };
+        }        
+    </script>
 
+    <!--this is to update Task Detail
+    Need to call this function to add the submit function
+    to the DOM because it was not present at the beginning 
+    until a task is selected.
+    -->
+    <script>
+        function initializeTaskDetailForm(){
+            $('#_taskDetail').submit(function (event) {
+                event.preventDefault(); // Prevent default form submission
                 $.ajax({
-                    url: '/ProjectAdmin/_AddTaskNoteAsync',
-                    type: 'POST',
-                    data: formData,
-                    success: function(response) {
-                        alert('Note added successfully');
-                        // Optionally refresh part of the page or handle success here
+                    type: "POST",
+                    url: $(this).attr('action'), // controller and action
+                    data: $(this).serialize(), // Serialize form data
+                    success: function (result) {
+                        console.log(result)
+                        alert('Project task detail saved successfully');
                     },
-                    error: function(xhr, status, error) {
-                        alert('Failed to add note: ' + xhr.responseText);
+                    error: function (xhr, status, error) {
+                        console.log("Error occurred: " + error);
                     }
                 });
             });
-        }); *@
-        
+        }
     </script>
 
     <!--this part is for updating project detail in real time-->
     <script>
         $(document).ready(function () {
             $('#_detailMain').submit(function (event) {
-                console.log('here')
                 event.preventDefault(); // Prevent default form submission
                 
                 $.ajax({
@@ -91,8 +90,7 @@
                     url: '@Url.Action("_DetailMain", "ProjectAdmin")', // controller and action
                     data: $(this).serialize(), // Serialize form data
                     success: function (result) {
-                        // Replace the result section with the returned partial view
-                        $('#resultSection').html(result);
+                        alert('Project detail saved successfully');
                     },
                     error: function (xhr, status, error) {
                         console.log("Error occurred: " + error);
@@ -121,6 +119,9 @@
 
                             // Initialize the newNoteForm after content is loaded
                             initializeNoteForm();
+
+                            // Initialize the _taskDetail after content is loaded by selecting a task
+                            initializeTaskDetailForm();
                         },
                         error: function (xhr, status, error) {
                             console.log("Error occurred: " + error);

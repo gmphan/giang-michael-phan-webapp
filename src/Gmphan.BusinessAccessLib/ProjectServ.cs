@@ -135,6 +135,7 @@ namespace Gmphan.BusinessAccessLib
             ProjectTaskDetailView projectTaskDetailView = new ProjectTaskDetailView
             {
                 Id = projectTask.Id,
+                ProjectId = projectTask.ProjectId,
                 ProjectTaskName = projectTask.ProjectTaskName,
                 ProjectTaskDescription = projectTask.ProjectTaskDescription,
                 ProjectTaskState = projectTask.ProjectTaskState,
@@ -179,6 +180,35 @@ namespace Gmphan.BusinessAccessLib
                 throw;
             }
             
+        }
+        public async Task<bool> UpdateProjectTaskDetailServAsync(ProjectTaskDetailView obj)
+        {
+            ProjectTask projectTask = new ProjectTask
+            {
+                Id = obj.Id,
+                ProjectTaskName = obj.ProjectTaskName,
+                ProjectTaskDescription = obj.ProjectTaskDescription,
+                ProjectTaskState = obj.ProjectTaskState,
+                ProjectTaskStartDate = DateTime.SpecifyKind(obj.ProjectTaskStartDate, DateTimeKind.Utc),
+                ProjectTaskDueDate = DateTime.SpecifyKind(obj.ProjectTaskDueDate, DateTimeKind.Utc),
+                ProjectTaskCompletedDate = obj.ProjectTaskCompletedDate.HasValue
+                    ? DateTime.SpecifyKind(obj.ProjectTaskCompletedDate.Value, DateTimeKind.Utc)
+                    : (DateTime?)null,
+                ProjectId = obj.ProjectId //important foreign key
+            };
+            try
+            {
+                await _unityOfWork.ProjectTaskRepoUOW.UpdateAsync(projectTask);
+                await _unityOfWork.SaveAsync();
+                //I need to update project{id} because the Project Detail will need to be refresh to include the new task
+                await _getTAndCacheGeneric.UpdateCacheAsync($"project{obj.ProjectId}", () => _unityOfWork.ProjectRepoUOW.Get3LayerProjectRepo(obj.ProjectId));
+                return true;
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.InnerException?.Message);
+                throw;
+            }
         }
 
         public async Task<bool> AddTaskActivityNote(int taskId, string note)

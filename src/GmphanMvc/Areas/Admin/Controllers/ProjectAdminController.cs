@@ -82,6 +82,22 @@ namespace GmphanMvc.Areas.Admin.Controllers
             return PartialView("_TaskDetail", projectTaskDetailView);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> _TaskDetail(ProjectTaskDetailView obj)
+        {
+            if (!ModelState.IsValid) { return BadRequest(); }
+
+            bool success = await _projectServ.UpdateProjectTaskDetailServAsync(obj);
+            if (success)
+            {
+                return Ok(); // HTTP 200 status
+            }
+            else
+            {
+                return StatusCode(500, "Failed to add note"); // HTTP 500 status with message
+            }
+        }
+
         public async Task<IActionResult> _CreateTask(int projectId)
         {
             // Create a new ProjectTaskDetailView and set the ProjectId
@@ -111,13 +127,15 @@ namespace GmphanMvc.Areas.Admin.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddTaskNote(int taskId, string note)
+        public async Task<IActionResult> _AddTaskNote(int taskId, string note)
         {
             bool success = await _projectServ.AddTaskActivityNote(taskId, note);
 
             if (success)
             {
-                return Ok(); // HTTP 200 status
+                ProjectTaskDetailView projectTaskDetailView = await _projectServ.GetProjectTaskDetailViewServAsync(taskId);
+                // return Ok(); // HTTP 200 status
+                return PartialView("_AddTaskNote", projectTaskDetailView);
             }
             else
             {
