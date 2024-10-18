@@ -31,9 +31,6 @@
                         success: function (result) {
                             // Replace the section with the result (partial view or data)
                             $('#taskDetailSection').html(result);
-
-                            // Initialize the newNoteForm after content is loaded
-                            initializeNoteForm();
                         },
                         error: function (xhr, status, error) {
                             console.log("Error occurred: " + error);

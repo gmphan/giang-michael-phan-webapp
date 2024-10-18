@@ -108,6 +108,7 @@ namespace Gmphan.BusinessAccessLib
                     ProjectTaskState = task.ProjectTaskState //need to sort
                 }).ToList()
             };
+            projectDetailView.SortProjectTasksByCustomStateOrder();
             return projectDetailView;
         }
         public async Task UpdateProjectDetailServAsync(ProjectDetailView obj)
@@ -151,6 +152,7 @@ namespace Gmphan.BusinessAccessLib
                     }
                 ).ToList()
             };
+            projectTaskDetailView.SortNoteByCreatedDate();
             return projectTaskDetailView;
         }
         public async Task AddNewProjectTaskServAsync(ProjectTaskDetailView obj)

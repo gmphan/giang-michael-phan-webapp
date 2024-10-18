@@ -56,7 +56,7 @@ namespace GmphanMvc.Areas.Admin.Controllers
         public async Task<IActionResult> Detail(int id)
         {
             ProjectDetailView projectDetailView = await _projectServ.GetProjectDetailViewServAsync(id);
-            projectDetailView.SortProjectTasksByCustomStateOrder();
+            
             if (projectDetailView == null)
             {
                 return NotFound();
@@ -79,7 +79,7 @@ namespace GmphanMvc.Areas.Admin.Controllers
         public async Task<IActionResult> _TaskDetail(int id)
         {
             ProjectTaskDetailView projectTaskDetailView = await _projectServ.GetProjectTaskDetailViewServAsync(id);
-            projectTaskDetailView.SortNoteByCreatedDate();
+            
             return PartialView("_TaskDetail", projectTaskDetailView);
         }
 
