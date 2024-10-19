@@ -44,6 +44,12 @@ namespace GmphanMvc.Areas.Visitor.Controllers
             return View(projectDetailView);
         }
 
+        public async Task<IActionResult> Task(int id)
+        {
+            ProjectTaskView projectTaskView = await _projectServ.GetProjectTaskViewServAsync(id);
+            return View(projectTaskView);
+        }
+
         [HttpPost]
         [IgnoreAntiforgeryToken]
         public async Task<IActionResult> _DetailMain(ProjectDetailView obj)

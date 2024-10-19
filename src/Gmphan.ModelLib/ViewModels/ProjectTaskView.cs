@@ -16,5 +16,12 @@ namespace Gmphan.ModelLib.ViewModels
         public DateTime? ProjectTaskCompletedDate { get; set; }
         public DateTime? CreatedDate { get; set; }
         public List<ProjectTaskActivityView> ProjectTaskActivities { get; set; } = new List<ProjectTaskActivityView>();
+        public void SortNoteByCreatedDate()
+        {
+            if (ProjectTaskActivities.Count > 0)
+            {
+                ProjectTaskActivities = ProjectTaskActivities.OrderByDescending(x => x.CreatedDate).ToList();
+            }
+        }
     }
 }

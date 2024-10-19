@@ -12,7 +12,8 @@ namespace Gmphan.BusinessAccessLib
         public Task AddNewProjectServAsync(Project obj);
         public Task<ProjectListView> GetProjectListViewServAsync();
         public Task<ProjectDetailView> GetProjectDetailViewServAsync(int id);
-        public Task<ProjectTaskDetailView> GetProjectTaskDetailViewServAsync(int id);
+        public Task<ProjectTaskDetailView> GetProjectTaskDetailViewServAsync(int id); // will remove this after fix admin
+        public Task<ProjectTaskView> GetProjectTaskViewServAsync(int id);
         public Task UpdateProjectDetailServAsync(ProjectDetailView obj);
         public Task AddNewProjectTaskServAsync(ProjectTaskDetailView obj);
         public Task<bool> UpdateProjectTaskDetailServAsync(ProjectTaskDetailView obj);

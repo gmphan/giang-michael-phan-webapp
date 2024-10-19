@@ -83,7 +83,6 @@ namespace Gmphan.BusinessAccessLib
                 }).ToList() ?? new List<ProjectTaskView>()
             }).ToList();
         }
-
         public async Task<ProjectDetailView> GetProjectDetailViewServAsync(int id)
         {
             Project project = await _getTAndCacheGeneric.GetTAsync($"project{id}", () => _unityOfWork.ProjectRepoUOW.Get3LayerProjectRepo(id));
@@ -105,7 +104,11 @@ namespace Gmphan.BusinessAccessLib
                 {
                     Id = task.Id,
                     ProjectTaskName = task.ProjectTaskName,
-                    ProjectTaskState = task.ProjectTaskState //need to sort
+                    ProjectTaskDescription = task.ProjectTaskDescription,
+                    ProjectTaskState = task.ProjectTaskState, //need to sort
+                    ProjectTaskStartDate = task.ProjectTaskStartDate,
+                    ProjectTaskDueDate = task.ProjectTaskDueDate,
+                    ProjectTaskCompletedDate = task.ProjectTaskCompletedDate
                 }).ToList()
             };
             projectDetailView.SortProjectTasksByCustomStateOrder();
@@ -129,6 +132,31 @@ namespace Gmphan.BusinessAccessLib
             await _unityOfWork.ProjectRepoUOW.UpdateAsync(detailMain);
             await _unityOfWork.SaveAsync();
             await _getTAndCacheGeneric.UpdateCacheAsync($"project{obj.Id}", () => _unityOfWork.ProjectRepoUOW.Get3LayerProjectRepo(obj.Id));
+        }
+
+        public async Task<ProjectTaskView> GetProjectTaskViewServAsync(int id)
+        {
+            ProjectTask projectTask = await _getTAndCacheGeneric.GetTAsync($"projectTask{id}", () => _unityOfWork.ProjectTaskRepoUOW.GetProjectTaskDetailRepo(id));
+            ProjectTaskView projectTaskView = new ProjectTaskView
+            {
+                Id = projectTask.Id,
+                ProjectTaskName = projectTask.ProjectTaskName,
+                ProjectTaskDescription = projectTask.ProjectTaskDescription,
+                ProjectTaskState = projectTask.ProjectTaskState,
+                ProjectTaskStartDate = projectTask.ProjectTaskStartDate,
+                ProjectTaskDueDate = projectTask.ProjectTaskDueDate,
+                ProjectTaskCompletedDate = projectTask.ProjectTaskCompletedDate,
+                ProjectTaskActivities = projectTask.ProjectTaskActivities.Select(
+                    activity => new ProjectTaskActivityView
+                    {
+                        Id = activity.Id,
+                        ActivityNote = activity.ActivityNote,
+                        CreatedDate = activity.CreatedDate
+                    }
+                ).ToList()
+            };
+            projectTaskView.SortNoteByCreatedDate();
+            return projectTaskView;
         }
         public async Task<ProjectTaskDetailView> GetProjectTaskDetailViewServAsync(int id)
         {

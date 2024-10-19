@@ -1,0 +1,61 @@
+@model ProjectTaskView
+@{
+    ViewData["Title"] = "Project Task";
+    var tableActive ="table-default";
+}
+<div class="row justify-content-center">
+    <div class="col-lg-10 col-md-12">
+        <div class="card mb-3">
+            <h1 class="card-header">@Model.ProjectTaskName</h1>
+            <div class="card-body">
+                <div class="card mb-3 p-3 border-info">
+                    <h5 class="card-title">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3">Description</div>
+                                    <div class="col-9">: @Model.ProjectTaskDescription</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3">State</div>
+                                    <div class="col-9">: @Model.ProjectTaskState</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3">Start Date</div>
+                                    <div class="col-9">: @Model.ProjectTaskStartDate</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3">Due Date</div>
+                                    <div class="col-9">: @Model.ProjectTaskDueDate</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3">Completed Date</div>
+                                    <div class="col-9">: @Model.ProjectTaskCompletedDate</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </h5>
+
+                    <h4 class="mt-5">Activity Notes:</h4>
+                    <ul class="list-group flex-grow-1 mb-2 list-group-flush">
+                        @foreach (var item in Model.ProjectTaskActivities)
+                        {
+                            <li class="list-group-item list-group-item-default d-flex justify-content-between align-items-center">
+                                @item.ActivityNote
+                                <span class="badge bg-primary rounded-pill">@item.CreatedDate</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>

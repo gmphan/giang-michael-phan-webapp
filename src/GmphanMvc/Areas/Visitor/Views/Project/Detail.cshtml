@@ -1,14 +1,106 @@
 @model ProjectDetailView
+@{
+    ViewData["Title"] = "Project Detail";
+    var tableActive ="table-default";
+}
 <div class="row justify-content-center">
     <div class="col-lg-10 col-md-12">
         <div class="card mb-3">
-            <h2 class="card-header">Project Detail</h2>
-            <div>
-                @Html.Partial("_DetailMain", Model)
+            <h1 class="card-header">@Model.ProjectName</h1>
+            <div class="card-body">
+                <div class="card mb-3 p-3 border-info">
+                    <h5 class="card-title">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3">Summary</div>
+                                    <div class="col-9">: @Model.ProjectSummary</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3">Description</div>
+                                    <div class="col-9">: @Model.ProjectDescription</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3">State</div>
+                                    <div class="col-9">: @Model.ProjectState</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3">Start Date</div>
+                                    <div class="col-9">: @Model.ProjectStartDate</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3">Due Date</div>
+                                    <div class="col-9">: @Model.ProjectDueDate</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-3">Completed Date</div>
+                                    <div class="col-9">: @Model.ProjectCompletedDate</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </h5>
+                
+                       
+                
+                    <table class="table table-hover list-group-flush mt-5">
+                        <thead>
+                            <tr>
+                                <th scope="col">Tasks</th>
+                                <th scope="col">State</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">Due Date</th>
+                                <th scope="col">Completed Date</th>
+                                <th scope="col">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var task in Model.ProjectTasks)
+                            {
+                                @if(tableActive == "table-default")
+                                {
+                                    tableActive = "table-active";
+                                }
+                                else
+                                {
+                                    tableActive = "table-default";
+                                }
+                                <tr class="@(tableActive == "table-default" ? "table-default" : "table-active")">
+                                    <td>@task.ProjectTaskName</td>
+                                    <td>@task.ProjectTaskState</td>
+                                    <td>@task.ProjectTaskStartDate</td>
+                                    <td>@task.ProjectTaskDueDate</td>
+                                    <td>@task.ProjectTaskCompletedDate</td>
+                                    <td>
+                                        <a  asp-area="Visitor" asp-controller="Project" asp-action="Task" asp-route-id="@task.Id" class="card-link mx-3">
+                                                View Detail
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
+
+
+
+                @* @Html.Partial("_DetailMain", Model)
+                
+            
             <div id="taskDetailSection">
                 <!-- Task details will be loaded here dynamically -->
-            </div>
+            </div> *@
             
         </div>
     </div>
