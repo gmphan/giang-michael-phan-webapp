@@ -50,24 +50,24 @@ namespace GmphanMvc.Areas.Visitor.Controllers
             return View(projectTaskView);
         }
 
-        [HttpPost]
-        [IgnoreAntiforgeryToken]
-        public async Task<IActionResult> _DetailMain(ProjectDetailView obj)
-        {
-            if (!ModelState.IsValid)
-            {
-                // need to return a error message here
-                return View(obj);
-            }
-            await _projectServ.UpdateProjectDetailServAsync(obj);
-            return PartialView(obj);
-        }
+        // [HttpPost]
+        // [IgnoreAntiforgeryToken]
+        // public async Task<IActionResult> _DetailMain(ProjectDetailView obj)
+        // {
+        //     if (!ModelState.IsValid)
+        //     {
+        //         // need to return a error message here
+        //         return View(obj);
+        //     }
+        //     await _projectServ.UpdateProjectDetailServAsync(obj);
+        //     return PartialView(obj);
+        // }
 
-        public async Task<IActionResult> _TaskDetail(int id)
-        {
-            ProjectTaskDetailView projectTaskDetailView = await _projectServ.GetProjectTaskDetailViewServAsync(id);
-            return PartialView("_TaskDetail", projectTaskDetailView);
-        }
+        // public async Task<IActionResult> _TaskDetail(int id)
+        // {
+        //     ProjectTaskDetailView projectTaskDetailView = await _projectServ.GetProjectTaskDetailViewServAsync(id);
+        //     return PartialView("_TaskDetail", projectTaskDetailView);
+        // }
         // public async Task<IActionResult> ProjectDetail(int id)
         // {
         //     // Project3LayerView project3LayerView = await _projectServ.Get3LayerProjectServAsync(id);
