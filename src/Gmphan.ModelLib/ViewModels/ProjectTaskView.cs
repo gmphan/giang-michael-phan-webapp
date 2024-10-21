@@ -8,6 +8,7 @@ namespace Gmphan.ModelLib.ViewModels
     public class ProjectTaskView
     {
         public int Id { get; set; }
+        public int ProjectId { get; set; }
         public string? ProjectTaskName { get; set; }
         public string? ProjectTaskDescription { get; set; }
         public string? ProjectTaskState { get; set; }

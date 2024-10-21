@@ -9,19 +9,15 @@ namespace Gmphan.BusinessAccessLib
 {
     public interface IProjectServ
     {
+        // Share between Admin and Visitor
         public Task AddNewProjectServAsync(Project obj);
         public Task<ProjectListView> GetProjectListViewServAsync();
         public Task<ProjectDetailView> GetProjectDetailViewServAsync(int id);
-        public Task<ProjectTaskDetailView> GetProjectTaskDetailViewServAsync(int id); // will remove this after fix admin
-        public Task<ProjectTaskView> GetProjectTaskViewServAsync(int id);
-        public Task UpdateProjectDetailServAsync(ProjectDetailView obj);
-        public Task AddNewProjectTaskServAsync(ProjectTaskDetailView obj);
-        public Task<bool> UpdateProjectTaskDetailServAsync(ProjectTaskDetailView obj);
-        public Task<bool> AddTaskActivityNote(int taskId, string note);
+        public Task<ProjectTaskView> GetProjectTaskViewServAsync(int id);     
 
-        //below will be clean out
-        public Task<List<ProjectView>> GetProjectViewListServAsync();
-        public Task<ProjectView> GetProjectView3LayerServAsync(int id);
-        public Task UpdateActivityMainServAsync(ProjectView obj);
+        // Below are all for Admin Area
+        public Task<bool> UpdateProjectServAsync(ProjectDetailView obj);
+        public Task<bool> AddNewTaskSerAsync(ProjectTask obj);
+       
     }
 }

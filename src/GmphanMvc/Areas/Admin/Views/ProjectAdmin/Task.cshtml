@@ -1,0 +1,149 @@
+@model ProjectTaskView
+@{
+    ViewData["Title"] = "Task Admin Detail";
+    var tableActive ="table-default";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10 col-md-12">
+        <div class="card mb-3">
+            <h1 class="card-header">Task Admin Detail</h1>
+            <div class="card-body p-3">
+                <!--this form to update task-->
+                @* id="_taskDetail" *@
+                <form asp-action="Task" asp-controller="ProjectAdmin" asp-area="Admin" method="post">
+                    <input asp-for="Id" hidden>
+                    <input asp-for="ProjectId" hidden>
+                    <div class="p-1 mt-2">
+                        <div class="row mb-1 p-0">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="ProjectTaskName" class="me-2" style="min-width: 150px;">Task Name</label>
+                                <input type="text" asp-for="ProjectTaskName" class="form-control flex-grow-1" placeholder="Task Name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-1 mt-2">
+                        <div class="d-flex align-items-center">
+                            <label asp-for="ProjectTaskDescription" class="me-2" style="min-width: 150px;">Task Description</label>
+                            <textarea asp-for="ProjectTaskDescription" class="form-control flex-grow-1" rows="3" placeholder="Task Description" id=""></textarea>
+                        </div>
+                        <span asp-validation-for="ProjectTaskDescription" class="text-danger"></span>
+                    </div>
+                    <div class="p-1">
+                        <div class="row mb-1 p-1">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center mb-3">
+                                    <label asp-for="ProjectTaskState" class="me-2" style="min-width: 150px;">Task State</label>
+                                    <div class="col-md-6"> <!-- Adjust the column width as needed -->
+                                        <select asp-for="ProjectTaskState" class="form-select form-control">
+                                            <option value="">Select a state</option>
+                                            <option value="WorkingInProgress">Working in Progress</option>
+                                            <option value="Waiting">Waiting</option>
+                                            <option value="OnHold">On Hold</option>
+                                            <option value="Completed">Completed</option>
+                                            <option value="Canceled">Canceled</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="ProjectTaskState" class="text-danger"></span>
+
+                                <div class="d-flex align-items-center">
+                                    <label asp-for="ProjectTaskStartDate" class="me-2" style="min-width: 150px;">Start Date</label>
+                                    <!-- HTML for Datepicker -->
+                                    <div class="col-md-6">
+                                        <div class="input-group date">
+                                            <input asp-for="ProjectTaskStartDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="ProjectTaskStartDate" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center mb-3 justify-content-end">
+                                    <label asp-for="ProjectTaskDueDate" class="me-2" style="min-width: 150px;">Due Date</label>
+                                    <div class="col-md-6">
+                                        <div class="input-group date">
+                                            <input asp-for="ProjectTaskDueDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="ProjectTaskDueDate" class="text-danger"></span>
+
+                                <div class="d-flex align-items-center justify-content-end">
+                                    <label asp-for="ProjectTaskCompletedDate" class="me-2" style="min-width: 150px;">Completed Date</label>
+                                    <div class="col-md-6">
+                                        <div class="input-group date">
+                                            <input asp-for="ProjectTaskCompletedDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-secondary form-control">
+                                    <i class="bi bi-floppy"></i>  Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+                <div class="card mb-3 p-3 border-info">
+                    <!--this form to add note -->
+                    <form id="newNoteForm" method="post" asp-action="_AddTaskNote" asp-controller="ProjectAdmin" asp-area="Admin">
+                        @Html.AntiForgeryToken()
+                        <input asp-for="Id" name="taskId" hidden />            
+                        <div class="p-1 mt-2">
+                            <div class="d-flex align-items-center">
+                                <label for="taskActivityNote" class="me-2" style="min-width: 150px;">Activity Note</label>
+                                <textarea name="note" class="form-control flex-grow-1" rows="3" placeholder="Activity Note" id="taskActivityNote"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3 p-1">
+                            <div class="col-md-12 d-flex justify-content-center">
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-secondary form-control">
+                                        <i class="bi bi-floppy"></i> Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--this is to show history note activities -->
+                    <div id="taskActivitiesList" class="row p-1 mt-2">
+                        <div class="col">
+                            <div class="d-flex">
+                                <!-- Label on the top-left -->
+                                <div class="me-2 mb-2" style="min-width: 150px;">
+                                    <label class="form-label">Task Activities</label>
+                                </div>
+                                
+                                    <!-- Make the ul inline with the label by using flex-grow-1 for the ul -->
+                                    <ul class="list-group flex-grow-1 mb-2">
+                                        @foreach (var item in @Model.ProjectTaskActivities)
+                                        {
+                                            <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                                                @item.ActivityNote
+                                                <span class="badge bg-primary rounded-pill">@item.CreatedDate</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!--this is to show history note activities -->
+                    @* @Html.Partial("_AddTaskNote", Model) *@
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    
+
+

@@ -8,7 +8,7 @@ namespace Gmphan.DataAccessLib.Repository
 {
     public interface IProjectRepo : IRepository<Project>
     {
-        public Task<Project> Get3LayerProjectRepo(int id);
+        public Task<Project> GetProjectDetailRepo(int id);
         public Task UpdateAsync(Project obj);
     }
 }

@@ -26,9 +26,6 @@ namespace GmphanMvc.Areas.Visitor.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // List<ProjectView> projectViews = new List<ProjectView>();
-            // projectViews = await _projectServ.GetProjectViewListServAsync();
-            // return View(projectViews);
             ProjectListView projectListView = await _projectServ.GetProjectListViewServAsync();
             return View(projectListView);
         }
@@ -50,34 +47,6 @@ namespace GmphanMvc.Areas.Visitor.Controllers
             return View(projectTaskView);
         }
 
-        // [HttpPost]
-        // [IgnoreAntiforgeryToken]
-        // public async Task<IActionResult> _DetailMain(ProjectDetailView obj)
-        // {
-        //     if (!ModelState.IsValid)
-        //     {
-        //         // need to return a error message here
-        //         return View(obj);
-        //     }
-        //     await _projectServ.UpdateProjectDetailServAsync(obj);
-        //     return PartialView(obj);
-        // }
-
-        // public async Task<IActionResult> _TaskDetail(int id)
-        // {
-        //     ProjectTaskDetailView projectTaskDetailView = await _projectServ.GetProjectTaskDetailViewServAsync(id);
-        //     return PartialView("_TaskDetail", projectTaskDetailView);
-        // }
-        // public async Task<IActionResult> ProjectDetail(int id)
-        // {
-        //     // Project3LayerView project3LayerView = await _projectServ.Get3LayerProjectServAsync(id);
-        //     ProjectView projectView3Layer = await _projectServ.GetProjectView3LayerServAsync(id);
-        //     if (projectView3Layer == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     return View(projectView3Layer);
-        // }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

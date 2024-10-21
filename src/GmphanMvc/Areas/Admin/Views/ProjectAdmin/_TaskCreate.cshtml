@@ -1,0 +1,95 @@
+
+@model ProjectTaskView
+
+@* Modal for add new task *@
+<div id="newTaskModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="newTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newTaskModalLabel">New Task</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-action="_TaskCreate" asp-area="Admin" asp-controller="ProjectAdmin">
+                    <!-- Hidden field for ProjectId -->
+                    <input type="hidden" name="ProjectId" value="@Model.ProjectId" />
+                    <div class="p-1 mt-2">
+                        <div class="row mb-1 p-0">
+                            <label asp-for="ProjectTaskName" class="col-3">Task Name</label>
+                            <div class="col-9">
+                                <input type="text" asp-for="ProjectTaskName" class="form-control" placeholder="Task Name">
+                                <span asp-validation-for="ProjectTaskName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-1 mt-2">
+                        <div class="row mb-1 p-0">
+                            <label asp-for="ProjectTaskDescription" class="col-3">Task Description</label>
+                            <div class="col-9">
+                                <textarea asp-for="ProjectTaskDescription" class="form-control" rows="3" placeholder="Task Description"></textarea>
+                                <span asp-validation-for="ProjectTaskDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-1 mt-2">
+                        <div class="row mb-1 p-0">
+                            <label asp-for="ProjectTaskState" class="col-3">Task State</label>
+                            <div class="col-9">
+                                <select asp-for="ProjectTaskState" class="form-select form-control">
+                                    <option value="">Select a state</option>
+                                    <option value="WorkingInProgress">Working in Progress</option>
+                                    <option value="Waiting">Waiting</option>
+                                    <option value="OnHold">On Hold</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Canceled">Canceled</option>
+                                </select>
+                                <span asp-validation-for="ProjectTaskState" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-1 mt-2">
+                        <div class="row mb-1 p-0">
+                            <label asp-for="ProjectTaskStartDate" class="col-3">Start Date</label>
+                            <div class="col-9">
+                                <input asp-for="ProjectTaskStartDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
+                                <span asp-validation-for="ProjectTaskStartDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-1 mt-2">
+                        <div class="row mb-1 p-0">
+                            <label asp-for="ProjectTaskDueDate" class="col-3">Due Date</label>
+                            <div class="col-9">
+                                <input asp-for="ProjectTaskDueDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
+                                <span asp-validation-for="ProjectTaskDueDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-1 mt-2">
+                        <div class="row mb-1 p-0">
+                            <label asp-for="ProjectTaskCompletedDate" class="col-3">Completed Date</label>
+                            <div class="col-9">
+                                <input asp-for="ProjectTaskCompletedDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add other form fields as necessary -->
+                    <div class="row mt-3">
+                        <div class="col-9 offset-1">
+                            <button type="submit" class="btn btn-primary">Save Task</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

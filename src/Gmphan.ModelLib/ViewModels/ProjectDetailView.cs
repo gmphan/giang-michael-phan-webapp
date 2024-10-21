@@ -15,7 +15,7 @@ namespace Gmphan.ModelLib.ViewModels
         public DateTime ProjectDueDate { get; set; }
         public DateTime? ProjectCompletedDate { get; set; }
         public string? ProjectSummary { get; set; }
-        public List<ProjectTaskView> ProjectTasks { get; set; } = new List<ProjectTaskView>();
+        public List<ProjectTaskView> ProjectTaskViews { get; set; } = new List<ProjectTaskView>();
         public void SortProjectTasksByCustomStateOrder()
         {
             // Define the custom order for the ProjectState
@@ -29,7 +29,7 @@ namespace Gmphan.ModelLib.ViewModels
             };
 
             // Sort the ProjectTasks based on the custom order
-            ProjectTasks = ProjectTasks
+            ProjectTaskViews = ProjectTaskViews
                 .OrderBy(pt => customStateOrder.IndexOf(pt.ProjectTaskState))
                 .ToList();
         }

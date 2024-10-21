@@ -95,7 +95,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var task in Model.ProjectTasks)
+                            @foreach (var task in Model.ProjectTaskViews)
                             {
                                 @if(tableActive == "table-default")
                                 {
@@ -113,7 +113,7 @@
                                     <td>@task.ProjectTaskCompletedDate</td>
                                     <td>
                                         <a  asp-area="Visitor" asp-controller="Project" asp-action="Task" asp-route-id="@task.Id" class="card-link mx-3">
-                                                View Detail
+                                                View Task
                                         </a>
                                     </td>
                                 </tr>

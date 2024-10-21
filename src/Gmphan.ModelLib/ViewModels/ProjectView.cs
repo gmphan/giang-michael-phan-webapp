@@ -16,6 +16,6 @@ namespace Gmphan.ModelLib.ViewModels
         public DateTime? ProjectCompletedDate { get; set; }
         public string? ProjectSummary { get; set; }
         public List<ProjectTaskView> ProjectTasks { get; set; } = new List<ProjectTaskView>();
-        public int? SelectedTaskId { get; set; }
+        // public int? SelectedTaskId { get; set; }
     }
 }

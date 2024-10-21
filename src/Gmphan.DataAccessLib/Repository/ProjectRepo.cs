@@ -15,11 +15,18 @@ namespace Gmphan.DataAccessLib.Repository
         {
             _db = db;
         }
-        public async Task<Project> Get3LayerProjectRepo(int id)
+        // public async Task<Project> Get3LayerProjectRepo(int id)
+        // {
+        //     Project project = await _db.Projects
+        //                 .Include(p => p.ProjectTasks)                     // Eager load the related ProjectTasks
+        //                     .ThenInclude(pt => pt.ProjectTaskActivities)  // Eager load the related ProjectTaskActivities within each ProjectTask
+        //                 .SingleOrDefaultAsync(p => p.Id == id);            // Assuming you're fetching by the Project's ID
+        //     return project;
+        // }
+        public async Task<Project> GetProjectDetailRepo(int id)
         {
             Project project = await _db.Projects
-                        .Include(p => p.ProjectTasks)                     // Eager load the related ProjectTasks
-                            .ThenInclude(pt => pt.ProjectTaskActivities)  // Eager load the related ProjectTaskActivities within each ProjectTask
+                        .Include(p => p.ProjectTasks)                     
                         .SingleOrDefaultAsync(p => p.Id == id);            // Assuming you're fetching by the Project's ID
             return project;
         }
