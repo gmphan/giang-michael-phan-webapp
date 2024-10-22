@@ -116,6 +116,31 @@ namespace GmphanMvc.Areas.Admin.Controllers
 
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddTaskNote(ProjectTaskActivity obj)
+        {
+            // Manually remove `ProjectTask` from ModelState to prevent validation
+            ModelState.Remove("ProjectTask");   
+            if (!ModelState.IsValid) // add tempdata
+            { 
+                // Log or inspect ModelState errors for debugging
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+                return BadRequest(ModelState); 
+            }
+            bool result = await _projectServ.AddTaskNoteServAsync(obj);
+            if (!result) 
+            {
+                //add tempdata
+                return BadRequest();
+            }
+            return RedirectToAction("Task", new { Id = obj.ProjectTaskId });
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

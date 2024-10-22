@@ -210,11 +210,22 @@ namespace Gmphan.BusinessAccessLib
             }
         }
 
-
-        
-         
-
-       
-
+        public async Task<bool> AddTaskNoteServAsync(ProjectTaskActivity obj)
+        {
+            obj.CreatedDate = DateTime.UtcNow;
+            try
+            {
+                await _unityOfWork.ProjectTaskActivityRepoUOW.AddAsync(obj);
+                await _unityOfWork.SaveAsync();
+                // after add note, the controller will redirect to Task action to render task detail with note again.
+                await _getTAndCacheGeneric.UpdateCacheAsync($"projectTask{obj.ProjectTaskId}", () => _unityOfWork.ProjectTaskRepoUOW.GetProjectTaskDetailRepo(obj.ProjectTaskId));
+                return true;
+            }
+            catch (Exception ex) 
+            { 
+                _logger.LogError(ex, "AddTaskNoteServAsync Ex Error");
+                return false;
+            }
+        }
     }
 }

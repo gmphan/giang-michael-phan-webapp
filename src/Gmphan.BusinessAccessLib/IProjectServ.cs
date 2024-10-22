@@ -19,6 +19,7 @@ namespace Gmphan.BusinessAccessLib
         public Task<bool> UpdateProjectServAsync(ProjectDetailView obj);
         public Task<bool> AddNewTaskSerAsync(ProjectTask obj);
         public Task<bool> UpdateTaskSerAsync(ProjectTaskView obj);
+        public Task<bool> AddTaskNoteServAsync(ProjectTaskActivity obj);
        
     }
 }
