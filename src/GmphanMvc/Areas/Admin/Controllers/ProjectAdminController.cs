@@ -83,17 +83,22 @@ namespace GmphanMvc.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> TaskUpdate(ProjectTaskView obj)
         {
-            if (ModelState.IsValid)
-            {
-                bool result = await _projectServ.UpdateTaskSerAsync(obj);
-                if (result)
+            if (!ModelState.IsValid) // add tempdata
+            { 
+                // Log or inspect ModelState errors for debugging
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
                 {
-                    //add tempdata later    
-                    return RedirectToAction("Task", new { Id = obj.Id});
+                    Console.WriteLine(error.ErrorMessage);
                 }
-                
+                return BadRequest(ModelState); 
             }
-            // add tempdata
+            bool result = await _projectServ.UpdateTaskSerAsync(obj);
+            if (result)
+            {
+                //add tempdata later    
+                return RedirectToAction("Task", new { Id = obj.Id});
+            }
             return BadRequest();
         }
 

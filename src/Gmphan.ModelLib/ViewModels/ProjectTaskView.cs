@@ -24,7 +24,5 @@ namespace Gmphan.ModelLib.ViewModels
                 ProjectTaskActivities = ProjectTaskActivities.OrderByDescending(x => x.CreatedDate).ToList();
             }
         }
-        // Property to hold new activity note details
-        public ProjectTaskActivity NewProjectTaskActivity { get; set; }
     }
 }
