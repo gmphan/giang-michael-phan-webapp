@@ -165,6 +165,9 @@ namespace Gmphan.BusinessAccessLib
             obj.ProjectTaskDueDate = DateTime.SpecifyKind(obj.ProjectTaskDueDate, DateTimeKind.Utc);
             obj.CreatedDate = DateTime.UtcNow;
             obj.UpdatedDate = DateTime.UtcNow;
+            obj.ProjectTaskCompletedDate = obj.ProjectTaskCompletedDate.HasValue
+                            ? DateTime.SpecifyKind(obj.ProjectTaskCompletedDate.Value, DateTimeKind.Utc)
+                            : (DateTime?)null;
             try
             {
                 await _unityOfWork.ProjectTaskRepoUOW.AddAsync(obj);
