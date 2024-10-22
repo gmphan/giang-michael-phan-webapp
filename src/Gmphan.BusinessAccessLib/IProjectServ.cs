@@ -18,6 +18,7 @@ namespace Gmphan.BusinessAccessLib
         // Below are all for Admin Area
         public Task<bool> UpdateProjectServAsync(ProjectDetailView obj);
         public Task<bool> AddNewTaskSerAsync(ProjectTask obj);
+        public Task<bool> UpdateTaskSerAsync(ProjectTaskView obj);
        
     }
 }

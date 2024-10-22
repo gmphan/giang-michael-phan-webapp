@@ -66,7 +66,7 @@ namespace GmphanMvc.Areas.Admin.Controllers
             if(result) 
             {
                 //need to include successful tempdata  
-                return View(obj); 
+                return RedirectToAction("Detail", new { id = obj.Id }); 
             }  
 
             // if result is false
@@ -79,10 +79,23 @@ namespace GmphanMvc.Areas.Admin.Controllers
             return View(projectTaskView);
         }
 
-        // public async Task<IActionResult> TaskCreate()
-        // {
-        //     return View();
-        // }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> TaskUpdate(ProjectTaskView obj)
+        {
+            if (ModelState.IsValid)
+            {
+                bool result = await _projectServ.UpdateTaskSerAsync(obj);
+                if (result)
+                {
+                    //add tempdata later    
+                    return RedirectToAction("Task", new { Id = obj.Id});
+                }
+                
+            }
+            // add tempdata
+            return BadRequest();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

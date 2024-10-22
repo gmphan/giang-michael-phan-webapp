@@ -11,7 +11,7 @@
             <div class="card-body p-3">
                 <!--this form to update task-->
                 @* id="_taskDetail" *@
-                <form asp-action="Task" asp-controller="ProjectAdmin" asp-area="Admin" method="post">
+                <form asp-action="TaskUpdate" asp-controller="ProjectAdmin" asp-area="Admin" method="post">
                     <input asp-for="Id" hidden>
                     <input asp-for="ProjectId" hidden>
                     <div class="p-1 mt-2">

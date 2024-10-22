@@ -158,6 +158,7 @@ namespace Gmphan.BusinessAccessLib
             return projectTaskView;
         }
         
+        
         public async Task<bool> AddNewTaskSerAsync(ProjectTask obj)
         {
             obj.ProjectTaskStartDate = DateTime.SpecifyKind(obj.ProjectTaskStartDate, DateTimeKind.Utc);
@@ -179,6 +180,35 @@ namespace Gmphan.BusinessAccessLib
             }
         }
         
+        public async Task<bool> UpdateTaskSerAsync(ProjectTaskView obj)
+        {
+            ProjectTask projectTask = new ProjectTask
+            {
+                Id = obj.Id,
+                ProjectId = obj.ProjectId,
+                ProjectTaskName = obj.ProjectTaskName,
+                ProjectTaskDescription = obj.ProjectTaskDescription,
+                ProjectTaskState = obj.ProjectTaskState,
+                ProjectTaskStartDate = DateTime.SpecifyKind(obj.ProjectTaskStartDate, DateTimeKind.Utc),
+                ProjectTaskDueDate = DateTime.SpecifyKind(obj.ProjectTaskDueDate, DateTimeKind.Utc),
+                ProjectTaskCompletedDate = obj.ProjectTaskCompletedDate.HasValue
+                            ? DateTime.SpecifyKind(obj.ProjectTaskCompletedDate.Value, DateTimeKind.Utc)
+                            : (DateTime?)null,
+                UpdatedDate = DateTime.UtcNow
+            };
+            try
+            {
+                await _unityOfWork.ProjectTaskRepoUOW.UpdateAsync(projectTask);
+                await _unityOfWork.SaveAsync();
+                await _getTAndCacheGeneric.UpdateCacheAsync($"projectTask{obj.Id}", () => _unityOfWork.ProjectTaskRepoUOW.GetProjectTaskDetailRepo(obj.Id));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "UpdateTaskServAsync error");
+                return false;
+            }
+        }
 
 
         
