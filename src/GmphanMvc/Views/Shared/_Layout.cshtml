@@ -51,9 +51,9 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item @(controllerName == "QuoteAdmin" ? "active" : "")" asp-area="Visitor" asp-controller="Quote" asp-action="Index">Quotes</a>
-                                <a class="dropdown-item @(controllerName == "ResumeAdmin" ? "active" : "")" asp-area="Admin" asp-controller="ResumeAdmin" asp-action="Index">Daily Logs</a>
-                                <a class="dropdown-item @(controllerName == "ProjectAdmin" ? "active" : "")" asp-area="Admin" asp-controller="ProjectAdmin" asp-action="Index">Fun Resources</a>
+                                <a class="dropdown-item @(controllerName == "Quote" ? "active" : "")" asp-area="Visitor" asp-controller="Quote" asp-action="Index">Quotes</a>
+                                @* <a class="dropdown-item @(controllerName == "Resume" ? "active" : "")" asp-area="Visitor" asp-controller="Home" asp-action="Index">Daily Logs</a>
+                                <a class="dropdown-item @(controllerName == "Project" ? "active" : "")" asp-area="Visitor" asp-controller="ProjectAdmin" asp-action="Index">Fun Resources</a> *@
                                 <div class="dropdown-divider"></div>
                             </div>
                         </li>
