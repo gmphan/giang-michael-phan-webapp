@@ -6,7 +6,12 @@
 <div class="row justify-content-center">
     <div class="col-lg-10 col-md-12">
         <div class="card mb-3">
-            <h1 class="card-header">Task Detail</h1>
+            <h1 class="card-header">
+                <a class="back-button" asp-area="Visitor" asp-controller="Project" asp-action="Detail" asp-route-id="@Model.ProjectId">
+                    <i class="bi bi-arrow-left-circle"></i>
+                </a>
+                Task Detail
+            </h1>
 
             <div class="card-body p-3">
                 <form id="_detailMain" method="post">
