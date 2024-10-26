@@ -100,4 +100,25 @@ footer {
   text-decoration: none;
 }
 
+/* for ContactMe */
+.line-input {
+  border: none;
+  border-bottom: 1px solid #ddd; /* Lighter border for line-only effect */
+  border-radius: 0;
+  background-color: transparent;
+  padding: 10px 5px; /* Increase space inside the input */
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  width: 100%;
+}
+
+.line-input:focus {
+  border-bottom-color: #007bff; /* Focus color */
+  outline: none;
+}
+
+
+/* end for ContactMe */
+
+
 /* End from Giang */

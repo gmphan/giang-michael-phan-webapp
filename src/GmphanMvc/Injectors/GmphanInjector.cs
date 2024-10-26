@@ -21,6 +21,7 @@ namespace GmphanMvc.Injectors
             services.AddScoped<IQuoteCollectionServ, QuoteCollectionServ>();
             services.AddScoped<IResumeServ, ResumeServ>();
             services.AddScoped<IProjectServ, ProjectServ>();
+            services.AddScoped<IAboutServ, AboutServ>();
 
             // Add Utilities
             services.AddScoped<IGetTAndCacheGeneric, GetTAndCacheGeneric>();

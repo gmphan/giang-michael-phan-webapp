@@ -13,79 +13,84 @@
                 <p class="card-text">Welcome to the About page! Here, you’ll find a brief summary 
                     of this website’s purpose and a little bit about me.</p>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <div class="accordion" id="accordionExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                GiangMichaelPhan.azurewebsites.net/
-                            </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p>The purpose of developing GiangMichaelPhan.azurewebsites.net/ is to showcase my skills in a practical setting, as well as to share a bit about myself—my passion 
-                                        for programming, reading, and exploring interesting topics like technology and science. This website also serves as a platform for me to document 
-                                        my daily thoughts on various topics through a logging system, which will be developed soon. Additionally, it tracks projects, similar to ServiceNow, 
-                                        which is why I created the “project system.”</p>
-                                    <p>Most elements on this site are dynamic, meaning they can be created, edited, and deleted through the admin panel, with data stored in a database 
-                                        and rendered each time someone visits. Building this functionality has allowed me to enhance my critical thinking skills, particularly in using 
-                                        sessions, tokens, and refining my coding logic.</p>
-                                    <p>Developing this website is an ongoing project where I can continuously add new features as I learn more. I appreciate you visiting the site, and 
-                                        you might notice changes each time you come back. My goal is always to improve both the code and the content, making the site better with each update.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Azurewebsites.net
-                            </button>
-                            </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p>This website is developed using ASP.NET Core 8. For me, .NET Core is an impressive framework. I made the transition from Node.js to .NET Core, 
-                                        which wasn’t an easy shift due to the differences between the two. .NET follows an object-oriented programming (OOP) structure, which requires 
-                                        more detailed and structured code, while Node.js is a functional language that allows for dynamic and flexible coding. However, the strength of 
-                                        .NET lies in its robust and stable structure, making it ideal for larger projects. On the other hand, while Node.js is easier to learn and highly 
-                                        dynamic, it can become challenging to manage in extensive development.
-                                    </p>
-                                    <p>
-                                        This website is hosted on an Azure Docker environment, a setup I find fascinating. Each part of the web app runs independently within a Docker container, 
-                                        and it only takes a few minutes to build and deploy. While the initial setup of the Docker image and Azure environment can be time-consuming, everything 
-                                        runs smoothly afterward. I also appreciate the ease and security of managing secret variables.
-                                    </p>
-                                    <p>
-                                        Currently, the site is a bit slow because it’s running on a B1 Azure App Service tier, but I plan to upgrade to a higher tier soon for improved performance.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Giang Michael Phan
-                            </button>
-                            </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p>
-                                        Giang Michael Phan, from Morrow, Georgia, is a dedicated web application developer with over 15 years of experience in Information Technology. 
-                                        With a strong passion for computer science and a love for solving complex problems, I continually seek out new challenges. 
-                                        In my free time, I enjoy reading inspirational life stories and staying informed about the latest developments in technology and science, 
-                                        which I find truly fascinating. Explore my website, and I hope you enjoy and find the information both engaging and insightful!
-                                    </p>
-                                    <p>
-                                        Feel free to use the contact form below to send me a message. Thank you!
-                                    </p>
-                                </div>
-                            </div>
+            <div class="accordion list-group-flush" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        GiangMichaelPhan.azurewebsites.net/
+                    </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p>The purpose of developing GiangMichaelPhan.azurewebsites.net/ is to showcase my skills in a practical setting, as well as to share a bit about myself—my passion 
+                                for programming, reading, and exploring interesting topics like technology and science. This website also serves as a platform for me to document 
+                                my daily thoughts on various topics through a logging system, which will be developed soon. Additionally, it tracks projects, similar to ServiceNow, 
+                                which is why I created the “project system.”</p>
+                            <p>Most elements on this site are dynamic, meaning they can be created, edited, and deleted through the admin panel, with data stored in a database 
+                                and rendered each time someone visits. Building this functionality has allowed me to enhance my critical thinking skills, particularly in using 
+                                sessions, tokens, and refining my coding logic.</p>
+                            <p>Developing this website is an ongoing project where I can continuously add new features as I learn more. I appreciate you visiting the site, and 
+                                you might notice changes each time you come back. My goal is always to improve both the code and the content, making the site better with each update.</p>
                         </div>
                     </div>
-                </li>
-                <li class="list-group-item">Contact Me box in developing mode...</li>
-                @* <li class="list-group-item"></li> *@
-            </ul>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Azurewebsites.net
+                    </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p>This website is developed using ASP.NET Core 8. For me, .NET Core is an impressive framework. I made the transition from Node.js to .NET Core, 
+                                which wasn’t an easy shift due to the differences between the two. .NET follows an object-oriented programming (OOP) structure, which requires 
+                                more detailed and structured code, while Node.js is a functional language that allows for dynamic and flexible coding. However, the strength of 
+                                .NET lies in its robust and stable structure, making it ideal for larger projects. On the other hand, while Node.js is easier to learn and highly 
+                                dynamic, it can become challenging to manage in extensive development.
+                            </p>
+                            <p>
+                                This website is hosted on an Azure Docker environment, a setup I find fascinating. Each part of the web app runs independently within a Docker container, 
+                                and it only takes a few minutes to build and deploy. While the initial setup of the Docker image and Azure environment can be time-consuming, everything 
+                                runs smoothly afterward. I also appreciate the ease and security of managing secret variables.
+                            </p>
+                            <p>
+                                Currently, the site is a bit slow because it’s running on a B1 Azure App Service tier, but I plan to upgrade to a higher tier soon for improved performance.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Giang Michael Phan
+                    </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p>
+                                Giang Michael Phan, from Morrow, Georgia, is a dedicated web application developer with over 15 years of experience in Information Technology. 
+                                With a strong passion for computer science and a love for solving complex problems, I continually seek out new challenges. 
+                                In my free time, I enjoy reading inspirational life stories and staying informed about the latest developments in technology and science, 
+                                which I find truly fascinating. Explore my website, and I hope you enjoy and find the information both engaging and insightful!
+                            </p>
+                            <p>
+                                Feel free to use the contact form below to send me a message. Thank you!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <h4 class="card-header">Contact Me</h4>
+                        <div class="card-body">
+                            @Html.Partial("_ContactMe")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             
             <div class="card-footer text-muted">
                 About page

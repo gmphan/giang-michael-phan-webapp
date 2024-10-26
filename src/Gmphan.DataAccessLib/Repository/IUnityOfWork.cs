@@ -15,6 +15,7 @@ namespace Gmphan.DataAccessLib.Repository
         IProjectRepo ProjectRepoUOW { get; }
         IProjectTaskRepo ProjectTaskRepoUOW { get; }    
         IProjectTaskActivityRepo ProjectTaskActivityRepoUOW { get; }
+        IContactMeRepo ContactMeRepoUOW { get; }
         public Task SaveAsync();
     }
 }

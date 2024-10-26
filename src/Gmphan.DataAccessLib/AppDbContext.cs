@@ -24,6 +24,7 @@ namespace Gmphan.DataAccessLib
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectTask> ProjectTasks { get; set; }
         public DbSet<ProjectTaskActivity> ProjectTaskActivities { get; set; }
+        public DbSet<ContactMe> ContactMes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // : IdentityDbContext require the line of code below to work
