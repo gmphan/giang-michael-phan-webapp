@@ -123,6 +123,8 @@ namespace Gmphan.BusinessAccessLib
 
                 // Remember none controller query for project by itself but ProjectDetail which included task list, so cache keeping ProjectDetail not just project
                 await _getTAndCacheGeneric.UpdateCacheAsync($"projectDetail{obj.Id}", () => _unityOfWork.ProjectRepoUOW.GetProjectDetailRepo(obj.Id));
+                // Need to refresh the cache for the ProjectList since we have to re-render the list again.
+                await _getTAndCacheGeneric.UpdateCacheAsync($"projectList", _unityOfWork.ProjectRepoUOW.GetAllAsync);
                 return true;
             }
             catch (Exception ex)
@@ -203,7 +205,10 @@ namespace Gmphan.BusinessAccessLib
             {
                 await _unityOfWork.ProjectTaskRepoUOW.UpdateAsync(projectTask);
                 await _unityOfWork.SaveAsync();
+                // update cache for the task
                 await _getTAndCacheGeneric.UpdateCacheAsync($"projectTask{obj.Id}", () => _unityOfWork.ProjectTaskRepoUOW.GetProjectTaskDetailRepo(obj.Id));
+                // also need to update cache for the project that have that task since the task is showing under the task detail
+                await _getTAndCacheGeneric.UpdateCacheAsync($"projectDetail{obj.ProjectId}", () => _unityOfWork.ProjectRepoUOW.GetProjectDetailRepo(obj.ProjectId));
                 return true;
             }
             catch (Exception ex)
