@@ -36,34 +36,34 @@
                                 @* <span class="visually-hidden">(current)</span> *@
                             </a>
                         </li>
-                        <li class="nav-item">
+                        @* <li class="nav-item">
                             <a class="nav-link @(controllerName == "Project" ? "active" : "")" asp-area="Visitor" asp-controller="Project" asp-action="Index">Projects
                             </a>
-                        </li>
+                        </li> *@
                         @* <li class="nav-item">
                             <a class="nav-link @(controllerName == "Quote" ? "active" : "")" asp-area="Visitor" asp-controller="Quote" asp-action="Index">Quotes</a>
                         </li> *@
-                        <li class="nav-item">
+                        @* <li class="nav-item">
                             <a class="nav-link @(controllerName == "Resume" ? "active" : "")" asp-area="Visitor" asp-controller="Resume" asp-action="Index">Resume</a>
-                        </li>
+                        </li> *@
                         <li class="nav-item">
                             <a class="nav-link @(controllerName == "About" ? "active" : "")" asp-area="Visitor" asp-controller="About" asp-action="Index">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(controllerName == "Contact" ? "active" : "")" asp-area="Visitor" asp-controller="Contact" asp-action="Index">Contact</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More</a>
                             <div class="dropdown-menu">
+                                <a class="dropdown-item @(controllerName == "Resume" ? "active" : "")" asp-area="Visitor" asp-controller="Resume" asp-action="Index">Resume</a>
+                                <a class="dropdown-item @(controllerName == "Project" ? "active" : "")" asp-area="Visitor" asp-controller="Project" asp-action="Index">Projects</a>
                                 <a class="dropdown-item @(controllerName == "Quote" ? "active" : "")" asp-area="Visitor" asp-controller="Quote" asp-action="Index">Quotes</a>
-                                @* <a class="dropdown-item @(controllerName == "Resume" ? "active" : "")" asp-area="Visitor" asp-controller="Home" asp-action="Index">Daily Logs</a>
-                                <a class="dropdown-item @(controllerName == "Project" ? "active" : "")" asp-area="Visitor" asp-controller="ProjectAdmin" asp-action="Index">Fun Resources</a> *@
                                 <div class="dropdown-divider"></div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
-                            <div class="dropdown-menu">
                                 <a class="dropdown-item @(controllerName == "QuoteAdmin" ? "active" : "")" asp-area="Admin" asp-controller="QuoteAdmin" asp-action="Index">Quote Admin</a>
                                 <a class="dropdown-item @(controllerName == "ResumeAdmin" ? "active" : "")" asp-area="Admin" asp-controller="ResumeAdmin" asp-action="Index">Resume Admin</a>
                                 <a class="dropdown-item @(controllerName == "ProjectAdmin" ? "active" : "")" asp-area="Admin" asp-controller="ProjectAdmin" asp-action="Index">Project Admin</a>
+                                <a class="dropdown-item @(controllerName == "AboutAdmin" ? "active" : "")" asp-area="Admin" asp-controller="AboutAdmin" asp-action="Index">About Admin</a>
+                                <a class="dropdown-item @(controllerName == "ContactAdmin" ? "active" : "")" asp-area="Admin" asp-controller="ContactAdmin" asp-action="Index">Contact Admin</a>
                                 <div class="dropdown-divider"></div>
                                 @if (User.Identity.IsAuthenticated)
                                 {

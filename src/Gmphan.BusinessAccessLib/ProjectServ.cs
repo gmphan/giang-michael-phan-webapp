@@ -29,7 +29,10 @@ namespace Gmphan.BusinessAccessLib
         public async Task AddNewProjectServAsync(Project obj)
         {
             obj.ProjectStartDate = DateTime.SpecifyKind(obj.ProjectStartDate, DateTimeKind.Utc);
-            obj.ProjectDueDate = DateTime.SpecifyKind(obj.ProjectDueDate, DateTimeKind.Utc);    
+            obj.ProjectDueDate = DateTime.SpecifyKind(obj.ProjectDueDate, DateTimeKind.Utc); 
+            obj.ProjectCompletedDate = obj.ProjectCompletedDate.HasValue
+                    ? DateTime.SpecifyKind(obj.ProjectCompletedDate.Value, DateTimeKind.Utc)
+                    : (DateTime?)null;
             obj.CreatedDate = DateTime.UtcNow;
             obj.UpdatedDate = obj.CreatedDate;
             await _unityOfWork.ProjectRepoUOW.AddAsync(obj);
@@ -38,7 +41,7 @@ namespace Gmphan.BusinessAccessLib
         }
         public async Task<ProjectListView> GetProjectListViewServAsync()
         {
-            IEnumerable<Project> projects =await _getTAndCacheGeneric.GetTAsync(
+            IEnumerable<Project> projects = await _getTAndCacheGeneric.GetTAsync(
                 "projectList", 
                 _unityOfWork.ProjectRepoUOW.GetAllAsync
             );

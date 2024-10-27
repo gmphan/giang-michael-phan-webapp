@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Gmphan.DataAccessLib.Repository;
 using Gmphan.ModelLib;
+using Gmphan.ModelLib.ViewModels;
 using Microsoft.Extensions.Logging;
 
 namespace Gmphan.BusinessAccessLib
@@ -25,12 +26,13 @@ namespace Gmphan.BusinessAccessLib
             {
                 await _uow.ContactMeRepoUOW.AddAsync(obj);
                 await _uow.SaveAsync();
-
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+
+        
     }
 }

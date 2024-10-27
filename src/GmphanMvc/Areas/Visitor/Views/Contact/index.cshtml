@@ -1,0 +1,44 @@
+@model ContactMe
+<div class="row justify-content-center">
+    <div class="col-lg-10 col-md-12">
+        <div class="card mb-3">
+            <h1 class="card-header">Contact Me</h1>
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <h6 class="card-subtitle text-muted"></h6>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Contact me using the form below or through my email at...</p>
+                <form method="post" asp-action="Contact" asp-controller="Contact" asp-area="Visitor">
+                    <div class="p-2 mt-3">
+                        <input asp-for="FirstName" type="text" class="form-control line-input" placeholder="First Name">
+                    </div>
+                    <div class="p-2 mt-3">
+                        <input asp-for="LastName" type="text" class="form-control line-input form-control-lg" placeholder="Last Name" id="inputLarge">
+                    </div>
+                    <div class="p-2 mt-3">
+                        <input asp-for="Email" type="email" class="form-control line-input form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" id="inputLarge">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="p-2 mt-3">
+                        <input asp-for="PhoneNum" type="text" class="form-control line-input form-control-lg" placeholder="Phone Number" id="inputLarge">
+                        <small id="phoneNum" class="form-text text-muted">We'll never share your number with anyone else.</small>
+                    </div>
+                    <div class="p-2 mt-3">
+                        <textarea asp-for="Message" class="form-control line-input form-control-lg" id="exampleTextarea" rows="3" placeholder="Message" id="inputLarge"></textarea>
+                    </div>
+                    <div class="row mt-3 mb-3 p-1">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-secondary form-control ">
+                                    <i class="bi bi-send"></i>  Send
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

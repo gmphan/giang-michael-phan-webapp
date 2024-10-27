@@ -7,9 +7,9 @@ using Gmphan.ModelLib.ViewModels;
 
 namespace Gmphan.BusinessAccessLib
 {
-    public interface IAboutServ
+    public interface IContactServ
     {
         public Task SaveContactMeServAsync(ContactMe obj);
-        
+        public Task<ContactMeListView> GetContactMeListViewSerAsync();
     }
 }

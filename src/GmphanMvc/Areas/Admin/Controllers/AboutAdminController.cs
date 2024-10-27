@@ -3,27 +3,25 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Gmphan.BusinessAccessLib;
-using Gmphan.ModelLib;
+using Gmphan.ModelLib.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace GmphanMvc.Areas.Visitor.Controllers
+namespace GmphanMvc.Areas.Admin.Controllers
 {
-    [Area("Visitor")]
-    public class AboutController : Controller
+    [Area("Admin")]
+    [Authorize]
+    public class AboutAdminController : Controller
     {
-        private readonly ILogger<AboutController> _logger;
-        private readonly IAboutServ _aboutServ;
+        private readonly ILogger<AboutAdminController> _logger;
 
-        public AboutController(ILogger<AboutController> logger
-                                , IAboutServ aboutServ)
+        public AboutAdminController(ILogger<AboutAdminController> logger)
         {
             _logger = logger;
-            _aboutServ = aboutServ;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }

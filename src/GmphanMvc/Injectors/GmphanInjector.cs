@@ -22,6 +22,7 @@ namespace GmphanMvc.Injectors
             services.AddScoped<IResumeServ, ResumeServ>();
             services.AddScoped<IProjectServ, ProjectServ>();
             services.AddScoped<IAboutServ, AboutServ>();
+            services.AddScoped<IContactServ, ContactServ>();
 
             // Add Utilities
             services.AddScoped<IGetTAndCacheGeneric, GetTAndCacheGeneric>();
