@@ -3,7 +3,7 @@
     <div class="col-lg-10 col-md-12">
         <div class="card mb-3">
             <h3 class="card-header">
-                <a class="back-button" asp-area="Admin" asp-controller="ProjectAdmin" asp-action="Index">
+                <a class="back-button" asp-area="Visitor" asp-controller="Project" asp-action="Index">
                     <i class="bi bi-arrow-left-circle"></i>
                 </a>
                 Create New Project</h3>
@@ -99,19 +99,18 @@
                                 </div>
                             </div>
                         </div>
-
-                        
-                        
                         <div class="row mb-3 p-1">
                             <div class="col-md-12 d-flex justify-content-center">
                                 <div class="col-md-2">
-                                    <button type="submit" class="btn btn-success form-control">Create</button>
+                                    <button type="submit" class="btn btn-secondary form-control">
+                                        <i class="bi bi-floppy"></i>  Save
+                                    </button>
                                 </div>
-                                <div class="col-md-4 ms-2">
-                                    <a asp-area="Admin" asp-controller="ProjectAdmin" asp-action="Index" class="btn btn-info form-control">
-                                        Back to Project Admin
+                                @* <div class="col-md-4 ms-2">
+                                    <a asp-area="Visitor" asp-controller="Project" asp-action="Index" class="btn btn-info form-control">
+                                        Back to Project 
                                     </a>
-                                </div>
+                                </div> *@
                             </div>
                         </div>
                         

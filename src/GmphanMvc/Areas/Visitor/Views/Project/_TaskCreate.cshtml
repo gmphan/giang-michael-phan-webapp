@@ -10,7 +10,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" asp-action="_TaskCreate" asp-area="Admin" asp-controller="ProjectAdmin">
+                <form method="post" asp-action="_TaskCreate" asp-area="Visitor" asp-controller="Project">
                     <!-- Hidden field for ProjectId -->
                     <input type="hidden" name="ProjectId" value="@Model.ProjectId" />
                     <div class="p-1 mt-2">

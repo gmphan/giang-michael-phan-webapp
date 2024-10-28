@@ -61,7 +61,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item @(controllerName == "QuoteAdmin" ? "active" : "")" asp-area="Admin" asp-controller="QuoteAdmin" asp-action="Index">Quote Admin</a>
                                 <a class="dropdown-item @(controllerName == "ResumeAdmin" ? "active" : "")" asp-area="Admin" asp-controller="ResumeAdmin" asp-action="Index">Resume Admin</a>
-                                <a class="dropdown-item @(controllerName == "ProjectAdmin" ? "active" : "")" asp-area="Admin" asp-controller="ProjectAdmin" asp-action="Index">Project Admin</a>
+                                @* <a class="dropdown-item @(controllerName == "ProjectAdmin" ? "active" : "")" asp-area="Admin" asp-controller="ProjectAdmin" asp-action="Index">Project Admin</a> *@
                                 <a class="dropdown-item @(controllerName == "AboutAdmin" ? "active" : "")" asp-area="Admin" asp-controller="AboutAdmin" asp-action="Index">About Admin</a>
                                 <a class="dropdown-item @(controllerName == "ContactAdmin" ? "active" : "")" asp-area="Admin" asp-controller="ContactAdmin" asp-action="Index">Contact Admin</a>
                                 <div class="dropdown-divider"></div>
@@ -96,6 +96,8 @@
     <!-- Main content -->
     <div class="container-fluid ">
         <main role="main" class="pb-3">
+
+            <!--Quick info modal--->
             <div class="modal fade" id="quickInfoModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

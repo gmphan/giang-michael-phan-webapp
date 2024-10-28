@@ -3,6 +3,7 @@
     ViewData["Title"] = "Task Detail";
     var tableActive ="table-default";
 }
+
 <div class="row justify-content-center">
     <div class="col-lg-10 col-md-12">
         <div class="card mb-3">
@@ -10,91 +11,125 @@
                 <a class="back-button" asp-area="Visitor" asp-controller="Project" asp-action="Detail" asp-route-id="@Model.ProjectId">
                     <i class="bi bi-arrow-left-circle"></i>
                 </a>
-                Task Detail
-            </h1>
-
+                Task Detail</h1>
             <div class="card-body p-3">
-                <form id="_detailMain" method="post">
-                    <input asp-for="Id" hidden />
+                <!--this form to update task-->
+                @* id="_taskDetail" *@
+                <form asp-action="TaskUpdate" asp-controller="Project" asp-area="Visitor" method="post">
+                    <input asp-for="Id" hidden>
+                    <input asp-for="ProjectId" hidden>
                     <div class="p-1 mt-2">
-                        <!-- Row for ProjectName with label on the left and input filling the rest of the space -->
                         <div class="row mb-1 p-0">
                             <div class="d-flex align-items-center">
-                                <label asp-for="@Model.ProjectTaskName" class="me-2" style="min-width: 150px;">Task Name</label>
-                                <input asp-for="@Model.ProjectTaskName" class="form-control flex-grow-1" placeholder="ProjectTask Name" type="text" readonly />
-                            </div>
-                        </div>
-                    </div>           
-                    <div class="p-1">
-                        <div class="row mb-3 p-1">
-                            <div class="d-flex align-items-center">
-                                <label asp-for="@Model.ProjectTaskDescription" class="me-2" style="min-width: 150px;">Description</label>
-                                <textarea asp-for="@Model.ProjectTaskDescription" class="form-control flex-grow-1" rows="4" placeholder="Project Description" readonly></textarea>
+                                <label asp-for="ProjectTaskName" class="me-2" style="min-width: 150px;">Task Name</label>
+                                <input type="text" asp-for="ProjectTaskName" class="form-control flex-grow-1" placeholder="Task Name">
                             </div>
                         </div>
                     </div>
-
-                    <!-- Row for ProjectState and ProjectStartDate on the left, ProjectDueDate and ProjectCompletedDate on the right -->
+                    <div class="p-1 mt-2">
+                        <div class="d-flex align-items-center">
+                            <label asp-for="ProjectTaskDescription" class="me-2" style="min-width: 150px;">Task Description</label>
+                            <textarea asp-for="ProjectTaskDescription" class="form-control flex-grow-1" rows="3" placeholder="Task Description" id=""></textarea>
+                        </div>
+                        <span asp-validation-for="ProjectTaskDescription" class="text-danger"></span>
+                    </div>
                     <div class="p-1">
                         <div class="row mb-1 p-1">
-                            <!-- Left side with ProjectState and ProjectStartDate -->
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center mb-3">
-                                    <label asp-for="@Model.ProjectTaskState" class="me-2" style="min-width: 150px;">State</label>
+                                    <label asp-for="ProjectTaskState" class="me-2" style="min-width: 150px;">Task State</label>
                                     <div class="col-md-6"> <!-- Adjust the column width as needed -->
-                                        <input asp-for="@Model.ProjectTaskState" class="form-control flex-grow-1" placeholder="Project State" type="text" readonly>
+                                        <select asp-for="ProjectTaskState" class="form-select form-control">
+                                            <option value="">Select a state</option>
+                                            <option value="WorkingInProgress">Working in Progress</option>
+                                            <option value="Waiting">Waiting</option>
+                                            <option value="OnHold">On Hold</option>
+                                            <option value="Completed">Completed</option>
+                                            <option value="Canceled">Canceled</option>
+                                        </select>
                                     </div>
                                 </div>
+                                <span asp-validation-for="ProjectTaskState" class="text-danger"></span>
 
                                 <div class="d-flex align-items-center">
-                                    <label asp-for="@Model.ProjectTaskStartDate" class="me-2" style="min-width: 150px;">Start Date</label>
+                                    <label asp-for="ProjectTaskStartDate" class="me-2" style="min-width: 150px;">Start Date</label>
                                     <!-- HTML for Datepicker -->
                                     <div class="col-md-6">
                                         <div class="input-group date">
-                                            <input asp-for="@Model.ProjectTaskStartDate" type="text" class="form-control" placeholder="mm/dd/yyyy" readonly />
+                                            <input asp-for="ProjectTaskStartDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="ProjectTaskStartDate" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center mb-3 justify-content-end">
+                                    <label asp-for="ProjectTaskDueDate" class="me-2" style="min-width: 150px;">Due Date</label>
+                                    <div class="col-md-6">
+                                        <div class="input-group date">
+                                            <input asp-for="ProjectTaskDueDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="ProjectTaskDueDate" class="text-danger"></span>
+
+                                <div class="d-flex align-items-center justify-content-end">
+                                    <label asp-for="ProjectTaskCompletedDate" class="me-2" style="min-width: 150px;">Completed Date</label>
+                                    <div class="col-md-6">
+                                        <div class="input-group date">
+                                            <input asp-for="ProjectTaskCompletedDate" type="date" class="form-control" placeholder="mm/dd/yyyy" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Right side with ProjectDueDate and ProjectCompletedDate -->
-                            <div class="col-md-6">
-                                <div class="d-flex align-items-center mb-3 justify-content-end">
-                                    <label asp-for="@Model.ProjectTaskDueDate" class="me-2" style="min-width: 150px;">Due Date</label>
-                                    <div class="col-md-6">
-                                        <div class="input-group date">
-                                            <input asp-for="@Model.ProjectTaskDueDate" type="text" class="form-control" placeholder="mm/dd/yyyy" readonly />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex align-items-center justify-content-end">
-                                    <label asp-for="@Model.ProjectTaskCompletedDate" class="me-2" style="min-width: 150px;">Completed Date</label>
-                                    <div class="col-md-6">
-                                        <div class="input-group date">
-                                            <input asp-for="@Model.ProjectTaskCompletedDate" type="text" class="form-control" placeholder="mm/dd/yyyy" readonly />
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 p-1">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-secondary form-control">
+                                    <i class="bi bi-floppy"></i>  Save
+                                </button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-            @* <h4 class="mt-5">Activity Notes:</h4> *@
             <div class="card-body">
-                <div class="card mb-3 border-info">
-                    <ul class="list-group flex-grow-1 mb-2 list-group-flush">
-                        @foreach (var item in Model.ProjectTaskActivities)
-                        {
-                            <li class="list-group-item list-group-item-default d-flex justify-content-between align-items-center">
-                                @item.ActivityNote
-                                <span class="badge bg-primary rounded-pill">@item.CreatedDate</span>
-                            </li>
-                        }
-                    </ul>
+                <div class="card mb-3 p-3 border-info">
+                    @Html.Partial("_AddTaskNote", new ProjectTaskActivity { ProjectTaskId = @Model.Id })
+                    
+                    <!--this is to show history note activities -->
+                    <div id="taskActivitiesList" class="row p-1 mt-2">
+                        <div class="col">
+                            <div class="d-flex">
+                                <!-- Label on the top-left -->
+                                <div class="me-2 mb-2" style="min-width: 150px;">
+                                    <label class="form-label">Task Activities</label>
+                                </div>
+                                
+                                    <!-- Make the ul inline with the label by using flex-grow-1 for the ul -->
+                                    <ul class="list-group flex-grow-1 mb-2">
+                                        @foreach (var item in @Model.ProjectTaskActivities)
+                                        {
+                                            <li class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+                                                <p style="white-space: pre-wrap;">@item.ActivityNote</p>
+                                                <span class="badge bg-primary rounded-pill">@item.CreatedDate</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!--this is to show history note activities -->
+                    @* @Html.Partial("_AddTaskNote", Model) *@
+                    
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
-</div>
+</div>    
+
+

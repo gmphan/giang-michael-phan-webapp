@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Gmphan.BusinessAccessLib;
 using Gmphan.ModelLib;
 using Gmphan.ModelLib.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -18,7 +19,7 @@ namespace GmphanMvc.Areas.Visitor.Controllers
         private readonly IProjectServ _projectServ;
 
         public ProjectController(ILogger<ProjectController> logger
-                                , IProjectServ projectServ)
+                            , IProjectServ projectServ)
         {
             _logger = logger;
             _projectServ = projectServ;
@@ -29,22 +30,124 @@ namespace GmphanMvc.Areas.Visitor.Controllers
             ProjectListView projectListView = await _projectServ.GetProjectListViewServAsync();
             return View(projectListView);
         }
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Project obj)
+        {
+            if (ModelState.IsValid)
+            {
+                await _projectServ.AddNewProjectServAsync(obj);
+                return RedirectToAction("Index");
+            }
+            // add tempdata for unsuccessfull adding
+            return View(obj);
+        }
 
         public async Task<IActionResult> Detail(int id)
         {
             ProjectDetailView projectDetailView = await _projectServ.GetProjectDetailViewServAsync(id);
-            projectDetailView.SortProjectTasksByCustomStateOrder();
-            if (projectDetailView == null)
-            {
-                return NotFound();
-            }
             return View(projectDetailView);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Detail (ProjectDetailView obj)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            bool result = await _projectServ.UpdateProjectServAsync(obj);
+            if(result) 
+            {
+                //need to include successful tempdata  
+                return RedirectToAction("Detail", new { id = obj.Id }); 
+            }  
+
+            // if result is false
+            return View(obj); //later need to add error tempdata here          
         }
 
         public async Task<IActionResult> Task(int id)
         {
             ProjectTaskView projectTaskView = await _projectServ.GetProjectTaskViewServAsync(id);
             return View(projectTaskView);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> TaskUpdate(ProjectTaskView obj)
+        {
+            if (!ModelState.IsValid) // add tempdata
+            { 
+                // Log or inspect ModelState errors for debugging
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+                return BadRequest(ModelState); 
+            }
+            bool result = await _projectServ.UpdateTaskSerAsync(obj);
+            if (result)
+            {
+                //add tempdata later    
+                return RedirectToAction("Task", new { Id = obj.Id});
+            }
+            return BadRequest();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> _TaskCreate(ProjectTask obj)
+        {
+            if (ModelState.IsValid)
+            {
+                bool result = await _projectServ.AddNewTaskSerAsync(obj);
+                if (result) 
+                {
+                    // add tempdata later
+                    return RedirectToAction("Detail", new { Id = obj.ProjectId });
+                }
+                return BadRequest();
+            }
+            // need to add tempdate
+            return View();
+
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddTaskNote(ProjectTaskActivity obj)
+        {
+            // Manually remove `ProjectTask` from ModelState to prevent validation
+            ModelState.Remove("ProjectTask");   
+            if (!ModelState.IsValid) // add tempdata
+            { 
+                // Log or inspect ModelState errors for debugging
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+                return BadRequest(ModelState); 
+            }
+            bool result = await _projectServ.AddTaskNoteServAsync(obj);
+            if (!result) 
+            {
+                //add tempdata
+                return BadRequest();
+            }
+            return RedirectToAction("Task", new { Id = obj.ProjectTaskId });
         }
 
 

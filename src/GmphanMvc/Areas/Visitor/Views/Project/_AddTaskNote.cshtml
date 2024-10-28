@@ -1,6 +1,6 @@
 @model ProjectTaskActivity
 <!-- Form to Add Task Note -->
-<form id="addTaskNote" method="post" asp-action="AddTaskNote" asp-controller="ProjectAdmin" asp-area="Admin">
+<form id="addTaskNote" method="post" asp-action="AddTaskNote" asp-controller="Project" asp-area="Visitor">
     @* <input asp-for="Id" hidden /> *@
     @Html.AntiForgeryToken()
     <input type="hidden" asp-for="ProjectTaskId" />
