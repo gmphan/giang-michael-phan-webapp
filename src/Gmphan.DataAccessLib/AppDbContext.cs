@@ -25,8 +25,14 @@ namespace Gmphan.DataAccessLib
         public DbSet<ProjectTask> ProjectTasks { get; set; }
         public DbSet<ProjectTaskActivity> ProjectTaskActivities { get; set; }
         public DbSet<ContactMe> ContactMes { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Post>()
+                .Property(b => b.Content)
+                .HasColumnType("text");
+
             // : IdentityDbContext require the line of code below to work
             base.OnModelCreating(modelBuilder);
 
