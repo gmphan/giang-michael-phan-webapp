@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Gmphan.BusinessAccessLib;
 using Gmphan.ModelLib;
 using Gmphan.ModelLib.ViewModels;
+using Markdig;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 

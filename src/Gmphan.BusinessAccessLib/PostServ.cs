@@ -6,6 +6,7 @@ using Gmphan.BusinessAccessLib.CustomExceptions;
 using Gmphan.DataAccessLib.Repository;
 using Gmphan.ModelLib;
 using Gmphan.ModelLib.ViewModels;
+using Markdig;
 using Microsoft.Extensions.Logging;
 
 namespace Gmphan.BusinessAccessLib
@@ -43,13 +44,16 @@ namespace Gmphan.BusinessAccessLib
             // no need for try catch because post will only get result or null from DataAccess
             // Exception is being handling within DataAccess.
             Post post = await _unityOfWork.PostRepoUOW.GetAsync(u => u.Id == id);
+
+            // Applying Markdown to conent
+            var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
             PostDetailView postDetailView = new PostDetailView
             {
                 Title = post.Title,
                 Author = post.Author,
                 PublishedDate = post.PublishedDate,
                 Summary = post.Summary,
-                Content = post.Content,
+                Content = Markdown.ToHtml(post.Content, pipeline),
                 Tags = post.Tags
             };
             return postDetailView;   
