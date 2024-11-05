@@ -7,6 +7,7 @@ using Gmphan.BusinessAccessLib;
 using Gmphan.ModelLib;
 using Gmphan.ModelLib.ViewModels;
 using Markdig;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -40,7 +41,7 @@ namespace GmphanMvc.Areas.Visitor.Controllers
         {
             return View();
         }
-
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Post obj)
