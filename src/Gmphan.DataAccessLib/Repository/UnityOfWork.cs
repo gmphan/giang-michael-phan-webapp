@@ -17,6 +17,7 @@ namespace Gmphan.DataAccessLib.Repository
         public IProjectTaskRepo ProjectTaskRepoUOW { get; private set; }
         public IProjectTaskActivityRepo ProjectTaskActivityRepoUOW { get; private set; }
         public IContactMeRepo ContactMeRepoUOW { get; private set; }   
+        public IPostRepo PostRepoUOW { get; private set; }  
         public UnityOfWork(AppDbContext db)
         {
             _db = db;
@@ -29,6 +30,7 @@ namespace Gmphan.DataAccessLib.Repository
             ProjectTaskRepoUOW = new ProjectTaskRepo(_db);
             ProjectTaskActivityRepoUOW = new ProjectTaskActivityRepo(_db);
             ContactMeRepoUOW = new ContactMeRepo(_db);
+            PostRepoUOW = new PostRepo(_db);
         }
 
         public async Task SaveAsync()

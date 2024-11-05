@@ -25,13 +25,18 @@ namespace Gmphan.DataAccessLib.Repository
 
         public async Task<T> GetAsync(Expression<Func<T, bool>> filter)
         {
-            // Query the whole set
+            // Set a Query for the whole set
             IQueryable<T> query = _dbSet;
 
             // Reassign query down to one set of T
             query = query.Where(filter);
 
-            // Execute the query asynchronously and return the result
+            // Actual Execution the query asynchronously and return the result
+            // The query.FirstOrDefaultAsync() method in Entity Framework does 
+            // not throw an exception if no records match the filter condition; instead, it returns null when no results are found.
+            //FirstOrDefaultAsync() will throw an exception only if there is an issue with the database query itself, such as:
+	        // •	Database connection issues.
+	        // •	Invalid query syntax or mapping issues in the model.
             return await query.FirstOrDefaultAsync();
         }
 
