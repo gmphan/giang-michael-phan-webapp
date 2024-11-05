@@ -22,5 +22,7 @@ namespace Gmphan.ModelLib
         public string Summary { get; set; }
         public string Content { get; set; } // for long content
         public List<string> Tags { get; set; } // optional, for categorization
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

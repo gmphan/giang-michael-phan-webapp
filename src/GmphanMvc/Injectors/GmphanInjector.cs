@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Gmphan.BusinessAccessLib;
 using Gmphan.DataAccessLib;
 using Gmphan.DataAccessLib.Repository;
+using Gmphan.ModelLib;
 using Gmphan.UtilityLib;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,7 @@ namespace GmphanMvc.Injectors
             services.AddScoped<IProjectServ, ProjectServ>();
             services.AddScoped<IAboutServ, AboutServ>();
             services.AddScoped<IContactServ, ContactServ>();
+            services.AddScoped<IPostServ, PostServ>();
 
             // Add Utilities
             services.AddScoped<IGetTAndCacheGeneric, GetTAndCacheGeneric>();
