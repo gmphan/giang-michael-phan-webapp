@@ -5,6 +5,9 @@
     var index = 0;
     var postMetaData = @Model.PostMetaDTOs;
 }
+
+<!--Remind to login before doing anything--->
+
 <div class="row justify-content-center">
     <div class="col-lg-10 col-md-12">
         <div class="card mb-3">
@@ -26,13 +29,15 @@
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <ul>
-                                    <li>Posting provides a structured way to document code insights and project milestones for future reference.</li>
-                                    <li>It serves as a repository for valuable information gathered from diverse sources.</li>
-                                    <li>Writing on various topics reinforces my understanding and strengthens my expertise.</li>
-                                    <li>These posts streamline workflows by offering quick access to essential resources across projects.</li>
-                                    <li>Some entries offer insights into the unique features of this web application.</li>
-                                </ul>
+                                <p>
+                                    Welcome to the Posts section, a thoughtfully curated space for documenting code insights, project milestones, 
+                                    and the valuable knowledge accumulated from various resources. These posts not only serve as a structured repository 
+                                    but also reinforce my understanding and deepen my expertise across a range of topics. Each entry is designed to streamline 
+                                    workflows, offering quick access to essential tools, techniques, and references that can be applied to multiple projects. 
+                                    Some posts also explore the unique features and functionalities of this web application, showcasing enhancements that make 
+                                    it more versatile and powerful. I hope this collection will serve as both an informative guide and an inspiration for ongoing 
+                                    and future development endeavors.
+                                </p>
                             </div>  
                         </div>
                     </div>
@@ -48,7 +53,7 @@
                             </h2>
                             <div id="@collapseId" class="accordion-collapse collapse" aria-labelledby="@headingId" data-bs-parent="#accordionExample">
                                 <div class="accordion-body" id="accordingBody-@item.Id">
-                                    
+                                    <!---content below will be replace with AJAX responded data-->
                                     <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
                                 </div>
                             </div>
