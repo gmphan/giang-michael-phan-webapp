@@ -26,6 +26,7 @@ namespace Gmphan.DataAccessLib
         public DbSet<ProjectTaskActivity> ProjectTaskActivities { get; set; }
         public DbSet<ContactMe> ContactMes { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<HomeContent> HomeContents { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -140,6 +141,16 @@ namespace Gmphan.DataAccessLib
                     Id = 3,
                     ResumeExperienceId = 1, // Foreign key reference
                     DescriptionText = "Implemented security enhancements for the internal network."
+                }
+            );
+            _ = modelBuilder.Entity<HomeContent>().HasData(
+                new HomeContent
+                {
+                    Id = 1,
+                    PropertyTitle = "SeedPropertyTitle",
+                    PropertyContent = "SeedPropertyContent",
+                    CreatedDate = new DateTime(),
+                    UpdatedDate = new DateTime()
                 }
             );
         }
