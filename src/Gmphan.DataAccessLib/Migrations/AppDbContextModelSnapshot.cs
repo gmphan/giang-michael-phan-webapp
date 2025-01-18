@@ -59,44 +59,7 @@ namespace Gmphan.DataAccessLib.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContactMes");
-                });
-
-            modelBuilder.Entity("Gmphan.ModelLib.HomeContent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("PropertyContent")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PropertyTitle")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("HomeContents");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PropertyContent = "SeedPropertyContent",
-                            PropertyTitle = "SeedPropertyTitle",
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
+                    b.ToTable("ContactMes", (string)null);
                 });
 
             modelBuilder.Entity("Gmphan.ModelLib.Post", b =>
@@ -138,7 +101,7 @@ namespace Gmphan.DataAccessLib.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("Gmphan.ModelLib.Project", b =>
@@ -180,7 +143,7 @@ namespace Gmphan.DataAccessLib.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("Gmphan.ModelLib.ProjectTask", b =>
@@ -224,7 +187,7 @@ namespace Gmphan.DataAccessLib.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectTasks");
+                    b.ToTable("ProjectTasks", (string)null);
                 });
 
             modelBuilder.Entity("Gmphan.ModelLib.ProjectTaskActivity", b =>
@@ -248,7 +211,7 @@ namespace Gmphan.DataAccessLib.Migrations
 
                     b.HasIndex("ProjectTaskId");
 
-                    b.ToTable("ProjectTaskActivities");
+                    b.ToTable("ProjectTaskActivities", (string)null);
                 });
 
             modelBuilder.Entity("Gmphan.ModelLib.QuoteCollection", b =>
@@ -279,7 +242,7 @@ namespace Gmphan.DataAccessLib.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("QuoteCollections");
+                    b.ToTable("QuoteCollections", (string)null);
 
                     b.HasData(
                         new
@@ -312,7 +275,7 @@ namespace Gmphan.DataAccessLib.Migrations
 
                     b.HasIndex("ResumeExperienceId");
 
-                    b.ToTable("ResumeDescriptions");
+                    b.ToTable("ResumeDescriptions", (string)null);
 
                     b.HasData(
                         new
@@ -392,7 +355,7 @@ namespace Gmphan.DataAccessLib.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ResumeExperiences");
+                    b.ToTable("ResumeExperiences", (string)null);
 
                     b.HasData(
                         new
@@ -482,7 +445,7 @@ namespace Gmphan.DataAccessLib.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ResumeHeaders");
+                    b.ToTable("ResumeHeaders", (string)null);
 
                     b.HasData(
                         new
@@ -526,7 +489,7 @@ namespace Gmphan.DataAccessLib.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ResumeSummaries");
+                    b.ToTable("ResumeSummaries", (string)null);
 
                     b.HasData(
                         new
