@@ -16,18 +16,22 @@ namespace GmphanMvc.Areas.Visitor.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IQuoteCollectionServ _quoteCollectionServ;
+        private readonly IHomeContentServ _homeContentServ;
 
         public HomeController(ILogger<HomeController> logger
-                            , IQuoteCollectionServ quoteCollectionServ)
+                            , IQuoteCollectionServ quoteCollectionServ
+                            , IHomeContentServ homeContentServ)
         {
             _logger = logger;
             _quoteCollectionServ = quoteCollectionServ;
+            _homeContentServ = homeContentServ;
         }
 
         public async Task<IActionResult> Index()
         {
             HomeView homeView = new HomeView();
             homeView.QuoteCollections = (List<QuoteCollection>)await _quoteCollectionServ.GetAllQuoteCollectionAsync();
+            homeView.HomeContents = (List<HomeContent>)await _homeContentServ.GetHomeContentAsync();
             return View(homeView);
         }
 
