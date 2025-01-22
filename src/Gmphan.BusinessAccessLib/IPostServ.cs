@@ -12,5 +12,7 @@ namespace Gmphan.BusinessAccessLib
         public Task<PostMetaView> GetPostMetaViewServAsync();
         public Task AddNewPostServAsync(Post obj);
         public Task<PostDetailView> GetPostDetailViewServAsync(int id);
+        public Task<Post> GetPostServAsync(int id);
+        public Task UpdatePostServAsync(Post obj);
     }
 }

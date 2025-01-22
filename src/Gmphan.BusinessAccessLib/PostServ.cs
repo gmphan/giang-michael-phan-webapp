@@ -45,10 +45,11 @@ namespace Gmphan.BusinessAccessLib
             // Exception is being handling within DataAccess.
             Post post = await _unityOfWork.PostRepoUOW.GetAsync(u => u.Id == id);
 
-            // Applying Markdown to conent
+            // Applying Markdown to content
             var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
             PostDetailView postDetailView = new PostDetailView
             {
+                Id = id,
                 Title = post.Title,
                 Author = post.Author,
                 PublishedDate = post.PublishedDate,
@@ -57,6 +58,37 @@ namespace Gmphan.BusinessAccessLib
                 Tags = post.Tags
             };
             return postDetailView;   
+        }
+
+        public async Task<Post> GetPostServAsync(int id)
+        {
+            // no need for try catch because post will only get result or null from DataAccess
+            // Exception is being handling within DataAccess.
+            Post post = await _unityOfWork.PostRepoUOW.GetAsync(u => u.Id == id);
+            return post;
+        }
+        public async Task UpdatePostServAsync(Post obj)
+        {
+            // Get the post from the database and not memory
+            Post post = await _unityOfWork.PostRepoUOW.GetAsync(u => u.Id == obj.Id);
+            if(post == null)
+            {
+                throw new NotFoundException($"Post with ID: {obj.Id} was not found.");
+            }
+
+            // Update the post
+            post.Title = obj.Title;
+            post.Author = obj.Author;
+            post.PublishedDate = DateTime.SpecifyKind(obj.PublishedDate, DateTimeKind.Utc);
+            post.Summary = obj.Summary;
+            post.Content = obj.Content;
+            post.Tags = obj.Tags;
+            post.UpdatedDate = DateTime.UtcNow;
+
+            // Update the post in the database
+            await _unityOfWork.PostRepoUOW.UpdateAsync(post);
+            await _unityOfWork.SaveAsync();
+
         }
 
         public async Task<PostMetaView> GetPostMetaViewServAsync()

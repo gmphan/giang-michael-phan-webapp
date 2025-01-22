@@ -54,16 +54,28 @@ namespace GmphanMvc.Areas.Visitor.Controllers
             return RedirectToAction("index");
         }
 
-        // [Authorize]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> Edit(int id)
-        // {
-        //     if (id == 0 || id == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     return View();
-        // }
+        [Authorize]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (id == 0 || id == null)
+            {
+                return NotFound();
+            }
+            Post post = await _postServ.GetPostServAsync(id);
+            return View(post);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Post obj)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await _postServ.UpdatePostServAsync(obj);
+            return RedirectToAction("index");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

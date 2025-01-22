@@ -41,9 +41,9 @@ namespace Gmphan.DataAccessLib.Repository
             
         }
 
-        public Task UpdateAsync(Post obj)
+        public async Task UpdateAsync(Post obj)
         {
-            throw new NotImplementedException();
+            _db.Posts.Update(obj);
         }
     }
 }
