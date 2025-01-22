@@ -12,5 +12,14 @@ namespace Gmphan.ModelLib.ViewModels
         {
             PostMetaDTOs = new List<PostMetaDTO>();
         }
+        public void EnsureAboutThePostsOnTop()
+        {
+            var aboutThePosts = PostMetaDTOs.FirstOrDefault(p => p.Title == "About The Posts");
+            if (aboutThePosts != null)
+            {
+                PostMetaDTOs.Remove(aboutThePosts);
+                PostMetaDTOs.Insert(0, aboutThePosts);
+            }
+        }
     }
 }

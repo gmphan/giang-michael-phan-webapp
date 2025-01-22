@@ -70,8 +70,14 @@ namespace Gmphan.BusinessAccessLib
             PostMetaView postMetaView = new PostMetaView
             {
                 PostMetaDTOs = postMetaDTOs
+
             };
 
+
+            // before running the postMetaView, I want to make sure the About The Posts
+            // is on top of the list.
+            postMetaView.EnsureAboutThePostsOnTop();
+            
             return postMetaView;
         }
     }
