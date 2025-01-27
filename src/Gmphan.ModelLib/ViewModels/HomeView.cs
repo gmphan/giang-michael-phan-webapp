@@ -9,10 +9,12 @@ namespace Gmphan.ModelLib.ViewModels
     {
         public List<QuoteCollection> QuoteCollections { get; set; }
         public List<HomeContent> HomeContents { get; set; }
+        public ProfilePicture HomeProfilePicture { get; set; }
         public HomeView()
         {
             QuoteCollections = new List<QuoteCollection>();
             HomeContents = new List<HomeContent>();
+            HomeProfilePicture = new ProfilePicture();
         }
 
         public void Add<T>(List<T> ListT,T item) where T : class
