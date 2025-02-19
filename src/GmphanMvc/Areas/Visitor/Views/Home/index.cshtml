@@ -19,7 +19,7 @@
                     <p id="quoteLine" class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
                 </blockquote>
                 <figcaption class="blockquote-footer" style="color: beige">
-                    By <cite id="authorLine" title="Source Title">Author</cite>
+                    <cite id="authorLine" title="Source Title">Author</cite>
                 </figcaption>
             </figure>
 
@@ -80,7 +80,7 @@
         function startSlideshow() {
             showQuote(currentIndex);
             currentIndex = (currentIndex + 1) % quoteCollection.length; // Loop back to the first quote
-            setTimeout(startSlideshow, 3000); // Change quote every 3 seconds
+            setTimeout(startSlideshow, 5000); // Change quote every 3 seconds
         }
 
         // Start the slideshow when the page loads
