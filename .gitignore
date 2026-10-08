@@ -498,4 +498,8 @@ variables.*
 !variables.example.env
 stack/var.env
 
+/Ubuntu/app/variables.prd.env
+/Ubuntu/DdnsContainer/config.json
+database_dump.sql
+
 RemoveLater
