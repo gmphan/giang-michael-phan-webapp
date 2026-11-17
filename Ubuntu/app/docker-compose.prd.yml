@@ -17,21 +17,10 @@ services:
     env_file:
       - variables.prd.env
     ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./certs:/https
+      - "8081:80"
     depends_on:
       - postgres
 
-  ddns-updater:
-    image: qmcgaw/ddns-updater
-    container_name: ddns_updater
-    restart: always
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./ddns-data:/updater/data
-
 volumes:
   postgres_data:
+
